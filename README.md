@@ -16,15 +16,9 @@ See the
 Contributions can be made by creating pull requests.
 The GitHub interface supports creating pull requests using the Edit (✏) button.
 
+# Note
 
-## Command Line Usage
+When originally written, this document was accidentally named draft-chroboczek-int-v4-via-v6 (note int vs intarea). We have renamed it to conform to the correct naming scheme, and, to minimize confusion, also moved it to a new repo. The original repo remains [here](https://github.com/wkumari/draft-chroboczek-int-v4-via-v6).
 
-Formatted text and HTML versions of the draft can be built using `make`.
 
-```sh
-$ make
-```
-
-Command line usage requires that you have the necessary software installed.  See
-[the instructions](https://github.com/martinthomson/i-d-template/blob/main/doc/SETUP.md).
 

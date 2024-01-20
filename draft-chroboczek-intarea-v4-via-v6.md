@@ -67,8 +67,10 @@ packets across a network where routers have not been assigned IPv4
 addresses.  We describe the technique, and discuss its operational
 implications.
 
-{ Editor note: This document was originally accidentally published as draft-chroboczek-int-v4-via-v6, and later renamed to draft-chroboczek-intarea-v4-via-v6 (note int vs intarea). The Github repo
-uses the old name. }
+{ Editor note: This document was originally accidentally published as
+draft-chroboczek-int-v4-via-v6, and later renamed to
+draft-chroboczek-intarea-v4-via-v6 (note int vs intarea). The Github repo uses
+the old name. }
 
 --- middle
 
@@ -121,11 +123,10 @@ We call a route towards an IPv4 prefix that uses an IPv6 next hop a
 
 {{RFC8950}} discusses advertising of IPv4 NLRI with a next-hop address that
 belongs to the IPv6 protocol, but confines itself to how this is carried and
-advertised in the BGP protocol.
-
-This document is much more general, and discusses the concept of v4-via-v6
-routes themselves, the design and operational considerations, and the
-implications of using them.
+advertised in the BGP protocol. This document, on the other hand, discusses the
+concept of v4-via-v6 routes independently of any specific routing protocol,
+their design and operational considerations, and the implications of using
+them.
 
 { Editor note, to be removed before publication. This document is heavily based
 on draft-ietf-babel-v4viav6. When draft-ietf-babel-v4viav6 was
@@ -250,7 +251,8 @@ packet, but rather that the packet is (probably!) making forward progress?
 What if it goes:
 `192.168.0.1 -> 192.0.0.8 -> 10.10.10.10 -> 192.0.0.8 -> 172.16.14.2 -> dest?`
 
-In addition, see RFC5837, and, as a side note, Bill Fenner is working on an update to this document.
+In addition, see RFC5837, and, as a side note, Bill Fenner is working on an
+update to that document.
 }
 
 { Editor note / question:
@@ -305,6 +307,54 @@ Columns: DST-ADDRESS, GATEWAY, DISTANCE
 
 
 Arista has supported static IPv4 routes with IPv6 nexthops since EOS-4.30.1.
+
+## The Babel routing protocol
+
+As noted above, this document is heavily based on RFC9229
+(nee draft-ietf-babel-v4viav6), and this functionality is supported by babeld.
+
+Pasted below is email sent to the babel mailing list (archived
+at https://mailarchive.ietf.org/arch/msg/babel/QtFi3F4TFfF7fXXlkHSpEnuT44Y/)
+
+A route across three IPv6-only nodes:
+
+    $ ip route show 10.0.0.2
+    10.0.0.2 via inet6 fe80::216:3eff:fe00:1 dev lxcbr0 proto babel onlink
+
+Here's how it's logged by babeld:
+
+    10.0.0.2/32 from 0.0.0.0/0 metric 384 (384) refmetric 288 id
+    02:16:3e:ff:fe:9a:5e:22 seqno 36425 chan (255) age 15 via lxcbr0 neigh
+    fe80::216:3eff:fe00:1 (installed)
+
+Traceroute is a little confusing:
+
+    $ traceroute 10.0.0.2
+    traceroute to 10.0.0.2 (10.0.0.2), 30 hops max, 60 byte packets
+     1  192.0.0.8 (192.0.0.8)  0.079 ms  0.019 ms  0.014 ms
+     2  192.0.0.8 (192.0.0.8)  0.040 ms  0.023 ms  0.042 ms
+     3  192.0.0.8 (192.0.0.8)  0.061 ms  0.030 ms  0.030 ms
+     4  10.0.0.2 (10.0.0.2)  0.060 ms  0.040 ms  0.039 ms
+
+PMTUD works fine (thanks to Toke):
+
+    19:58:47.402871 IP 192.168.0.27.60046 > 10.0.0.2.22: Flags [.],\
+    seq 33:1481, ack 33, win 502, options [nop,nop,TS val 917354570\
+    ecr 1849974691], length 1448
+    19:58:47.402874 IP 192.168.0.27.60046 > 10.0.0.2.22: Flags [P.],\
+    seq 1481:1537, ack 33, win 502, options [nop,nop,TS val 917354570\
+    ecr 1849974691], length 56
+    19:58:47.402906 IP 192.0.0.8 > 192.168.0.27: ICMP 10.0.0.2 \
+    unreachable- need to frag (mtu 1420), length 556
+    19:58:47.402919 IP 10.0.0.2.22 > 192.168.0.27.60046: Flags [.],\
+    ack 33, win 509, options [nop,nop,TS val 1849974692 \
+    ecr 917354569,nop,nop,sac 1 {1481:1537}], length 0
+    19:58:47.402934 IP 192.168.0.27.60046 > 10.0.0.2.22: Flags [.], \
+    seq 33:1401, ack 33, win 502, options [nop,nop,TS val 917354570 \
+    ecr 1849974692], length 1368
+
+-- Juliusz
+
 
 
 # Security Considerations
