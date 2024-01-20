@@ -7,16 +7,16 @@ ipr: trust200902
 
 docname: draft-chroboczek-intarea-v4-via-v6-latest
 v: 3
-area: "Internet Engineering Steering Group"
-workgroup: "Internet Area"
+area: "Internet"
+workgroup: "Internet Area Working Group"
 keyword: Internet-Draft
 venue:
-  group: "Internet Area"
-  type: "Area"
-  mail: ""
-  arch: ""
-  github: "wkumari/draft-chroboczek-int-v4-via-v6"
-  latest: "https://wkumari.github.io/draft-chroboczek-int-v4-via-v6/draft-chroboczek-int-v4-via-v6.html"
+  group: "Internet Area Working Group"
+  type: "Working Group"
+  mail: "int-area@ietf.org"
+  arch: "https://mailarchive.ietf.org/arch/browse/int-area/"
+  github: "wkumari/draft-chroboczek-intarea-v4-via-v6"
+  latest: "https://wkumari.github.io/draft-chroboczek-intarea-v4-via-v6/draft-chroboczek-intarea-v4-via-v6.html"
 
 author:
  -
