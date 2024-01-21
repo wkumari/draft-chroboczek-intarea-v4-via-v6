@@ -67,10 +67,8 @@ packets across a network where routers have not been assigned IPv4
 addresses.  We describe the technique, and discuss its operational
 implications.
 
-{ Editor note: This document was originally accidentally published as
-draft-chroboczek-int-v4-via-v6, and later renamed to
-draft-chroboczek-intarea-v4-via-v6 (note int vs intarea). The Github repo uses
-the old name. }
+{ Editor note: This document was originally published as draft-chroboczek-int-v4-via-v6, and later renamed to
+draft-chroboczek-intarea-v4-via-v6 . }
 
 --- middle
 
@@ -289,22 +287,8 @@ likely require "magic" to allow it to pass BCP38 filters.
 As this document does not really define a protocol, this implementation status
 section is much less formal. Instead, it is being used as a place to list implementations which are known to support this functionality, examples, notes, etc. This information is provided as a guide to the reader, and is not intended to be a complete list, nor endorsement, etc. If you know of an implementation which is not listed, please let the authors know.
 
-## Mikrotik RouterOS
-
-Mikrotik RouterOS Version 7.11beta2.
-{Editor note: I believe it has been supported for a very ling time, but this was the version I tested with. Reminder to self to ask Mikrotik when it was added.}
-
-As an example:
-```
-[wkumari@Dulles-CCR] /ip/route> print
-Flags: D - DYNAMIC; I - INACTIVE, A - ACTIVE; c - CONNECT, s - STATIC, d - DHCP, v - VPN; H - HW-OFFLOADED
-Columns: DST-ADDRESS, GATEWAY, DISTANCE
-#      DST-ADDRESS       GATEWAY                             DISTANCE
-0  As  192.0.2.0/24      fe80::201:5cff:feb2:1646%1_Comcast         1
-```
 
 ## Arista EOS
-
 
 Arista has supported static IPv4 routes with IPv6 nexthops since EOS-4.30.1.
 
@@ -355,6 +339,40 @@ PMTUD works fine (thanks to Toke):
 
 -- Juliusz
 
+
+## Linux
+
+Linux has supported v4-via-v6 routes since kernel version 5.2, released on 2019-07-07.
+
+### Example:
+
+~~~
+rincewind ~ #
+ip -4 r a 192.0.2.23/32 via inet6 2001:db8::2342
+
+rincewind ~ # ip r s 192.0.2.23/32
+192.0.2.23 via inet6 2001:db8::2342 dev wlp36s0.25
+~~~
+
+## Mikrotik RouterOS
+
+Mikrotik RouterOS has supported v4-via-v6 routes since (at least) version
+7.11beta2
+
+{Editor note: I'm not sure when support was added. I tested this in Version
+7.11beta2, and it worked there, but I believe that this functionality has
+existed for a while. I'll try to find out when it was added.}
+
+### Example
+
+~~~
+[wkumari@Dulles-CCR] /ip/route> print
+Flags: D - DYNAMIC; I - INACTIVE, A - ACTIVE; c - CONNECT, s - STATIC,
+d -DHCP, v - VPN; H - HW-OFFLOADED
+Columns: DST-ADDRESS, GATEWAY, DISTANCE
+#      DST-ADDRESS       GATEWAY                             DISTANCE
+0  As  192.0.2.0/24      fe80::201:5cff:feb2:1646%1_Comcast         1
+~~~
 
 
 # Security Considerations
