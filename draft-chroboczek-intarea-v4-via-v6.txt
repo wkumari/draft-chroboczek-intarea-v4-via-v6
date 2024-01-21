@@ -5,10 +5,10 @@
 Internet Area Working Group                                J. Chroboczek
 Internet-Draft                                 IRIF, University of Paris
 Intended status: Standards Track                               W. Kumari
-Expires: 23 July 2024                                        Google, LLC
+Expires: 24 July 2024                                        Google, LLC
                                                     T. Høiland-Jørgensen
                                                                  Red Hat
-                                                         20 January 2024
+                                                         21 January 2024
 
 
                    IPv4 routes with an IPv6 next hop
@@ -22,10 +22,9 @@ Abstract
    IPv4 addresses.  We describe the technique, and discuss its
    operational implications.
 
-   { Editor note: This document was originally accidentally published as
-   draft-chroboczek-int-v4-via-v6, and later renamed to draft-
-   chroboczek-intarea-v4-via-v6 (note int vs intarea).  The Github repo
-   uses the old name. }
+   { Editor note: This document was originally published as draft-
+   chroboczek-int-v4-via-v6, and later renamed to draft-chroboczek-
+   intarea-v4-via-v6 . }
 
 About This Document
 
@@ -60,7 +59,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 23 July 2024.
+   This Internet-Draft will expire on 24 July 2024.
 
 Copyright Notice
 
@@ -88,9 +87,12 @@ Table of Contents
        3.3.2.  Link-state routing protocols
    4.  ICMP Considerations
    5.  Implementation Status
-     5.1.  Mikrotik RouterOS
-     5.2.  Arista EOS
-     5.3.  The Babel routing protocol
+     5.1.  Arista EOS
+     5.2.  The Babel routing protocol
+     5.3.  Linux
+       5.3.1.  Example:
+     5.4.  Mikrotik RouterOS
+       5.4.1.  Example
    6.  Security Considerations
    7.  IANA Considerations
    8.  References
@@ -320,24 +322,12 @@ Table of Contents
    complete list, nor endorsement, etc.  If you know of an
    implementation which is not listed, please let the authors know.
 
-5.1.  Mikrotik RouterOS
-
-   Mikrotik RouterOS Version 7.11beta2. {Editor note: I believe it has
-   been supported for a very ling time, but this was the version I
-   tested with.  Reminder to self to ask Mikrotik when it was added.}
-
-   As an example: [wkumari@Dulles-CCR] /ip/route> print Flags: D -
-   DYNAMIC; I - INACTIVE, A - ACTIVE; c - CONNECT, s - STATIC, d - DHCP,
-   v - VPN; H - HW-OFFLOADED Columns: DST-ADDRESS, GATEWAY, DISTANCE #
-   DST-ADDRESS GATEWAY DISTANCE 0 As 192.0.2.0/24
-   fe80::201:5cff:feb2:1646%1_Comcast 1
-
-5.2.  Arista EOS
+5.1.  Arista EOS
 
    Arista has supported static IPv4 routes with IPv6 nexthops since EOS-
    4.30.1.
 
-5.3.  The Babel routing protocol
+5.2.  The Babel routing protocol
 
    As noted above, this document is heavily based on RFC9229 (nee draft-
    ietf-babel-v4viav6), and this functionality is supported by babeld.
@@ -384,6 +374,38 @@ Table of Contents
    ecr 1849974692], length 1368
 
    -- Juliusz
+
+5.3.  Linux
+
+   Linux has supported v4-via-v6 routes since kernel version 5.2,
+   released on 2019-07-07.
+
+5.3.1.  Example:
+
+   rincewind ~ #
+   ip -4 r a 192.0.2.23/32 via inet6 2001:db8::2342
+
+   rincewind ~ # ip r s 192.0.2.23/32
+   192.0.2.23 via inet6 2001:db8::2342 dev wlp36s0.25
+
+5.4.  Mikrotik RouterOS
+
+   Mikrotik RouterOS has supported v4-via-v6 routes since (at least)
+   version 7.11beta2
+
+   {Editor note: I'm not sure when support was added.  I tested this in
+   Version 7.11beta2, and it worked there, but I believe that this
+   functionality has existed for a while.  I'll try to find out when it
+   was added.}
+
+5.4.1.  Example
+
+  [wkumari@Dulles-CCR] /ip/route> print
+  Flags: D - DYNAMIC; I - INACTIVE, A - ACTIVE; c - CONNECT, s - STATIC,
+  d -DHCP, v - VPN; H - HW-OFFLOADED
+  Columns: DST-ADDRESS, GATEWAY, DISTANCE
+  #      DST-ADDRESS       GATEWAY                             DISTANCE
+  0  As  192.0.2.0/24      fe80::201:5cff:feb2:1646%1_Comcast         1
 
 6.  Security Considerations
 
