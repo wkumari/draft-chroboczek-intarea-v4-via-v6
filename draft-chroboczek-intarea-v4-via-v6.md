@@ -250,7 +250,7 @@ routers may hamper debugging and fault isolation, e.g., when using the
 
 ~~~~~~~~
 > $ traceroute -n 8.8.8.8
-traceroute to 8.8.8.8 (8.8.8.8), 64 hops max
+traceroute to 8.8.8.8 (8.8.8.8), 64 hops max, 52 byte packets
  1  192.168.0.1  1.894 ms  1.953 ms  1.463 ms
  2  192.0.0.8  9.012 ms  8.852 ms  12.211 ms
  3  192.0.0.8  8.445 ms  9.426 ms  9.781 ms
@@ -265,8 +265,9 @@ come to understand that the repeated 192.0.0.8 is not actually a looping
 packet, but rather that the packet is (probably!) making forward progress.
 
 In addition, {{I-D.fenner-intarea-extended-icmp-hostid}} provides a possible
-solution to this issue, by allowing the ICMP packet to carry a "host identifier"
-that can be used to identify the router that originated the ICMP packet:
+solution to this issue, by allowing the ICMP packet to carry a "host
+identifier" that can be used to identify the router that originated the ICMP
+packet:
 
 ~~~~~~~~
 This document introduces a similar ICMP extension for Node
