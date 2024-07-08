@@ -48,8 +48,13 @@ informative:
   RFC1191:
   RFC4821:
   RFC4861:
+  RFC4915:
+  RFC5120:
   RFC7404:
   RFC8950:
+  RFC8966:
+  RFC9229:
+  I-D.fenner-intarea-extended-icmp-hostid:
   IANA-IPV4-REGISTRY:
     title: IANA IPv4 Address Registry
     author:
@@ -61,14 +66,11 @@ informative:
 
 --- abstract
 
-We propose "v4-via-v6" routing, a technique that uses IPv6 next-hop
+This document proposes "v4-via-v6" routing, a technique that uses IPv6 next-hop
 addresses for routing IPv4 packets, thus making it possible to route IPv4
-packets across a network where routers have not been assigned IPv4
-addresses.  We describe the technique, and discuss its operational
-implications.
-
-{ Editor note: This document was originally published as draft-chroboczek-int-v4-via-v6, and later renamed to
-draft-chroboczek-intarea-v4-via-v6 . }
+packets across a network where routers have not been assigned IPv4 addresses.
+The document both describes the technique, as well as discussing its
+operational implications.
 
 --- middle
 
@@ -173,7 +175,7 @@ use (ARP for IP4, ND for IPv6).
 
 The routing protocol is the part of the routing implementation that is
 executed asynchronously from the forwarding plane, and whose role is to
-build the routing table.  Since v4-via-v6 routing is a generalisation of
+build the routing table.  Since v4-via-v6 routing is a generalization of
 traditional next-hop routing, v4-via-v6 can interoperate with existing
 routing protocols: a traditional routing protocol produces a traditional
 next-hop routing table, which can be used by an implementation supporting
@@ -185,9 +187,24 @@ populate the routing table with v4-via-v6 routes when an IPv4 address is
 not available or when the available IPv4 addresses are not suitable for
 use as a next-hop (e.g., not stable enough).
 
-### Distance-vector routing protocols
+Various protocols already support the advertisement of IPv4 routes with an IPv6
+next-hop, including Babel {{RFC8966}} and BGP {{RFC8950}}.
 
-### Link-state routing protocols
+A number of IGPs advertise both IPv4 and IPv6 prefixes over a single neighbor.
+These include:
+  * Multi-Topology (MT) Routing in OSPF ({{RFC4915}})
+  * Multi-Topology (MT) Routing in IS-IS ({{RFC5120}})
+
+Both of these utilize a common control plane but separate data planes.
+
+# Operational Considerations
+
+The routing "logic" is not fundamentally different between IPv4 and IPv6, and
+the primary thing preventing many implementations from supporting v4-via-v6
+operations is the command line / configuration syntax. This means that the
+required changes to support v4-via-v6 routing in many implementations are
+relatively small - basically just changing the command line parsing to allow
+specifying an IPv6 address as a next-hop for an IPv4 route.
 
 # ICMP Considerations
 
@@ -217,23 +234,23 @@ IPv4 address, a router implementing this extension MUST be able to
 originate ICMPv4 packets even when the outgoing interface has not
 been assigned an IPv4 address.
 
-In such a situation, if the router has an interface that has been
-assigned an IPv4 address (other than the loopback address), or if an
-IPv4 address has been assigned to the router itself (to the "loopback
-interface"), then that IPv4 address may be used as the source of
-originated ICMPv4 packets.  If no IPv4 address is available, the
-router could use the experimental mechanism described in Requirement
-R-22 of Section 4.8 [RFC7600], which consists of using the dummy
-address 192.0.0.8 as the source address of originated ICMPv4 packets.
-Note however that using the same address on multiple routers may
-hamper debugging and fault isolation, e.g., when using the
-"traceroute" utility.
+In such a situation, if the router has an interface that has been assigned a
+publicly routable IPv4 address (other than the loopback address), or if an IPv4
+address has been assigned to the router itself (to the "loopback interface"),
+then that IPv4 address may be used as the source of originated ICMPv4 packets.
+If no IPv4 address is available, the router should use the experimental
+mechanism described in Requirement R-22 of Section 4.8 [RFC7600], which
+consists of using the dummy address 192.0.0.8 as the source address of
+originated ICMPv4 packets. Note however that using the same address on multiple
+routers may hamper debugging and fault isolation, e.g., when using the
+"traceroute" utility. Note that this mirrors the behavior in Section 3 of
+{{RFC9229}}.
 
-{Editor note: It would be surprising to many operators to see something like:
+{Editor note: It might be surprising for operators to see something like:
 
 ~~~~~~~~
 > $ traceroute -n 8.8.8.8
-traceroute to 8.8.8.8 (8.8.8.8), 64 hops max, 52 byte packets
+traceroute to 8.8.8.8 (8.8.8.8), 64 hops max
  1  192.168.0.1  1.894 ms  1.953 ms  1.463 ms
  2  192.0.0.8  9.012 ms  8.852 ms  12.211 ms
  3  192.0.0.8  8.445 ms  9.426 ms  9.781 ms
@@ -243,43 +260,25 @@ traceroute to 8.8.8.8 (8.8.8.8), 64 hops max, 52 byte packets
  7  8.8.8.8  26.509 ms
 ~~~~~~~~
 
-Is this a problem though? If this becomes common practice, will operators
-just come to understand that the repeated 192.0.0.8 is not actually a looping
-packet, but rather that the packet is (probably!) making forward progress?
-What if it goes:
-`192.168.0.1 -> 192.0.0.8 -> 10.10.10.10 -> 192.0.0.8 -> 172.16.14.2 -> dest?`
+Is this a problem though? If this becomes common practice, operators will
+come to understand that the repeated 192.0.0.8 is not actually a looping
+packet, but rather that the packet is (probably!) making forward progress.
 
-In addition, see RFC5837, and, as a side note, Bill Fenner is working on an
-update to that document.
-}
-
-{ Editor note / question:
-192.0.0.8 is assigned in the [IANA-IPV4-REGISTRY] as the "IPv4 dummy address".
-It may be used as a Source Address, and was requested in [RFC7600] to be used
-as the IPv4 source address when synthesizing an ICMPv4 packet to mirror an
-ICMPv6 error message.  This is all fine and good - but, 192.0.0.0/24 is
-commonly considered a bogon or martian
-
-Example (from a Juniper router):
+In addition, {{I-D.fenner-intarea-extended-icmp-hostid}} provides a possible
+solution to this issue, by allowing the ICMP packet to carry a "host identifier"
+that can be used to identify the router that originated the ICMP packet:
 
 ~~~~~~~~
-wkumari@rtr2.pao> show route martians
-
-inet.0:
-             0.0.0.0/0 exact -- allowed
-             0.0.0.0/8 orlonger -- disallowed
-             127.0.0.0/8 orlonger -- disallowed
-             192.0.0.0/24 orlonger -- disallowed
-             240.0.0.0/4 orlonger -- disallowed
-             224.0.0.0/4 exact -- disallowed
-             224.0.0.0/24 exact -- disallowed
+This document introduces a similar ICMP extension for Node
+Identification.  It allows providing a unique IP address and/or a
+textual name for the node, in the case where each node may not have a
+unique IP address.
 ~~~~~~~~
 
-This means that these packets are likely to be filtered in many places, and
-so ICMP packets with this source address are likely to be dropped. Is this a
-major issue? Would requesting another address be a better solution? Would it help? If it were to be allocated from some more global pool, it would still
-likely require "magic" to allow it to pass BCP38 filters.
+This mechanism may be used to provide a more meaningful source address in the
+future. This is not a requirement for this document, but it is worth noting.
 }
+
 
 # Implementation Status
 ( This section to be removed before publication. )
@@ -402,4 +401,7 @@ This document has no IANA actions.
 # Acknowledgments
 {:numbered="false"}
 
-TODO acknowledge.
+We would like to thank Joe Abley, Bill Fenner, John Gilmore, Bob Hinden, Gyan Mishra, tom petch, Herbie Robinson, Behcet Sarikaya, David Schinazi, and Ole Troan for their helpful comments and suggestions on this document.
+
+The authors would like to thank the members of the Babel community for the
+insightful discussions that led to the creation of this document.
