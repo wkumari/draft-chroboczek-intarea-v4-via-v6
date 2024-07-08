@@ -5,10 +5,10 @@
 Internet Area Working Group                                J. Chroboczek
 Internet-Draft                                 IRIF, University of Paris
 Intended status: Standards Track                               W. Kumari
-Expires: 24 July 2024                                        Google, LLC
+Expires: 9 January 2025                                      Google, LLC
                                                     T. Høiland-Jørgensen
                                                                  Red Hat
-                                                         21 January 2024
+                                                             8 July 2024
 
 
                    IPv4 routes with an IPv6 next hop
@@ -16,15 +16,11 @@ Expires: 24 July 2024                                        Google, LLC
 
 Abstract
 
-   We propose "v4-via-v6" routing, a technique that uses IPv6 next-hop
-   addresses for routing IPv4 packets, thus making it possible to route
-   IPv4 packets across a network where routers have not been assigned
-   IPv4 addresses.  We describe the technique, and discuss its
-   operational implications.
-
-   { Editor note: This document was originally published as draft-
-   chroboczek-int-v4-via-v6, and later renamed to draft-chroboczek-
-   intarea-v4-via-v6 . }
+   This document proposes "v4-via-v6" routing, a technique that uses
+   IPv6 next-hop addresses for routing IPv4 packets, thus making it
+   possible to route IPv4 packets across a network where routers have
+   not been assigned IPv4 addresses.  The document both describes the
+   technique, as well as discussing its operational implications.
 
 About This Document
 
@@ -59,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 24 July 2024.
+   This Internet-Draft will expire on 9 January 2025.
 
 Copyright Notice
 
@@ -83,21 +79,20 @@ Table of Contents
      3.1.  Structure of the routing table
      3.2.  Operation of the forwarding plane
      3.3.  Operation of routing protocols
-       3.3.1.  Distance-vector routing protocols
-       3.3.2.  Link-state routing protocols
-   4.  ICMP Considerations
-   5.  Implementation Status
-     5.1.  Arista EOS
-     5.2.  The Babel routing protocol
-     5.3.  Linux
-       5.3.1.  Example:
-     5.4.  Mikrotik RouterOS
-       5.4.1.  Example
-   6.  Security Considerations
-   7.  IANA Considerations
-   8.  References
-     8.1.  Normative References
-     8.2.  Informative References
+   4.  Operational Considerations
+   5.  ICMP Considerations
+   6.  Implementation Status
+     6.1.  Arista EOS
+     6.2.  The Babel routing protocol
+     6.3.  Linux
+       6.3.1.  Example:
+     6.4.  Mikrotik RouterOS
+       6.4.1.  Example
+   7.  Security Considerations
+   8.  IANA Considerations
+   9.  References
+     9.1.  Normative References
+     9.2.  Informative References
    Acknowledgments
    Authors' Addresses
 
@@ -206,7 +201,7 @@ Table of Contents
    The routing protocol is the part of the routing implementation that
    is executed asynchronously from the forwarding plane, and whose role
    is to build the routing table.  Since v4-via-v6 routing is a
-   generalisation of traditional next-hop routing, v4-via-v6 can
+   generalization of traditional next-hop routing, v4-via-v6 can
    interoperate with existing routing protocols: a traditional routing
    protocol produces a traditional next-hop routing table, which can be
    used by an implementation supporting v4-via-v6 routing.
@@ -217,11 +212,27 @@ Table of Contents
    an IPv4 address is not available or when the available IPv4 addresses
    are not suitable for use as a next-hop (e.g., not stable enough).
 
-3.3.1.  Distance-vector routing protocols
+   Various protocols already support the advertisement of IPv4 routes
+   with an IPv6 next-hop, including Babel [RFC8966] and BGP [RFC8950].
 
-3.3.2.  Link-state routing protocols
+   A number of IGPs advertise both IPv4 and IPv6 prefixes over a single
+   neighbor.  These include: * Multi-Topology (MT) Routing in OSPF
+   ([RFC4915]) * Multi-Topology (MT) Routing in IS-IS ([RFC5120])
 
-4.  ICMP Considerations
+   Both of these utilize a common control plane but separate data
+   planes.
+
+4.  Operational Considerations
+
+   The routing "logic" is not fundamentally different between IPv4 and
+   IPv6, and the primary thing preventing many implementations from
+   supporting v4-via-v6 operations is the command line / configuration
+   syntax.  This means that the required changes to support v4-via-v6
+   routing in many implementations are relatively small - basically just
+   changing the command line parsing to allow specifying an IPv6 address
+   as a next-hop for an IPv4 route.
+
+5.  ICMP Considerations
 
    The Internet Control Message Protocol (ICMPv4, or simply ICMP)
    [RFC0792] is a protocol related to IPv4 that is primarily used to
@@ -250,19 +261,20 @@ Table of Contents
    been assigned an IPv4 address.
 
    In such a situation, if the router has an interface that has been
-   assigned an IPv4 address (other than the loopback address), or if an
-   IPv4 address has been assigned to the router itself (to the "loopback
-   interface"), then that IPv4 address may be used as the source of
-   originated ICMPv4 packets.  If no IPv4 address is available, the
-   router could use the experimental mechanism described in Requirement
-   R-22 of Section 4.8 [RFC7600], which consists of using the dummy
-   address 192.0.0.8 as the source address of originated ICMPv4 packets.
-   Note however that using the same address on multiple routers may
-   hamper debugging and fault isolation, e.g., when using the
-   "traceroute" utility.
+   assigned a publicly routable IPv4 address (other than the loopback
+   address), or if an IPv4 address has been assigned to the router
+   itself (to the "loopback interface"), then that IPv4 address may be
+   used as the source of originated ICMPv4 packets.  If no IPv4 address
+   is available, the router should use the experimental mechanism
+   described in Requirement R-22 of Section 4.8 [RFC7600], which
+   consists of using the dummy address 192.0.0.8 as the source address
+   of originated ICMPv4 packets.  Note however that using the same
+   address on multiple routers may hamper debugging and fault isolation,
+   e.g., when using the "traceroute" utility.  Note that this mirrors
+   the behavior in Section 3 of [RFC9229].
 
-   {Editor note: It would be surprising to many operators to see
-   something like:
+   {Editor note: It might be surprising for operators to see something
+   like:
 
    > $ traceroute -n 8.8.8.8
    traceroute to 8.8.8.8 (8.8.8.8), 64 hops max, 52 byte packets
@@ -274,43 +286,26 @@ Table of Contents
     6  192.0.0.8  27.502 ms  26.895 ms
     7  8.8.8.8  26.509 ms
 
-   Is this a problem though?  If this becomes common practice, will
-   operators just come to understand that the repeated 192.0.0.8 is not
-   actually a looping packet, but rather that the packet is (probably!)
-   making forward progress?  What if it goes: 192.168.0.1 -> 192.0.0.8
-   -> 10.10.10.10 -> 192.0.0.8 -> 172.16.14.2 -> dest?
+   Is this a problem though?  If this becomes common practice, operators
+   will come to understand that the repeated 192.0.0.8 is not actually a
+   looping packet, but rather that the packet is (probably!) making
+   forward progress.
 
-   In addition, see RFC5837, and, as a side note, Bill Fenner is working
-   on an update to that document. }
+   In addition, [I-D.fenner-intarea-extended-icmp-hostid] provides a
+   possible solution to this issue, by allowing the ICMP packet to carry
+   a "host identifier" that can be used to identify the router that
+   originated the ICMP packet:
 
-   { Editor note / question: 192.0.0.8 is assigned in the
-   [IANA-IPV4-REGISTRY] as the "IPv4 dummy address".  It may be used as
-   a Source Address, and was requested in [RFC7600] to be used as the
-   IPv4 source address when synthesizing an ICMPv4 packet to mirror an
-   ICMPv6 error message.  This is all fine and good - but, 192.0.0.0/24
-   is commonly considered a bogon or martian
+   This document introduces a similar ICMP extension for Node
+   Identification.  It allows providing a unique IP address and/or a
+   textual name for the node, in the case where each node may not have a
+   unique IP address.
 
-   Example (from a Juniper router):
+   This mechanism may be used to provide a more meaningful source
+   address in the future.  This is not a requirement for this document,
+   but it is worth noting. }
 
-   wkumari@rtr2.pao> show route martians
-
-   inet.0:
-                0.0.0.0/0 exact -- allowed
-                0.0.0.0/8 orlonger -- disallowed
-                127.0.0.0/8 orlonger -- disallowed
-                192.0.0.0/24 orlonger -- disallowed
-                240.0.0.0/4 orlonger -- disallowed
-                224.0.0.0/4 exact -- disallowed
-                224.0.0.0/24 exact -- disallowed
-
-   This means that these packets are likely to be filtered in many
-   places, and so ICMP packets with this source address are likely to be
-   dropped.  Is this a major issue?  Would requesting another address be
-   a better solution?  Would it help?  If it were to be allocated from
-   some more global pool, it would still likely require "magic" to allow
-   it to pass BCP38 filters. }
-
-5.  Implementation Status
+6.  Implementation Status
 
    ( This section to be removed before publication. )
 
@@ -322,12 +317,12 @@ Table of Contents
    complete list, nor endorsement, etc.  If you know of an
    implementation which is not listed, please let the authors know.
 
-5.1.  Arista EOS
+6.1.  Arista EOS
 
    Arista has supported static IPv4 routes with IPv6 nexthops since EOS-
    4.30.1.
 
-5.2.  The Babel routing protocol
+6.2.  The Babel routing protocol
 
    As noted above, this document is heavily based on RFC9229 (nee draft-
    ietf-babel-v4viav6), and this functionality is supported by babeld.
@@ -375,12 +370,12 @@ Table of Contents
 
    -- Juliusz
 
-5.3.  Linux
+6.3.  Linux
 
    Linux has supported v4-via-v6 routes since kernel version 5.2,
    released on 2019-07-07.
 
-5.3.1.  Example:
+6.3.1.  Example:
 
    rincewind ~ #
    ip -4 r a 192.0.2.23/32 via inet6 2001:db8::2342
@@ -388,7 +383,7 @@ Table of Contents
    rincewind ~ # ip r s 192.0.2.23/32
    192.0.2.23 via inet6 2001:db8::2342 dev wlp36s0.25
 
-5.4.  Mikrotik RouterOS
+6.4.  Mikrotik RouterOS
 
    Mikrotik RouterOS has supported v4-via-v6 routes since (at least)
    version 7.11beta2
@@ -398,7 +393,7 @@ Table of Contents
    functionality has existed for a while.  I'll try to find out when it
    was added.}
 
-5.4.1.  Example
+6.4.1.  Example
 
   [wkumari@Dulles-CCR] /ip/route> print
   Flags: D - DYNAMIC; I - INACTIVE, A - ACTIVE; c - CONNECT, s - STATIC,
@@ -407,7 +402,7 @@ Table of Contents
   #      DST-ADDRESS       GATEWAY                             DISTANCE
   0  As  192.0.2.0/24      fe80::201:5cff:feb2:1646%1_Comcast         1
 
-6.  Security Considerations
+7.  Security Considerations
 
    The techniques described in this document make routing more flexible
    by allowing IPv4 routes to propagate across a section of a network
@@ -426,13 +421,13 @@ Table of Contents
    the undesirable traffic in the forwarding plane by implementing
    suitable packet filtering rules.
 
-7.  IANA Considerations
+8.  IANA Considerations
 
    This document has no IANA actions.
 
-8.  References
+9.  References
 
-8.1.  Normative References
+9.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -448,7 +443,14 @@ Table of Contents
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
 
-8.2.  Informative References
+9.2.  Informative References
+
+   [I-D.fenner-intarea-extended-icmp-hostid]
+              Fenner, B. and R. Thomas, "Extending ICMP for Node
+              Identification", Work in Progress, Internet-Draft, draft-
+              fenner-intarea-extended-icmp-hostid-02, 5 July 2024,
+              <https://datatracker.ietf.org/doc/html/draft-fenner-
+              intarea-extended-icmp-hostid-02>.
 
    [IANA-IPV4-REGISTRY]
               "IANA IPv4 Address Registry", Web 
@@ -478,6 +480,17 @@ Table of Contents
               DOI 10.17487/RFC4861, September 2007,
               <https://www.rfc-editor.org/rfc/rfc4861>.
 
+   [RFC4915]  Psenak, P., Mirtorabi, S., Roy, A., Nguyen, L., and P.
+              Pillay-Esnault, "Multi-Topology (MT) Routing in OSPF",
+              RFC 4915, DOI 10.17487/RFC4915, June 2007,
+              <https://www.rfc-editor.org/rfc/rfc4915>.
+
+   [RFC5120]  Przygienda, T., Shen, N., and N. Sheth, "M-ISIS: Multi
+              Topology (MT) Routing in Intermediate System to
+              Intermediate Systems (IS-ISs)", RFC 5120,
+              DOI 10.17487/RFC5120, February 2008,
+              <https://www.rfc-editor.org/rfc/rfc5120>.
+
    [RFC7404]  Behringer, M. and E. Vyncke, "Using Only Link-Local
               Addressing inside an IPv6 Network", RFC 7404,
               DOI 10.17487/RFC7404, November 2014,
@@ -489,9 +502,24 @@ Table of Contents
               DOI 10.17487/RFC8950, November 2020,
               <https://www.rfc-editor.org/rfc/rfc8950>.
 
+   [RFC8966]  Chroboczek, J. and D. Schinazi, "The Babel Routing
+              Protocol", RFC 8966, DOI 10.17487/RFC8966, January 2021,
+              <https://www.rfc-editor.org/rfc/rfc8966>.
+
+   [RFC9229]  Chroboczek, J., "IPv4 Routes with an IPv6 Next Hop in the
+              Babel Routing Protocol", RFC 9229, DOI 10.17487/RFC9229,
+              May 2022, <https://www.rfc-editor.org/rfc/rfc9229>.
+
 Acknowledgments
 
-   TODO acknowledge.
+   We would like to thank Joe Abley, Bill Fenner, John Gilmore, Bob
+   Hinden, Gyan Mishra, tom petch, Herbie Robinson, Behcet Sarikaya,
+   David Schinazi, and Ole Troan for their helpful comments and
+   suggestions on this document.
+
+   The authors would like to thank the members of the Babel community
+   for the insightful discussions that led to the creation of this
+   document.
 
 Authors' Addresses
 
