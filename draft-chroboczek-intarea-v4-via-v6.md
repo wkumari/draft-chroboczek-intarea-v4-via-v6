@@ -54,7 +54,7 @@ informative:
   RFC8950:
   RFC8966:
   RFC9229:
-  I-D.fenner-intarea-extended-icmp-hostid:
+  I-D.draft-ietf-intarea-extended-icmp-nodeid:
   IANA-IPV4-REGISTRY:
     title: IANA IPv4 Address Registry
     author:
@@ -246,39 +246,10 @@ routers may hamper debugging and fault isolation, e.g., when using the
 "traceroute" utility. Note that this mirrors the behavior in Section 3 of
 {{RFC9229}}.
 
-{Editor note: It might be surprising for operators to see something like:
-
-~~~~~~~~
-> $ traceroute -n 8.8.8.8
-traceroute to 8.8.8.8 (8.8.8.8), 64 hops max, 52 byte packets
- 1  192.168.0.1  1.894 ms  1.953 ms  1.463 ms
- 2  192.0.0.8  9.012 ms  8.852 ms  12.211 ms
- 3  192.0.0.8  8.445 ms  9.426 ms  9.781 ms
- 4  192.0.0.8  9.984 ms  10.282 ms  10.763 ms
- 5  192.0.0.8  13.994 ms  13.031 ms  12.948 ms
- 6  192.0.0.8  27.502 ms  26.895 ms
- 7  8.8.8.8  26.509 ms
-~~~~~~~~
-
-Is this a problem though? If this becomes common practice, operators will
-come to understand that the repeated 192.0.0.8 is not actually a looping
-packet, but rather that the packet is (probably!) making forward progress.
-
-In addition, {{I-D.fenner-intarea-extended-icmp-hostid}} provides a possible
+In addition, {{I-D.draft-ietf-intarea-extended-icmp-nodeid}} provides a possible
 solution to this issue, by allowing the ICMP packet to carry a "host
 identifier" that can be used to identify the router that originated the ICMP
-packet:
-
-~~~~~~~~
-This document introduces a similar ICMP extension for Node
-Identification.  It allows providing a unique IP address and/or a
-textual name for the node, in the case where each node may not have a
-unique IP address.
-~~~~~~~~
-
-This mechanism may be used to provide a more meaningful source address in the
-future. This is not a requirement for this document, but it is worth noting.
-}
+by providing a unique IP address and/or a textual name for the node, in the case where each node may not have a unique IP address.
 
 
 # Implementation Status
