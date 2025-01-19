@@ -246,17 +246,22 @@ routers may hamper debugging and fault isolation, e.g., when using the
 "traceroute" utility. Note that this mirrors the behavior in Section 3 of
 {{RFC9229}}.
 
-In addition, {{I-D.draft-ietf-intarea-extended-icmp-nodeid}} provides a possible
-solution to this issue, by allowing the ICMP packet to carry a "host
-identifier" that can be used to identify the router that originated the ICMP
-by providing a unique IP address and/or a textual name for the node, in the case where each node may not have a unique IP address.
+In addition, {{I-D.draft-ietf-intarea-extended-icmp-nodeid}} provides a
+possible solution to this issue, by allowing the ICMP packet to carry a "host
+identifier" that can be used to identify the router that originated the ICMP by
+providing a unique IP address and/or a textual name for the node, in the case
+where each node may not have a unique IP address.
 
 
 # Implementation Status
 ( This section to be removed before publication. )
 
 As this document does not really define a protocol, this implementation status
-section is much less formal. Instead, it is being used as a place to list implementations which are known to support this functionality, examples, notes, etc. This information is provided as a guide to the reader, and is not intended to be a complete list, nor endorsement, etc. If you know of an implementation which is not listed, please let the authors know.
+section is much less formal. Instead, it is being used as a place to list
+implementations that are known to support this functionality, examples, notes,
+etc. This information is provided as a guide to the reader, and is not intended
+to be a complete list, nor endorsement, etc. If you know of an implementation
+which is not listed, please let the authors know.
 
 
 ## Arista EOS
@@ -373,7 +378,9 @@ This document has no IANA actions.
 # Acknowledgments
 {:numbered="false"}
 
-We would like to thank Joe Abley, Bill Fenner, John Gilmore, Bob Hinden, Gyan Mishra, tom petch, Herbie Robinson, Behcet Sarikaya, David Schinazi, and Ole Troan for their helpful comments and suggestions on this document.
+We would like to thank Joe Abley, Bill Fenner, John Gilmore, Bob Hinden, Gyan
+Mishra, tom petch, Herbie Robinson, Behcet Sarikaya, David Schinazi, and Ole
+Troan for their helpful comments and suggestions on this document.
 
 The authors would like to thank the members of the Babel community for the
 insightful discussions that led to the creation of this document.
