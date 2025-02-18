@@ -20,7 +20,7 @@ subject to a Simplified BSD License) in Contributions.
 ## Working Group Information
 
 Discussion of this work occurs on the [Internet Area Working Group
- mailing list](mailto:int-area@ietf.org)
+Working Group mailing list](mailto:int-area@ietf.org)
 ([archive](https://mailarchive.ietf.org/arch/browse/int-area/),
 [subscribe](https://www.ietf.org/mailman/listinfo/int-area)).
 In addition to contributions in GitHub, you are encouraged to participate in
@@ -30,4 +30,4 @@ discussions there.
 technical issues needs to occur on the mailing list.
 
 You might also like to familiarize yourself with other
-[ documents](https://datatracker.ietf.org/wg/intarea/documents/).
+[Working Group documents](https://datatracker.ietf.org/wg/intarea/documents/).
