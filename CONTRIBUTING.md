@@ -15,10 +15,12 @@ repository constitutes Contributions to the IETF Standards Process
 You agree to comply with all applicable IETF policies and procedures, including,
 BCP 78, 79, the TLP, and the TLP rules regarding code components (e.g. being
 subject to a Simplified BSD License) in Contributions.
+
+
 ## Working Group Information
 
 Discussion of this work occurs on the [Internet Area Working Group
-Working Group mailing list](mailto:int-area@ietf.org)
+ mailing list](mailto:int-area@ietf.org)
 ([archive](https://mailarchive.ietf.org/arch/browse/int-area/),
 [subscribe](https://www.ietf.org/mailman/listinfo/int-area)).
 In addition to contributions in GitHub, you are encouraged to participate in
@@ -28,4 +30,4 @@ discussions there.
 technical issues needs to occur on the mailing list.
 
 You might also like to familiarize yourself with other
-[Working Group documents](https://datatracker.ietf.org/wg/intarea/documents/).
+[ documents](https://datatracker.ietf.org/wg/intarea/documents/).
