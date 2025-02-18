@@ -5,10 +5,10 @@
 Internet Area Working Group                                J. Chroboczek
 Internet-Draft                                 IRIF, University of Paris
 Intended status: Standards Track                               W. Kumari
-Expires: 23 July 2025                                        Google, LLC
+Expires: 22 August 2025                                      Google, LLC
                                                     T. Høiland-Jørgensen
                                                                  Red Hat
-                                                         19 January 2025
+                                                        18 February 2025
 
 
                    IPv4 routes with an IPv6 next hop
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 23 July 2025.
+   This Internet-Draft will expire on 22 August 2025.
 
 Copyright Notice
 
