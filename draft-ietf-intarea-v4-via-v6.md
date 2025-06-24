@@ -76,6 +76,7 @@ operational implications.
 
 # Introduction
 
+
 The dominant form of routing in the Internet is next-hop routing, where
 a routing protocol constructs a routing table which is used by
 a forwarding process to forward packets.  The routing table is a data
@@ -102,10 +103,18 @@ the same address family: there is nothing preventing an IPv6 packet from
 being routed through a next hop with an IPv4 address (in which case the
 next hop's MAC address will be obtained using ARP), or, conversely, an
 IPv4 packet from being routed through a next hop with an IPv6 address.
-(In fact, it is even possible to store link-layer addresses directly in
+This document focuses on routing IPv4 packets through an IPv6 next-hop, as this
+is expected to be the primary use case, the reverse is also possible: an IPv6
+packet can be routed through an IPv4 next-hop address, in which case the next
+hop's MAC address will be obtained using ARP. In addition, hosts may also be
+able to take advantage this technique, as they can be viewed as the first
+routing hop; there are, however, unsolved problems around things like L2
+resolution.
+
+In fact, it is even possible to store link-layer addresses directly in
 the next-hop entry of the routing table, thus avoiding the use of an
 address resolution protocol altogether, which is commonly done in networks
-using the OSI protocol suite).
+using the OSI protocol suite.
 
 The case of routing IPv4 packets through an IPv6 next hop is
 particularly interesting, since it makes it possible to build
@@ -148,12 +157,14 @@ data structure, the routing table.
 
 ## Structure of the routing table
 
-The routing table is a data structure that maps address prefixes to
-next-hops, pairs of the form (interface, address).  In traditional
-next-hop routing, the routing table maps IPv4 prefixes to IPv4 next hops,
-and IPv6 addresses to IPv6 next hops.  With v4-via-v6 routing, the routing
-table is extended so that an IPv4 prefix may map to either an IPv4 or an
-IPv6 next hop.
+The routing table is a data structure that maps address prefixes to next-hops,
+pairs of the form (interface, address). Sometimes this resolution is
+"recursive" - the next-hop may itself be a prefix that requires further
+resolution to map to the outgoing interface and L2 address. In traditional
+next-hop routing, the routing table maps IPv4 prefixes to IPv4 next hops, and
+IPv6 addresses to IPv6 next hops.  With v4-via-v6 routing, the routing table is
+extended so that a prefix (IPv4 or IPv6) may map to either an IPv4 or an IPv6
+next hop.
 
 ## Operation of the forwarding plane
 
@@ -318,7 +329,8 @@ PMTUD works fine (thanks to Toke):
 
 ## Linux
 
-Linux has supported v4-via-v6 routes since kernel version 5.2, released on 2019-07-07.
+Linux has supported v4-via-v6 routes since kernel version 5.2, released on
+2019-07-07.
 
 ### Example:
 
@@ -350,6 +362,10 @@ Columns: DST-ADDRESS, GATEWAY, DISTANCE
 0  As  192.0.2.0/24      fe80::201:5cff:feb2:1646%1_Comcast         1
 ~~~
 
+## Cisco NX-OS
+
+Cisco NX-OS has supported v4-via-v6 routes "for more than 8 years"
+  -- Krishnaswamy Ananthamurthy
 
 # Security Considerations
 
@@ -378,9 +394,27 @@ This document has no IANA actions.
 # Acknowledgments
 {:numbered="false"}
 
-We would like to thank Joe Abley, Bill Fenner, John Gilmore, Bob Hinden, Gyan
-Mishra, tom petch, Herbie Robinson, Behcet Sarikaya, David Schinazi, and Ole
-Troan for their helpful comments and suggestions on this document.
+We would like to thank Joe Abley, Krishnaswamy Ananthamurthy, Bill Fenner,
+Tobias Fiebig, John Gilmore, Bob Hinden, David Lamparter, Gyan Mishra, tom
+petch, Herbie Robinson, Behcet Sarikaya, David Schinazi, Ole Troan, and Éric
+Vyncke, for their helpful comments and suggestions on this document.
 
 The authors would like to thank the members of the Babel community for the
 insightful discussions that led to the creation of this document.
+
+# Changes
+{:numbered="false"}
+This section is to be removed before publication, and the primary change log is
+the git repository. This is just a place to note some of the more substantive
+changes.
+
+## Version 00-01
+{:numbered="false"}
+
+* Added note that this works just as well for IPv6 routes with an IPv4 next
+  hop. (Éric Vyncke)
+* Cisco NX-OS has supported v4-via-v6 routes "for more than 8 years"
+  (Krishnaswamy Ananthamurthy)
+* Mention recursive next hops, and that the next hop may be a prefix.
+  (Krishnaswamy Ananthamurthy)
+* Hosts are routers too! (David Lamparter)
