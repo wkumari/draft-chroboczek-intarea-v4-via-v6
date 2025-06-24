@@ -15,22 +15,22 @@ packets across a network where routers have not been assigned IPv4 addresses.
 The document both describes the technique, as well as discussing its
 operational implications. 
     ' name="description">
-<meta content="xml2rfc 3.28.1" name="generator">
+<meta content="xml2rfc 3.29.0" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-ietf-intarea-v4-via-v6-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.28.1
-    Python 3.12.10
+  xml2rfc 3.29.0
+    Python 3.12.11
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.1.0
     Jinja2 3.1.6
-    lxml 5.3.0
+    lxml 5.3.1
     platformdirs 4.3.8
     pycountry 24.6.1
     PyYAML 6.0.2
-    requests 2.32.3
-    setuptools 70.3.0
+    requests 2.32.4
+    setuptools 80.9.0
     wcwidth 0.2.13
 -->
 <link href="draft-ietf-intarea-v4-via-v6.xml" rel="alternate" type="application/rfc+xml">
@@ -1050,11 +1050,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">v4-via-v6</td>
-<td class="right">May 2025</td>
+<td class="right">June 2025</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Chroboczek, et al.</td>
-<td class="center">Expires 29 November 2025</td>
+<td class="center">Expires 26 December 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1067,12 +1067,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-intarea-v4-via-v6-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-05-28" class="published">28 May 2025</time>
+<time datetime="2025-06-24" class="published">24 June 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-11-29">29 November 2025</time></dd>
+<dd class="expires"><time datetime="2025-12-26">26 December 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1134,7 +1134,7 @@ operational implications.<a href="#section-abstract-1" class="pilcrow">¶</a></p
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 29 November 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 26 December 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1214,6 +1214,9 @@ operational implications.<a href="#section-abstract-1" class="pilcrow">¶</a></p
 </li>
                 </ul>
 </li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.5">
+                <p id="section-toc.1-1.6.2.5.1"><a href="#section-6.5" class="auto internal xref">6.5</a>.  <a href="#name-cisco-nx-os" class="internal xref">Cisco NX-OS</a></p>
+</li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
@@ -1237,7 +1240,15 @@ operational implications.<a href="#section-abstract-1" class="pilcrow">¶</a></p
             <p id="section-toc.1-1.10.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
-            <p id="section-toc.1-1.11.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
+            <p id="section-toc.1-1.11.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-changes" class="internal xref">Changes</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.1">
+                <p id="section-toc.1-1.11.2.1.1"><a href="#appendix-B.1" class="auto internal xref"></a><a href="#name-version-00-01" class="internal xref">Version 00-01</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
+            <p id="section-toc.1-1.12.1"><a href="#appendix-C" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
 </li>
         </ul>
 </nav>
@@ -1274,11 +1285,18 @@ the same address family: there is nothing preventing an IPv6 packet from
 being routed through a next hop with an IPv4 address (in which case the
 next hop's MAC address will be obtained using ARP), or, conversely, an
 IPv4 packet from being routed through a next hop with an IPv6 address.
-(In fact, it is even possible to store link-layer addresses directly in
+This document focuses on routing IPv4 packets through an IPv6 next-hop, as this
+is expected to be the primary use case, the reverse is also possible: an IPv6
+packet can be routed through an IPv4 next-hop address, in which case the next
+hop's MAC address will be obtained using ARP. In addition, hosts may also be
+able to take advantage this technique, as they can be viewed as the first
+routing hop; there are, however, unsolved problems around things like L2
+resolution.<a href="#section-1-4" class="pilcrow">¶</a></p>
+<p id="section-1-5">In fact, it is even possible to store link-layer addresses directly in
 the next-hop entry of the routing table, thus avoiding the use of an
 address resolution protocol altogether, which is commonly done in networks
-using the OSI protocol suite).<a href="#section-1-4" class="pilcrow">¶</a></p>
-<p id="section-1-5">The case of routing IPv4 packets through an IPv6 next hop is
+using the OSI protocol suite.<a href="#section-1-5" class="pilcrow">¶</a></p>
+<p id="section-1-6">The case of routing IPv4 packets through an IPv6 next hop is
 particularly interesting, since it makes it possible to build
 networks that have no IPv4 addresses except at the edges and still
 provide IPv4 connectivity to edge hosts. In addition, since an IPv6
@@ -1287,21 +1305,21 @@ configured, the use of such routes enables a mode of operation where
 the network core has no statically assigned IP addresses of either
 family, which significantly reduces the amount of manual
 configuration required.  (See also <span>[<a href="#RFC7404" class="cite xref">RFC7404</a>]</span> for a discussion of the
-issues involved with such an approach.)<a href="#section-1-5" class="pilcrow">¶</a></p>
-<p id="section-1-6">We call a route towards an IPv4 prefix that uses an IPv6 next hop a
-"v4-via-v6" route.<a href="#section-1-6" class="pilcrow">¶</a></p>
-<p id="section-1-7"><span>[<a href="#RFC8950" class="cite xref">RFC8950</a>]</span> discusses advertising of IPv4 NLRI with a next-hop address that
+issues involved with such an approach.)<a href="#section-1-6" class="pilcrow">¶</a></p>
+<p id="section-1-7">We call a route towards an IPv4 prefix that uses an IPv6 next hop a
+"v4-via-v6" route.<a href="#section-1-7" class="pilcrow">¶</a></p>
+<p id="section-1-8"><span>[<a href="#RFC8950" class="cite xref">RFC8950</a>]</span> discusses advertising of IPv4 NLRI with a next-hop address that
 belongs to the IPv6 protocol, but confines itself to how this is carried and
 advertised in the BGP protocol. This document, on the other hand, discusses the
 concept of v4-via-v6 routes independently of any specific routing protocol,
 their design and operational considerations, and the implications of using
-them.<a href="#section-1-7" class="pilcrow">¶</a></p>
-<p id="section-1-8">{ Editor note, to be removed before publication. This document is heavily based
+them.<a href="#section-1-8" class="pilcrow">¶</a></p>
+<p id="section-1-9">{ Editor note, to be removed before publication. This document is heavily based
 on draft-ietf-babel-v4viav6. When draft-ietf-babel-v4viav6 was
 going through IESG eval, Warren raised concerns that something this
 fundamental deserved to be documented in a separate, standalone document, so
 that it can be more fully discussed, and, more importantly, referenced
-cleanly in the future.}<a href="#section-1-8" class="pilcrow">¶</a></p>
+cleanly in the future.}<a href="#section-1-9" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="conventions-and-definitions">
@@ -1328,12 +1346,14 @@ data structure, the routing table.<a href="#section-3-1" class="pilcrow">¶</a><
         <h3 id="name-structure-of-the-routing-ta">
 <a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-structure-of-the-routing-ta" class="section-name selfRef">Structure of the routing table</a>
         </h3>
-<p id="section-3.1-1">The routing table is a data structure that maps address prefixes to
-next-hops, pairs of the form (interface, address).  In traditional
-next-hop routing, the routing table maps IPv4 prefixes to IPv4 next hops,
-and IPv6 addresses to IPv6 next hops.  With v4-via-v6 routing, the routing
-table is extended so that an IPv4 prefix may map to either an IPv4 or an
-IPv6 next hop.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.1-1">The routing table is a data structure that maps address prefixes to next-hops,
+pairs of the form (interface, address). Sometimes this resolution is
+"recursive" - the next-hop may itself be a prefix that requires further
+resolution to map to the outgoing interface and L2 address. In traditional
+next-hop routing, the routing table maps IPv4 prefixes to IPv4 next hops, and
+IPv6 addresses to IPv6 next hops.  With v4-via-v6 routing, the routing table is
+extended so that a prefix (IPv4 or IPv6) may map to either an IPv4 or an IPv6
+next hop.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="operation-of-the-forwarding-plane">
@@ -1524,7 +1544,8 @@ ecr 1849974692], length 1368
         <h3 id="name-linux">
 <a href="#section-6.3" class="section-number selfRef">6.3. </a><a href="#name-linux" class="section-name selfRef">Linux</a>
         </h3>
-<p id="section-6.3-1">Linux has supported v4-via-v6 routes since kernel version 5.2, released on 2019-07-07.<a href="#section-6.3-1" class="pilcrow">¶</a></p>
+<p id="section-6.3-1">Linux has supported v4-via-v6 routes since kernel version 5.2, released on
+2019-07-07.<a href="#section-6.3-1" class="pilcrow">¶</a></p>
 <div id="example">
 <section id="section-6.3.1">
           <h4 id="name-example">
@@ -1570,6 +1591,15 @@ Columns: DST-ADDRESS, GATEWAY, DISTANCE
 </div>
 </section>
 </div>
+</section>
+</div>
+<div id="cisco-nx-os">
+<section id="section-6.5">
+        <h3 id="name-cisco-nx-os">
+<a href="#section-6.5" class="section-number selfRef">6.5. </a><a href="#name-cisco-nx-os" class="section-name selfRef">Cisco NX-OS</a>
+        </h3>
+<p id="section-6.5-1">Cisco NX-OS has supported v4-via-v6 routes "for more than 8 years"
+  -- Krishnaswamy Ananthamurthy<a href="#section-6.5-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1697,15 +1727,50 @@ rules.<a href="#section-7-2" class="pilcrow">¶</a></p>
       <h2 id="name-acknowledgments">
 <a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
       </h2>
-<p id="appendix-A-1">We would like to thank Joe Abley, Bill Fenner, John Gilmore, Bob Hinden, Gyan
-Mishra, tom petch, Herbie Robinson, Behcet Sarikaya, David Schinazi, and Ole
-Troan for their helpful comments and suggestions on this document.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+<p id="appendix-A-1">We would like to thank Joe Abley, Krishnaswamy Ananthamurthy, Bill Fenner,
+Tobias Fiebig, John Gilmore, Bob Hinden, David Lamparter, Gyan Mishra, tom
+petch, Herbie Robinson, Behcet Sarikaya, David Schinazi, Ole Troan, and Éric
+Vyncke, for their helpful comments and suggestions on this document.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 <p id="appendix-A-2">The authors would like to thank the members of the Babel community for the
 insightful discussions that led to the creation of this document.<a href="#appendix-A-2" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="authors-addresses">
+<div id="changes">
 <section id="appendix-B">
+      <h2 id="name-changes">
+<a href="#name-changes" class="section-name selfRef">Changes</a>
+      </h2>
+<p id="appendix-B-1">This section is to be removed before publication, and the primary change log is
+the git repository. This is just a place to note some of the more substantive
+changes.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
+<div id="version-00-01">
+<section id="appendix-B.1">
+        <h3 id="name-version-00-01">
+<a href="#name-version-00-01" class="section-name selfRef">Version 00-01</a>
+        </h3>
+<ul class="normal">
+<li class="normal" id="appendix-B.1-1.1">
+            <p id="appendix-B.1-1.1.1">Added note that this works just as well for IPv6 routes with an IPv4 next
+hop. (Éric Vyncke)<a href="#appendix-B.1-1.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-B.1-1.2">
+            <p id="appendix-B.1-1.2.1">Cisco NX-OS has supported v4-via-v6 routes "for more than 8 years"
+(Krishnaswamy Ananthamurthy)<a href="#appendix-B.1-1.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-B.1-1.3">
+            <p id="appendix-B.1-1.3.1">Mention recursive next hops, and that the next hop may be a prefix.
+(Krishnaswamy Ananthamurthy)<a href="#appendix-B.1-1.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-B.1-1.4">
+            <p id="appendix-B.1-1.4.1">Hosts are routers too! (David Lamparter)<a href="#appendix-B.1-1.4.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+</section>
+</div>
+<div id="authors-addresses">
+<section id="appendix-C">
       <h2 id="name-authors-addresses">
 <a href="#name-authors-addresses" class="section-name selfRef">Authors' Addresses</a>
       </h2>

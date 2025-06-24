@@ -5,10 +5,10 @@
 Internet Area Working Group                                J. Chroboczek
 Internet-Draft                                 IRIF, University of Paris
 Intended status: Standards Track                               W. Kumari
-Expires: 29 November 2025                                    Google, LLC
+Expires: 26 December 2025                                    Google, LLC
                                                     T. Høiland-Jørgensen
                                                                  Red Hat
-                                                             28 May 2025
+                                                            24 June 2025
 
 
                    IPv4 routes with an IPv6 next hop
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 29 November 2025.
+   This Internet-Draft will expire on 26 December 2025.
 
 Copyright Notice
 
@@ -88,12 +88,15 @@ Table of Contents
        6.3.1.  Example:
      6.4.  Mikrotik RouterOS
        6.4.1.  Example
+     6.5.  Cisco NX-OS
    7.  Security Considerations
    8.  IANA Considerations
    9.  References
      9.1.  Normative References
      9.2.  Informative References
    Acknowledgments
+   Changes
+     Version 00-01
    Authors' Addresses
 
 1.  Introduction
@@ -123,11 +126,19 @@ Table of Contents
    preventing an IPv6 packet from being routed through a next hop with
    an IPv4 address (in which case the next hop's MAC address will be
    obtained using ARP), or, conversely, an IPv4 packet from being routed
-   through a next hop with an IPv6 address.  (In fact, it is even
-   possible to store link-layer addresses directly in the next-hop entry
-   of the routing table, thus avoiding the use of an address resolution
-   protocol altogether, which is commonly done in networks using the OSI
-   protocol suite).
+   through a next hop with an IPv6 address.  This document focuses on
+   routing IPv4 packets through an IPv6 next-hop, as this is expected to
+   be the primary use case, the reverse is also possible: an IPv6 packet
+   can be routed through an IPv4 next-hop address, in which case the
+   next hop's MAC address will be obtained using ARP.  In addition,
+   hosts may also be able to take advantage this technique, as they can
+   be viewed as the first routing hop; there are, however, unsolved
+   problems around things like L2 resolution.
+
+   In fact, it is even possible to store link-layer addresses directly
+   in the next-hop entry of the routing table, thus avoiding the use of
+   an address resolution protocol altogether, which is commonly done in
+   networks using the OSI protocol suite.
 
    The case of routing IPv4 packets through an IPv6 next hop is
    particularly interesting, since it makes it possible to build
@@ -174,11 +185,14 @@ Table of Contents
 3.1.  Structure of the routing table
 
    The routing table is a data structure that maps address prefixes to
-   next-hops, pairs of the form (interface, address).  In traditional
-   next-hop routing, the routing table maps IPv4 prefixes to IPv4 next
-   hops, and IPv6 addresses to IPv6 next hops.  With v4-via-v6 routing,
-   the routing table is extended so that an IPv4 prefix may map to
-   either an IPv4 or an IPv6 next hop.
+   next-hops, pairs of the form (interface, address).  Sometimes this
+   resolution is "recursive" - the next-hop may itself be a prefix that
+   requires further resolution to map to the outgoing interface and L2
+   address.  In traditional next-hop routing, the routing table maps
+   IPv4 prefixes to IPv4 next hops, and IPv6 addresses to IPv6 next
+   hops.  With v4-via-v6 routing, the routing table is extended so that
+   a prefix (IPv4 or IPv6) may map to either an IPv4 or an IPv6 next
+   hop.
 
 3.2.  Operation of the forwarding plane
 
@@ -377,6 +391,11 @@ Table of Contents
   #      DST-ADDRESS       GATEWAY                             DISTANCE
   0  As  192.0.2.0/24      fe80::201:5cff:feb2:1646%1_Comcast         1
 
+6.5.  Cisco NX-OS
+
+   Cisco NX-OS has supported v4-via-v6 routes "for more than 8 years" --
+   Krishnaswamy Ananthamurthy
+
 7.  Security Considerations
 
    The techniques described in this document make routing more flexible
@@ -488,14 +507,34 @@ Table of Contents
 
 Acknowledgments
 
-   We would like to thank Joe Abley, Bill Fenner, John Gilmore, Bob
-   Hinden, Gyan Mishra, tom petch, Herbie Robinson, Behcet Sarikaya,
-   David Schinazi, and Ole Troan for their helpful comments and
+   We would like to thank Joe Abley, Krishnaswamy Ananthamurthy, Bill
+   Fenner, Tobias Fiebig, John Gilmore, Bob Hinden, David Lamparter,
+   Gyan Mishra, tom petch, Herbie Robinson, Behcet Sarikaya, David
+   Schinazi, Ole Troan, and Éric Vyncke, for their helpful comments and
    suggestions on this document.
 
    The authors would like to thank the members of the Babel community
    for the insightful discussions that led to the creation of this
    document.
+
+Changes
+
+   This section is to be removed before publication, and the primary
+   change log is the git repository.  This is just a place to note some
+   of the more substantive changes.
+
+Version 00-01
+
+   *  Added note that this works just as well for IPv6 routes with an
+      IPv4 next hop. (Éric Vyncke)
+
+   *  Cisco NX-OS has supported v4-via-v6 routes "for more than 8 years"
+      (Krishnaswamy Ananthamurthy)
+
+   *  Mention recursive next hops, and that the next hop may be a
+      prefix.  (Krishnaswamy Ananthamurthy)
+
+   *  Hosts are routers too!  (David Lamparter)
 
 Authors' Addresses
 
