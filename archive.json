@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-06-22T00:38:48.475304+00:00",
+  "timestamp": "2025-06-24T00:34:49.200305+00:00",
   "repo": "wkumari/draft-chroboczek-intarea-v4-via-v6",
   "labels": [
     {
@@ -50,5 +50,32 @@
     }
   ],
   "issues": [],
-  "pulls": []
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDOLHMNHM6bv0rk",
+      "title": "Integrated feedback from IETF122",
+      "url": "https://github.com/wkumari/draft-chroboczek-intarea-v4-via-v6/pull/1",
+      "state": "OPEN",
+      "author": "wkumari",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "I addressed comments from IETF122 IntArea meeting -- see: https://mailarchive.ietf.org/arch/msg/int-area/OV3ZNT4aOBt6oDjLtBYo5TMrdYw/ for summary.",
+      "createdAt": "2025-06-23T23:10:26Z",
+      "updatedAt": "2025-06-23T23:10:26Z",
+      "baseRepository": "wkumari/draft-chroboczek-intarea-v4-via-v6",
+      "baseRefName": "main",
+      "baseRefOid": "291e189e1dc0f4e38994abaa3b7c45c950acfb1d",
+      "headRepository": "wkumari/draft-chroboczek-intarea-v4-via-v6",
+      "headRefName": "from_ietf_122",
+      "headRefOid": "3254c4ab2c371917e718fc22a1da4296fff95fc6",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    }
+  ]
 }
