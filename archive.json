@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-06-24T00:34:49.200305+00:00",
+  "timestamp": "2025-06-26T00:34:45.619207+00:00",
   "repo": "wkumari/draft-chroboczek-intarea-v4-via-v6",
   "labels": [
     {
@@ -56,25 +56,56 @@
       "id": "PR_kwDOLHMNHM6bv0rk",
       "title": "Integrated feedback from IETF122",
       "url": "https://github.com/wkumari/draft-chroboczek-intarea-v4-via-v6/pull/1",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "wkumari",
       "authorAssociation": "OWNER",
       "assignees": [],
       "labels": [],
       "body": "I addressed comments from IETF122 IntArea meeting -- see: https://mailarchive.ietf.org/arch/msg/int-area/OV3ZNT4aOBt6oDjLtBYo5TMrdYw/ for summary.",
       "createdAt": "2025-06-23T23:10:26Z",
-      "updatedAt": "2025-06-23T23:10:26Z",
+      "updatedAt": "2025-06-25T16:19:30Z",
       "baseRepository": "wkumari/draft-chroboczek-intarea-v4-via-v6",
       "baseRefName": "main",
       "baseRefOid": "291e189e1dc0f4e38994abaa3b7c45c950acfb1d",
       "headRepository": "wkumari/draft-chroboczek-intarea-v4-via-v6",
       "headRefName": "from_ietf_122",
       "headRefOid": "3254c4ab2c371917e718fc22a1da4296fff95fc6",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
-      "comments": [],
+      "closedAt": "2025-06-24T19:18:42Z",
+      "mergedAt": "2025-06-24T19:18:42Z",
+      "mergedBy": "wkumari",
+      "mergeCommit": {
+        "oid": "164ea6bd4e75d8ca92fcce0645592dc656a31fb8"
+      },
+      "comments": [
+        {
+          "author": "jech",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Thanks, Warren.\r\n\r\nThe bit about recursive changes should go into its own paragraph, since right now the paragraph seems overloaded to me.  Not sure about the bit about the reverse being also possible.\r\n\r\nFeel free to either make the fix yourself, or commit as is and let me do the editorial changes.",
+          "createdAt": "2025-06-24T16:43:06Z",
+          "updatedAt": "2025-06-24T16:43:06Z"
+        },
+        {
+          "author": "wkumari",
+          "authorAssociation": "OWNER",
+          "body": "Thank you. I fully agree that the paragraph is clunky as  currently written, but I couldn't figure out how to cleanly break it out. I started down the lines of \"The above paragraph notes that the mapping is from prefixes to next-hop pairs; sometimes resolving this next-hop pair first requires resolving an intermediate route - this is referred to as recur... \" before deciding that this was clunky...  I'm make the excuse that I'm super-jetlagged at the moment :-) \r\n\r\nI'll commit this. please see if you can massage it into something which flows better. I've requested a slot at the IntArea meeting to hopefully ask for WGLC, and so we should make sure that we post a new version well in advance of the meeting... ",
+          "createdAt": "2025-06-24T19:18:45Z",
+          "updatedAt": "2025-06-24T19:18:45Z"
+        },
+        {
+          "author": "jech",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Sure.  What's the deadline?",
+          "createdAt": "2025-06-25T08:26:27Z",
+          "updatedAt": "2025-06-25T08:26:27Z"
+        },
+        {
+          "author": "wkumari",
+          "authorAssociation": "OWNER",
+          "body": "I *think* that it is 7/7, but hopefully we can get it in before that...\n",
+          "createdAt": "2025-06-25T16:19:30Z",
+          "updatedAt": "2025-06-25T16:19:30Z"
+        }
+      ],
       "reviews": []
     }
   ]
