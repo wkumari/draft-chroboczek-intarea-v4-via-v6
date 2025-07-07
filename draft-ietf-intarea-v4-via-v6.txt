@@ -5,10 +5,10 @@
 Internet Area Working Group                                J. Chroboczek
 Internet-Draft                                 IRIF, University of Paris
 Intended status: Standards Track                               W. Kumari
-Expires: 26 December 2025                                    Google, LLC
+Expires: 8 January 2026                                      Google, LLC
                                                     T. Høiland-Jørgensen
                                                                  Red Hat
-                                                            24 June 2025
+                                                             7 July 2025
 
 
                    IPv4 routes with an IPv6 next hop
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 26 December 2025.
+   This Internet-Draft will expire on 8 January 2026.
 
 Copyright Notice
 
@@ -79,21 +79,20 @@ Table of Contents
      3.1.  Structure of the routing table
      3.2.  Operation of the forwarding plane
      3.3.  Operation of routing protocols
-   4.  Operational Considerations
-   5.  ICMP Considerations
-   6.  Implementation Status
-     6.1.  Arista EOS
-     6.2.  The Babel routing protocol
-     6.3.  Linux
-       6.3.1.  Example:
-     6.4.  Mikrotik RouterOS
-       6.4.1.  Example
-     6.5.  Cisco NX-OS
-   7.  Security Considerations
-   8.  IANA Considerations
-   9.  References
-     9.1.  Normative References
-     9.2.  Informative References
+   4.  ICMP Considerations
+   5.  Implementation Status
+     5.1.  Arista EOS
+     5.2.  The Babel routing protocol
+     5.3.  Linux
+       5.3.1.  Example:
+     5.4.  Mikrotik RouterOS
+       5.4.1.  Example
+     5.5.  Cisco NX-OS
+   6.  Security Considerations
+   7.  IANA Considerations
+   8.  References
+     8.1.  Normative References
+     8.2.  Informative References
    Acknowledgments
    Changes
      Version 00-01
@@ -126,33 +125,29 @@ Table of Contents
    preventing an IPv6 packet from being routed through a next hop with
    an IPv4 address (in which case the next hop's MAC address will be
    obtained using ARP), or, conversely, an IPv4 packet from being routed
-   through a next hop with an IPv6 address.  This document focuses on
-   routing IPv4 packets through an IPv6 next-hop, as this is expected to
-   be the primary use case, the reverse is also possible: an IPv6 packet
-   can be routed through an IPv4 next-hop address, in which case the
-   next hop's MAC address will be obtained using ARP.  In addition,
-   hosts may also be able to take advantage this technique, as they can
-   be viewed as the first routing hop; there are, however, unsolved
-   problems around things like L2 resolution.
+   through a next hop with an IPv6 address.  (In fact, it is even
+   possible to store link-layer addresses directly in the next-hop entry
+   of the routing table, thus avoiding the use of an address resolution
+   protocol altogether, which is commonly done in networks using the OSI
+   protocol suite.)
 
-   In fact, it is even possible to store link-layer addresses directly
-   in the next-hop entry of the routing table, thus avoiding the use of
-   an address resolution protocol altogether, which is commonly done in
-   networks using the OSI protocol suite.
-
-   The case of routing IPv4 packets through an IPv6 next hop is
-   particularly interesting, since it makes it possible to build
-   networks that have no IPv4 addresses except at the edges and still
-   provide IPv4 connectivity to edge hosts.  In addition, since an IPv6
-   next hop can use a link-local address that is autonomously
-   configured, the use of such routes enables a mode of operation where
-   the network core has no statically assigned IP addresses of either
-   family, which significantly reduces the amount of manual
-   configuration required.  (See also [RFC7404] for a discussion of the
-   issues involved with such an approach.)
+   This document focuses on the specific case of routing IPv4 packets
+   through an IPv6 next-hop.  This case is particularly interesting,
+   since it makes it possible to build networks that have no IPv4
+   addresses except at the edges and still provide IPv4 connectivity to
+   edge hosts.  In addition, since an IPv6 next hop can use a link-local
+   address that is autonomously configured, the use of such routes
+   enables a mode of operation where the network core has no statically
+   assigned IP addresses of either family, which significantly reduces
+   the amount of manual configuration required.  (See also [RFC7404] for
+   a discussion of the issues involved with such an approach.)
 
    We call a route towards an IPv4 prefix that uses an IPv6 next hop a
-   "v4-via-v6" route.
+   "v4-via-v6" route.  V4-via-v6 routing is not restricted to routers,
+   and could usefully be applied to hosts, although doing so would
+   require solving the issue of host configuration, for example by
+   extending either DHCPv4 or DHCPv6 to publish an IPv4 default route
+   with an IPv6 next hop.
 
    [RFC8950] discusses advertising of IPv4 NLRI with a next-hop address
    that belongs to the IPv6 protocol, but confines itself to how this is
@@ -185,14 +180,15 @@ Table of Contents
 3.1.  Structure of the routing table
 
    The routing table is a data structure that maps address prefixes to
-   next-hops, pairs of the form (interface, address).  Sometimes this
-   resolution is "recursive" - the next-hop may itself be a prefix that
+   next-hops, pairs of the form (interface, address).  In traditional
+   next-hop routing, the routing table maps IPv4 prefixes to IPv4 next
+   hops, and IPv6 addresses to IPv6 next hops.  With v4-via-v6 routing,
+   the routing table is extended so that an IPv4 prefix may map to an
+   IPv6 next hop.
+
+   Resolution may be recursive: the next-hop may itself be a prefix that
    requires further resolution to map to the outgoing interface and L2
-   address.  In traditional next-hop routing, the routing table maps
-   IPv4 prefixes to IPv4 next hops, and IPv6 addresses to IPv6 next
-   hops.  With v4-via-v6 routing, the routing table is extended so that
-   a prefix (IPv4 or IPv6) may map to either an IPv4 or an IPv6 next
-   hop.
+   address.  V4-via-v6 routing does not prevent recursive resolution.
 
 3.2.  Operation of the forwarding plane
 
@@ -221,32 +217,21 @@ Table of Contents
    used by an implementation supporting v4-via-v6 routing.
 
    However, in order to use the additional flexibility provided by
-   v4-via-v6 routing, routing protocols will need to be extended with
-   the ability to populate the routing table with v4-via-v6 routes when
-   an IPv4 address is not available or when the available IPv4 addresses
-   are not suitable for use as a next-hop (e.g., not stable enough).
+   v4-via-v6 routing, routing protocols need to be extended with the
+   ability to populate the routing table with v4-via-v6 routes when an
+   IPv4 address is not available or when the available IPv4 addresses
+   are not suitable for use as a next-hop (for example not stable
+   enough).
 
-   Various protocols already support the advertisement of IPv4 routes
-   with an IPv6 next-hop, including Babel [RFC8966] and BGP [RFC8950].
+   Some protocols already support the advertisement of IPv4 routes with
+   an IPv6 next-hop, including Babel [RFC8966] and BGP [RFC8950].  Other
+   protocol advertise both IPv4 and IPv6 prefixes over a single
+   neighbor; these include: * Multi-Topology (MT) Routing in OSPF
+   ([RFC4915]) * Multi-Topology (MT) Routing in IS-IS ([RFC5120]) While
+   both of these employ a common control plane, they use separate data
+   planes, and therefore don't implement v4-via-v6 routing.
 
-   A number of IGPs advertise both IPv4 and IPv6 prefixes over a single
-   neighbor.  These include: * Multi-Topology (MT) Routing in OSPF
-   ([RFC4915]) * Multi-Topology (MT) Routing in IS-IS ([RFC5120])
-
-   Both of these utilize a common control plane but separate data
-   planes.
-
-4.  Operational Considerations
-
-   The routing "logic" is not fundamentally different between IPv4 and
-   IPv6, and the primary thing preventing many implementations from
-   supporting v4-via-v6 operations is the command line / configuration
-   syntax.  This means that the required changes to support v4-via-v6
-   routing in many implementations are relatively small - basically just
-   changing the command line parsing to allow specifying an IPv6 address
-   as a next-hop for an IPv4 route.
-
-5.  ICMP Considerations
+4.  ICMP Considerations
 
    The Internet Control Message Protocol (ICMPv4, or simply ICMP)
    [RFC0792] is a protocol related to IPv4 that is primarily used to
@@ -279,22 +264,22 @@ Table of Contents
    address), or if an IPv4 address has been assigned to the router
    itself (to the "loopback interface"), then that IPv4 address may be
    used as the source of originated ICMPv4 packets.  If no IPv4 address
-   is available, the router should use the experimental mechanism
-   described in Requirement R-22 of Section 4.8 [RFC7600], which
-   consists of using the dummy address 192.0.0.8 as the source address
-   of originated ICMPv4 packets.  Note however that using the same
-   address on multiple routers may hamper debugging and fault isolation,
-   e.g., when using the "traceroute" utility.  Note that this mirrors
-   the behavior in Section 3 of [RFC9229].
+   is available, the router should use the mechanism described in
+   Requirement R-22 of Section 4.8 [RFC7600], which consists of using
+   the dummy address 192.0.0.8 as the source address of originated
+   ICMPv4 packets.  Note however that using the same address on multiple
+   routers may hamper debugging and fault isolation, e.g., when using
+   the "traceroute" utility.  This mirrors the behavior in Section 3 of
+   [RFC9229].
 
-   In addition, [I-D.draft-ietf-intarea-extended-icmp-nodeid] provides a
-   possible solution to this issue, by allowing the ICMP packet to carry
-   a "host identifier" that can be used to identify the router that
-   originated the ICMP by providing a unique IP address and/or a textual
-   name for the node, in the case where each node may not have a unique
-   IP address.
+   [I-D.draft-ietf-intarea-extended-icmp-nodeid] provides a possible
+   solution to this issue, by allowing the ICMP packet to carry a "host
+   identifier" that can be used to identify the router that originated
+   the ICMP by providing a unique IP address and/or a textual name for
+   the node, in the case where each node may not have a unique IP
+   address.
 
-6.  Implementation Status
+5.  Implementation Status
 
    ( This section to be removed before publication. )
 
@@ -306,12 +291,12 @@ Table of Contents
    complete list, nor endorsement, etc.  If you know of an
    implementation which is not listed, please let the authors know.
 
-6.1.  Arista EOS
+5.1.  Arista EOS
 
    Arista has supported static IPv4 routes with IPv6 nexthops since EOS-
    4.30.1.
 
-6.2.  The Babel routing protocol
+5.2.  The Babel routing protocol
 
    As noted above, this document is heavily based on RFC9229 (nee draft-
    ietf-babel-v4viav6), and this functionality is supported by babeld.
@@ -359,12 +344,12 @@ Table of Contents
 
    -- Juliusz
 
-6.3.  Linux
+5.3.  Linux
 
    Linux has supported v4-via-v6 routes since kernel version 5.2,
    released on 2019-07-07.
 
-6.3.1.  Example:
+5.3.1.  Example:
 
    rincewind ~ #
    ip -4 r a 192.0.2.23/32 via inet6 2001:db8::2342
@@ -372,7 +357,7 @@ Table of Contents
    rincewind ~ # ip r s 192.0.2.23/32
    192.0.2.23 via inet6 2001:db8::2342 dev wlp36s0.25
 
-6.4.  Mikrotik RouterOS
+5.4.  Mikrotik RouterOS
 
    Mikrotik RouterOS has supported v4-via-v6 routes since (at least)
    version 7.11beta2
@@ -382,7 +367,7 @@ Table of Contents
    functionality has existed for a while.  I'll try to find out when it
    was added.}
 
-6.4.1.  Example
+5.4.1.  Example
 
   [wkumari@Dulles-CCR] /ip/route> print
   Flags: D - DYNAMIC; I - INACTIVE, A - ACTIVE; c - CONNECT, s - STATIC,
@@ -391,12 +376,12 @@ Table of Contents
   #      DST-ADDRESS       GATEWAY                             DISTANCE
   0  As  192.0.2.0/24      fe80::201:5cff:feb2:1646%1_Comcast         1
 
-6.5.  Cisco NX-OS
+5.5.  Cisco NX-OS
 
    Cisco NX-OS has supported v4-via-v6 routes "for more than 8 years" --
    Krishnaswamy Ananthamurthy
 
-7.  Security Considerations
+6.  Security Considerations
 
    The techniques described in this document make routing more flexible
    by allowing IPv4 routes to propagate across a section of a network
@@ -415,13 +400,13 @@ Table of Contents
    the undesirable traffic in the forwarding plane by implementing
    suitable packet filtering rules.
 
-8.  IANA Considerations
+7.  IANA Considerations
 
    This document has no IANA actions.
 
-9.  References
+8.  References
 
-9.1.  Normative References
+8.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -437,7 +422,7 @@ Table of Contents
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
 
-9.2.  Informative References
+8.2.  Informative References
 
    [I-D.draft-ietf-intarea-extended-icmp-nodeid]
               Fenner, B. and R. Thomas, "Adding Extensions to ICMP
@@ -507,15 +492,13 @@ Table of Contents
 
 Acknowledgments
 
-   We would like to thank Joe Abley, Krishnaswamy Ananthamurthy, Bill
+   We are grateful to nnJoe Abley, Krishnaswamy Ananthamurthy, Bill
    Fenner, Tobias Fiebig, John Gilmore, Bob Hinden, David Lamparter,
    Gyan Mishra, tom petch, Herbie Robinson, Behcet Sarikaya, David
    Schinazi, Ole Troan, and Éric Vyncke, for their helpful comments and
-   suggestions on this document.
-
-   The authors would like to thank the members of the Babel community
-   for the insightful discussions that led to the creation of this
-   document.
+   suggestions on this document.  We are also indebted to the members of
+   the Babel community for the discussions that led to the creation of
+   this document.
 
 Changes
 
@@ -535,6 +518,8 @@ Version 00-01
       prefix.  (Krishnaswamy Ananthamurthy)
 
    *  Hosts are routers too!  (David Lamparter)
+
+   *  Removed the claim that it's mainly a UI issue.
 
 Authors' Addresses
 
