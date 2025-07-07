@@ -103,32 +103,27 @@ the same address family: there is nothing preventing an IPv6 packet from
 being routed through a next hop with an IPv4 address (in which case the
 next hop's MAC address will be obtained using ARP), or, conversely, an
 IPv4 packet from being routed through a next hop with an IPv6 address.
-This document focuses on routing IPv4 packets through an IPv6 next-hop, as this
-is expected to be the primary use case, the reverse is also possible: an IPv6
-packet can be routed through an IPv4 next-hop address, in which case the next
-hop's MAC address will be obtained using ARP. In addition, hosts may also be
-able to take advantage this technique, as they can be viewed as the first
-routing hop; there are, however, unsolved problems around things like L2
-resolution.
-
-In fact, it is even possible to store link-layer addresses directly in
+(In fact, it is even possible to store link-layer addresses directly in
 the next-hop entry of the routing table, thus avoiding the use of an
 address resolution protocol altogether, which is commonly done in networks
-using the OSI protocol suite.
+using the OSI protocol suite.)
 
-The case of routing IPv4 packets through an IPv6 next hop is
-particularly interesting, since it makes it possible to build
-networks that have no IPv4 addresses except at the edges and still
-provide IPv4 connectivity to edge hosts. In addition, since an IPv6
-next hop can use a link-local address that is autonomously
-configured, the use of such routes enables a mode of operation where
-the network core has no statically assigned IP addresses of either
-family, which significantly reduces the amount of manual
-configuration required.  (See also [RFC7404] for a discussion of the
-issues involved with such an approach.)
+This document focuses on the specific case of routing IPv4 packets through
+an IPv6 next-hop.  This case is particularly interesting, since it makes
+it possible to build networks that have no IPv4 addresses except at the
+edges and still provide IPv4 connectivity to edge hosts. In addition,
+since an IPv6 next hop can use a link-local address that is autonomously
+configured, the use of such routes enables a mode of operation where the
+network core has no statically assigned IP addresses of either family,
+which significantly reduces the amount of manual configuration required.
+(See also [RFC7404] for a discussion of the issues involved with such an
+approach.)
 
-We call a route towards an IPv4 prefix that uses an IPv6 next hop a
-"v4-via-v6" route.
+We call a route towards an IPv4 prefix that uses an IPv6 next hop
+a "v4-via-v6" route.  V4-via-v6 routing is not restricted to routers, and
+could usefully be applied to hosts, although doing so would require
+solving the issue of host configuration, for example by extending either
+DHCPv4 or DHCPv6 to publish an IPv4 default route with an IPv6 next hop.
 
 {{RFC8950}} discusses advertising of IPv4 NLRI with a next-hop address that
 belongs to the IPv6 protocol, but confines itself to how this is carried and
@@ -157,14 +152,15 @@ data structure, the routing table.
 
 ## Structure of the routing table
 
-The routing table is a data structure that maps address prefixes to next-hops,
-pairs of the form (interface, address). Sometimes this resolution is
-"recursive" - the next-hop may itself be a prefix that requires further
-resolution to map to the outgoing interface and L2 address. In traditional
-next-hop routing, the routing table maps IPv4 prefixes to IPv4 next hops, and
-IPv6 addresses to IPv6 next hops.  With v4-via-v6 routing, the routing table is
-extended so that a prefix (IPv4 or IPv6) may map to either an IPv4 or an IPv6
-next hop.
+The routing table is a data structure that maps address prefixes to
+next-hops, pairs of the form (interface, address).  In traditional
+next-hop routing, the routing table maps IPv4 prefixes to IPv4 next hops,
+and IPv6 addresses to IPv6 next hops.  With v4-via-v6 routing, the routing
+table is extended so that an IPv4 prefix  may map to an IPv6 next hop.
+
+Resolution may be recursive: the next-hop may itself be a prefix that
+requires further resolution to map to the outgoing interface and L2
+address.  V4-via-v6 routing does not prevent recursive resolution.
 
 ## Operation of the forwarding plane
 
@@ -193,29 +189,19 @@ next-hop routing table, which can be used by an implementation supporting
 v4-via-v6 routing.
 
 However, in order to use the additional flexibility provided by v4-via-v6
-routing, routing protocols will need to be extended with the ability to
+routing, routing protocols need to be extended with the ability to
 populate the routing table with v4-via-v6 routes when an IPv4 address is
 not available or when the available IPv4 addresses are not suitable for
-use as a next-hop (e.g., not stable enough).
+use as a next-hop (for example not stable enough).
 
-Various protocols already support the advertisement of IPv4 routes with an IPv6
-next-hop, including Babel {{RFC8966}} and BGP {{RFC8950}}.
-
-A number of IGPs advertise both IPv4 and IPv6 prefixes over a single neighbor.
-These include:
+Some protocols already support the advertisement of IPv4 routes with an
+IPv6 next-hop, including Babel {{RFC8966}} and BGP {{RFC8950}}.  Other
+protocol advertise both IPv4 and IPv6 prefixes over a single neighbor;
+these include:
   * Multi-Topology (MT) Routing in OSPF ({{RFC4915}})
-  * Multi-Topology (MT) Routing in IS-IS ({{RFC5120}})
-
-Both of these utilize a common control plane but separate data planes.
-
-# Operational Considerations
-
-The routing "logic" is not fundamentally different between IPv4 and IPv6, and
-the primary thing preventing many implementations from supporting v4-via-v6
-operations is the command line / configuration syntax. This means that the
-required changes to support v4-via-v6 routing in many implementations are
-relatively small - basically just changing the command line parsing to allow
-specifying an IPv6 address as a next-hop for an IPv4 route.
+  * Multi-Topology (MT) Routing in IS-IS ({{RFC5120}}) While both of these
+employ a common control plane, they use separate data planes, and
+therefore don't implement v4-via-v6 routing.
 
 # ICMP Considerations
 
@@ -245,23 +231,23 @@ IPv4 address, a router implementing this extension MUST be able to
 originate ICMPv4 packets even when the outgoing interface has not
 been assigned an IPv4 address.
 
-In such a situation, if the router has an interface that has been assigned a
-publicly routable IPv4 address (other than the loopback address), or if an IPv4
-address has been assigned to the router itself (to the "loopback interface"),
-then that IPv4 address may be used as the source of originated ICMPv4 packets.
-If no IPv4 address is available, the router should use the experimental
-mechanism described in Requirement R-22 of Section 4.8 [RFC7600], which
-consists of using the dummy address 192.0.0.8 as the source address of
-originated ICMPv4 packets. Note however that using the same address on multiple
-routers may hamper debugging and fault isolation, e.g., when using the
-"traceroute" utility. Note that this mirrors the behavior in Section 3 of
-{{RFC9229}}.
+In such a situation, if the router has an interface that has been assigned
+a publicly routable IPv4 address (other than the loopback address), or if
+an IPv4 address has been assigned to the router itself (to the "loopback
+interface"), then that IPv4 address may be used as the source of
+originated ICMPv4 packets.  If no IPv4 address is available, the router
+should use the mechanism described in Requirement R-22 of Section 4.8
+[RFC7600], which consists of using the dummy address 192.0.0.8 as the
+source address of originated ICMPv4 packets.  Note however that using the
+same address on multiple routers may hamper debugging and fault isolation,
+e.g., when using the "traceroute" utility.  This mirrors the
+behavior in Section 3 of {{RFC9229}}.
 
-In addition, {{I-D.draft-ietf-intarea-extended-icmp-nodeid}} provides a
-possible solution to this issue, by allowing the ICMP packet to carry a "host
-identifier" that can be used to identify the router that originated the ICMP by
-providing a unique IP address and/or a textual name for the node, in the case
-where each node may not have a unique IP address.
+{{I-D.draft-ietf-intarea-extended-icmp-nodeid}} provides a possible
+solution to this issue, by allowing the ICMP packet to carry a "host
+identifier" that can be used to identify the router that originated the
+ICMP by providing a unique IP address and/or a textual name for the node,
+in the case where each node may not have a unique IP address.
 
 
 # Implementation Status
@@ -394,13 +380,12 @@ This document has no IANA actions.
 # Acknowledgments
 {:numbered="false"}
 
-We would like to thank Joe Abley, Krishnaswamy Ananthamurthy, Bill Fenner,
+We are grateful to nnJoe Abley, Krishnaswamy Ananthamurthy, Bill Fenner,
 Tobias Fiebig, John Gilmore, Bob Hinden, David Lamparter, Gyan Mishra, tom
-petch, Herbie Robinson, Behcet Sarikaya, David Schinazi, Ole Troan, and Éric
-Vyncke, for their helpful comments and suggestions on this document.
-
-The authors would like to thank the members of the Babel community for the
-insightful discussions that led to the creation of this document.
+petch, Herbie Robinson, Behcet Sarikaya, David Schinazi, Ole Troan, and
+Éric Vyncke, for their helpful comments and suggestions on this document.
+We are also indebted to the members of the Babel community for the
+discussions that led to the creation of this document.
 
 # Changes
 {:numbered="false"}
@@ -418,3 +403,4 @@ changes.
 * Mention recursive next hops, and that the next hop may be a prefix.
   (Krishnaswamy Ananthamurthy)
 * Hosts are routers too! (David Lamparter)
+* Removed the claim that it's mainly a UI issue.
