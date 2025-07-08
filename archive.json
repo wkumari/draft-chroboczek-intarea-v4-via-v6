@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-07-06T00:39:03.155157+00:00",
+  "timestamp": "2025-07-08T00:35:08.352778+00:00",
   "repo": "wkumari/draft-chroboczek-intarea-v4-via-v6",
   "labels": [
     {
@@ -63,7 +63,7 @@
       "labels": [],
       "body": "I addressed comments from IETF122 IntArea meeting -- see: https://mailarchive.ietf.org/arch/msg/int-area/OV3ZNT4aOBt6oDjLtBYo5TMrdYw/ for summary.",
       "createdAt": "2025-06-23T23:10:26Z",
-      "updatedAt": "2025-06-25T16:19:30Z",
+      "updatedAt": "2025-07-07T17:35:22Z",
       "baseRepository": "wkumari/draft-chroboczek-intarea-v4-via-v6",
       "baseRefName": "main",
       "baseRefOid": "291e189e1dc0f4e38994abaa3b7c45c950acfb1d",
@@ -104,6 +104,27 @@
           "body": "I *think* that it is 7/7, but hopefully we can get it in before that...\n",
           "createdAt": "2025-06-25T16:19:30Z",
           "updatedAt": "2025-06-25T16:19:30Z"
+        },
+        {
+          "author": "jech",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Ok, I've done some wordsmithing and restructuring.  Mostly editorial.\r\n\r\nThe one place where I've changed the meaning is that I removed your claim that it's mostly a UI change.  I don't entirely agree, so rather than having an extended discussion on the subject, I suggest we simply drop the claim.",
+          "createdAt": "2025-07-07T16:50:25Z",
+          "updatedAt": "2025-07-07T16:50:25Z"
+        },
+        {
+          "author": "wkumari",
+          "authorAssociation": "OWNER",
+          "body": "Okey dokey, should I post a new version to Datatracker?\r\nW\r\n\r\n\r\nOn Mon, Jul 07, 2025 at 12:50 PM, Juliusz Chroboczek <\r\n***@***.***> wrote:\r\n\r\n> *jech* left a comment (wkumari/draft-chroboczek-intarea-v4-via-v6#1)\r\n> <https://github.com/wkumari/draft-chroboczek-intarea-v4-via-v6/pull/1#issuecomment-3045910588>\r\n>\r\n> Ok, I've done some wordsmithing and restructuring. Mostly editorial.\r\n>\r\n> The one place where I've changed the meaning is that I removed your claim\r\n> that it's mostly a UI change. I don't entirely agree, so rather than having\r\n> an extended discussion on the subject, I suggest we simply drop the claim.\r\n>\r\n> \u2014\r\n> Reply to this email directly, view it on GitHub\r\n> <https://github.com/wkumari/draft-chroboczek-intarea-v4-via-v6/pull/1#issuecomment-3045910588>,\r\n> or unsubscribe\r\n> <https://github.com/notifications/unsubscribe-auth/ABDG3XELMM2ICXP2KX3S3AD3HKQONAVCNFSM6AAAAAB76VH3N2VHI2DSMVQWIX3LMV43OSLTON2WKQ3PNVWWK3TUHMZTANBVHEYTANJYHA>\r\n> .\r\n> You are receiving this because you modified the open/close state.Message\r\n> ID: ***@***.***\r\n> com>\r\n>\r\n",
+          "createdAt": "2025-07-07T16:56:58Z",
+          "updatedAt": "2025-07-07T16:56:58Z"
+        },
+        {
+          "author": "jech",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> Okey dokey, should I post a new version to Datatracker? \n\nPlease do.\n",
+          "createdAt": "2025-07-07T17:35:22Z",
+          "updatedAt": "2025-07-07T17:35:22Z"
         }
       ],
       "reviews": []
