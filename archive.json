@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-07-17T00:36:51.587928+00:00",
+  "timestamp": "2025-07-20T00:40:53.594293+00:00",
   "repo": "wkumari/draft-chroboczek-intarea-v4-via-v6",
   "labels": [
     {
@@ -49,7 +49,24 @@
       "color": "ffffff"
     }
   ],
-  "issues": [],
+  "issues": [
+    {
+      "number": 2,
+      "id": "I_kwDOLHMNHM7BdTbO",
+      "title": "Some Notes about the usage ov v4 via v6",
+      "url": "https://github.com/wkumari/draft-chroboczek-intarea-v4-via-v6/issues/2",
+      "state": "OPEN",
+      "author": "ruben-herold",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "I found your work in the repository while digging around in Microsoft Windows for IPv4 with IPv6 next hop support and want to share some information with you:\n\n1.  Windows has no support for this, neither static configured nor via windows BGP (I opened tickets and waiting for feedback)\n2. There is a EURO-IX working group working to implement it in IX peering LANs: https://github.com/euro-ix/rfc8950-ixp\n3.  Also, there is a Test AS to test your systems at major IX's: https://measurement.network/services/v4less-as/\n5. frrouting has support for it via bgp, support for adding static routes was merged some days before: https://github.com/FRRouting/frr/pull/18654\n6. bird seems to run fine since bird2\n7. Mac OSX seems also not to have support for IPv4 with IPv6 next hop.\n8. VPP works also since a long time\n\n\nAlso, https://blog.bott.im/bgp-unnumbered-in-2025-same-idea-different-implementations/  could be interested especially https://datatracker.ietf.org/doc/html/draft-white-linklocal-capability-06\n\n\n ",
+      "createdAt": "2025-07-19T21:32:19Z",
+      "updatedAt": "2025-07-19T21:32:19Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
   "pulls": [
     {
       "number": 1,
