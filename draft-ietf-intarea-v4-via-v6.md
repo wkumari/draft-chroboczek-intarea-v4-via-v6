@@ -116,8 +116,7 @@ since an IPv6 next hop can use a link-local address that is autonomously
 configured, the use of such routes enables a mode of operation where the
 network core has no statically assigned IP addresses of either family,
 which significantly reduces the amount of manual configuration required.
-(See also [RFC7404] for a discussion of the issues involved with such an
-approach.)
+([RFC7404] discusses pros and cons of such an approach.)
 
 We call a route towards an IPv4 prefix that uses an IPv6 next hop
 a "v4-via-v6" route.  V4-via-v6 routing is not restricted to routers, and
