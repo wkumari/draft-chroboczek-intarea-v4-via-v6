@@ -237,7 +237,7 @@ However sending ICMPv4 error messages from 192.0.0.8 has the following drawbacks
 * Using the same address on multiple routers may hamper debugging and fault isolation, e.g., when using the "traceroute" utility.
 {{I-D.draft-ietf-intarea-extended-icmp-nodeid}} provides a possible solution to this issue, by allowing the ICMP packet to carry a "host
 identifier" that can be used to identify the router that originated the ICMP by providing a unique IP address and/or a textual name for the node,
-in the case where each node may not have a unique IP address. It should be noted that including the node identifier extension is disabled by default, and even if included, might not be recognized by receiver0.
+in the case where each node may not have a unique IP address. It should be noted that including the node identifier extension is disabled by default, and even if the extension is included, it might not be recognized by receiver.
 * Packets originating from 192.0.0.8 could be treated as bogon traffic and dropped, especially when traversing network boundaries.
 
 Therefore even if the router performs "v4-via-v6" routing on all interfaces, it SHOULD have at least one IPv4 address configurable, unless it is guaranteed that the router is never required to send an ICMPv4 Destination Unrechable (e.g. it is explictly prohibited by a policy, and MTU on all interfaces of that router is suffiently high to avoid fragmentation of any data packet which can reach the router).
