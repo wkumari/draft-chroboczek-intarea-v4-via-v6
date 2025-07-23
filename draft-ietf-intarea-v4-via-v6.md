@@ -41,6 +41,7 @@ author:
 
 normative:
   RFC7600:
+  RFC1812:
 
 informative:
   RFC0792:
@@ -215,38 +216,34 @@ unreachable" packets).
 Some protocols deployed in the Internet rely on ICMPv4 packets sent
 by intermediate routers.  Most notably, path MTU Discovery (PMTUd)
 [RFC1191] is an algorithm executed by end hosts to discover the
-maximum packet size that a route is able to carry.  While there exist
+maximum packet size that a route is able to carry. While there exist
 variants of PMTUd that are purely end-to-end [RFC4821], the variant
 most commonly deployed in the Internet has a hard dependency on
 ICMPv4 packets originated by intermediate routers: if intermediate
 routers are unable to send ICMPv4 packets, PMTUd may lead to
 persistent black-holing of IPv4 traffic.
 
-Due to this kind of dependency, every router that is able to
-forward IPv4 traffic SHOULD be able originate ICMPv4 traffic.  Since
-the extension described in this document enables routers to forward
-IPv4 traffic received over an interface that has not been assigned an
-IPv4 address, a router implementing this extension MUST be able to
-originate ICMPv4 packets even when the outgoing interface has not
-been assigned an IPv4 address.
+As per Section 5.2.7.1 of [RFC1812], a router "MUST be able to generate ICMP Destination Unreachable messages".
+Additionally, as per section 4.3.2.4 of [RFC1812], source address in an ICMP message originated by the router MUST be one of the IP addresses associated with the physical interface over which the ICMP message is transmitted.
+If the interface has no IP addresses associated with it, the router's router-id is used instead (the router-id is defined as one of the router's IP addresses).
 
-In such a situation, if the router has an interface that has been assigned
-a publicly routable IPv4 address (other than the loopback address), or if
-an IPv4 address has been assigned to the router itself (to the "loopback
-interface"), then that IPv4 address may be used as the source of
-originated ICMPv4 packets.  If no IPv4 address is available, the router
-should use the mechanism described in Requirement R-22 of Section 4.8
-[RFC7600], which consists of using the dummy address 192.0.0.8 as the
-source address of originated ICMPv4 packets.  Note however that using the
-same address on multiple routers may hamper debugging and fault isolation,
-e.g., when using the "traceroute" utility.  This mirrors the
-behavior in Section 3 of {{RFC9229}}.
+In networks implemented the proposed mechanism, it is possible for an ICMPv4 message originated by the router to be transmitted via the router's interface which doesn't have an IPv4 address assigned.
+In theory, any [RFC1812]-compliant router is required to have at least one IPv4 address (see Section 2.2.7 of [RFC1812]), and that address can be used as a source address for ICMPv4 error messages.
+While routers implementing the mechanism described in this document do not need to have IPv4 addresses assigned to any interfaces, it is RECOMMENDED that to configure such a router with at least one IPv4 address, for the purpose of sending ICMPv4 error messages.
+If a router does not have any router-id (an IPv4 address) assigned, the router MUST use the mechanism described in Requirement R-22 of Section 4.8
+[RFC7600],  using the dummy address 192.0.0.8 as the source address of originated ICMPv4 packets. 
+However sending ICMPv4 error messages from 192.0.0.8 has the following drawbacks:
 
-{{I-D.draft-ietf-intarea-extended-icmp-nodeid}} provides a possible
-solution to this issue, by allowing the ICMP packet to carry a "host
-identifier" that can be used to identify the router that originated the
-ICMP by providing a unique IP address and/or a textual name for the node,
-in the case where each node may not have a unique IP address.
+* Using the same address on multiple routers may hamper debugging and fault isolation, e.g., when using the "traceroute" utility.
+{{I-D.draft-ietf-intarea-extended-icmp-nodeid}} provides a possible solution to this issue, by allowing the ICMP packet to carry a "host
+identifier" that can be used to identify the router that originated the ICMP by providing a unique IP address and/or a textual name for the node,
+in the case where each node may not have a unique IP address. It should be noted that including the node identifier extension is disabled by default, and even if included, might not be recognized by receiver0.
+* Packets originating from 192.0.0.8 could be treated as bogon traffic and therefore dropped, especially when traversing network boundaries.
+
+Therefore even if the router performs "v4-via-v6" routing on all interfaces, it SHOULD have at least one IPv4 address configurable, unless it is guaranteed that the router is never required to send an ICMPv4 Destination Unrechable (e.g. it is explictly prohibited by a policy, and MTU on all interfaces of that router is suffiently high to avoid fragmentation of any data packet which can reach the router).
+
+Discussion: while Section 2.2.7 of [RFC1812] says that "a router is required to have at least one IP address", that text is not using the normative language defined in Section 1.1.2 of [RFC1812].
+Therefore this document does not contradict [RFC1812] and no updated for [RFC1812] is needed.
 
 
 # Implementation Status
