@@ -245,7 +245,7 @@ in the case where each node may not have a unique IP address. It should be noted
 Therefore even if the router performs "v4-via-v6" routing on all interfaces, it SHOULD have at least one IPv4 address configurable, unless it is guaranteed that the router is never required to send an ICMPv4 Destination Unrechable (e.g. it is explictly prohibited by a policy, and MTU on all interfaces of that router is suffiently high to avoid fragmentation of any data packet which can reach the router).
 
 Discussion: while Section 2.2.7 of [RFC1812] says that "a router is required to have at least one IP address", that text is not using the normative language defined in Section 1.1.2 of [RFC1812].
-Therefore this document does not contradict [RFC1812] and no updated for [RFC1812] is needed.
+Therefore this document does not contradict [RFC1812] and no updates for [RFC1812] are needed.
 
 
 # Implementation Status
