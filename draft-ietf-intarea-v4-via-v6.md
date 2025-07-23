@@ -232,6 +232,7 @@ In theory, any [RFC1812]-compliant router is required to have at least one IPv4 
 While routers implementing the mechanism described in this document do not need to have IPv4 addresses assigned to any interfaces, it is RECOMMENDED to configure such a router with at least one IPv4 address, for the purpose of sending ICMPv4 error messages.
 If a router does not have any router-id (an IPv4 address) assigned, the router MUST use the mechanism described in Requirement R-22 of Section 4.8
 [RFC7600], using the dummy address 192.0.0.8 as the source address of originated ICMPv4 packets.
+Which that behaviour is already required for Babel routers (see Section 3 of {{RFC9229}}), this document extends the requirement to all routers implementing "v4-via-v6" routing.
 
 However sending ICMPv4 error messages from 192.0.0.8 has the following drawbacks:
 
