@@ -231,7 +231,8 @@ In networks implemented the proposed mechanism, it is possible for an ICMPv4 mes
 In theory, any [RFC1812]-compliant router is required to have at least one IPv4 address (see Section 2.2.7 of [RFC1812]), and that address (router-id) can be used as a source address for ICMPv4 error messages.
 While routers implementing the mechanism described in this document do not need to have IPv4 addresses assigned to any interfaces, it is RECOMMENDED to configure such a router with at least one IPv4 address, for the purpose of sending ICMPv4 error messages.
 If a router does not have any router-id (an IPv4 address) assigned, the router MUST use the mechanism described in Requirement R-22 of Section 4.8
-[RFC7600],  using the dummy address 192.0.0.8 as the source address of originated ICMPv4 packets.
+[RFC7600], using the dummy address 192.0.0.8 as the source address of originated ICMPv4 packets.
+
 However sending ICMPv4 error messages from 192.0.0.8 has the following drawbacks:
 
 * Using the same address on multiple routers may hamper debugging and fault isolation, e.g., when using the "traceroute" utility.
