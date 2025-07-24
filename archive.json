@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-07-20T00:40:53.594293+00:00",
+  "timestamp": "2025-07-24T00:36:54.729736+00:00",
   "repo": "wkumari/draft-chroboczek-intarea-v4-via-v6",
   "labels": [
     {
@@ -142,6 +142,61 @@
           "body": "> Okey dokey, should I post a new version to Datatracker? \n\nPlease do.\n",
           "createdAt": "2025-07-07T17:35:22Z",
           "updatedAt": "2025-07-07T17:35:22Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 3,
+      "id": "PR_kwDOLHMNHM6gOLgY",
+      "title": "ICMP, 192.0.0.8 and RFC1812",
+      "url": "https://github.com/wkumari/draft-chroboczek-intarea-v4-via-v6/pull/3",
+      "state": "OPEN",
+      "author": "furry13",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "I found this text a bit confusing:\r\n\r\n\" every router that is able to forward IPv4 traffic SHOULD be able originate ICMPv4 traffic.  .....a router implementing this extension MUST be able to originate ICMPv4 packets even when the outgoing interface has not been assigned an IPv4 address.\"\r\n\r\nAt the very least it seems to contradict RFC1812. \r\nI'm rewritten that section (which looks like copy-n-paste from RFC9229, citing RFC1812.\r\n\r\nAlso adding some text why using 192.0.0.8 is not always a great idea.\r\n\r\nLast but not least - rephrasing a reference to RFC7404",
+      "createdAt": "2025-07-23T08:46:57Z",
+      "updatedAt": "2025-07-23T15:53:23Z",
+      "baseRepository": "wkumari/draft-chroboczek-intarea-v4-via-v6",
+      "baseRefName": "main",
+      "baseRefOid": "2bfdc69060004c814147677e3a83194649ae35e6",
+      "headRepository": "furry13/draft-chroboczek-intarea-v4-via-v6",
+      "headRefName": "ietf123",
+      "headRefOid": "a33376e065c32b2d2e99698ddddabc6bb4fac451",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "jech",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Thanks, Jen.  I'm especially grateful for the bit about the drawbacks of using the dummy address.\r\n\r\nIf @wkumari and @tokojo agree, I'm going to apply your changes (after squashing them), then do some word-smithing to make your text more stylistically consistent with the rest of the document as hopefully make it more concise.  Please let me know if you disagree with the following changes:\r\n\r\n  * rephrase \"this document does not contradict RFC 1812\" as \"RFC 1812 does not specify what happens when there is no router-id assigned\";\r\n  * remove the bit about the behaviour being mandated for Babel routers, since RFC 9229 is not normative.",
+          "createdAt": "2025-07-23T13:45:04Z",
+          "updatedAt": "2025-07-23T13:45:04Z"
+        },
+        {
+          "author": "furry13",
+          "authorAssociation": "NONE",
+          "body": ">rephrase \"this document does not contradict RFC 1812\" as \"RFC 1812 does not specify what happens when there is no router-id assigned\";\r\n\r\nLGTM\r\n \r\n>remove the bit about the behaviour being mandated for Babel routers, since RFC 9229 is not normative.\r\n\r\nActually I removed RFC9229 reference initially, then felt bad about it and put it back, so no objections ;))",
+          "createdAt": "2025-07-23T14:14:26Z",
+          "updatedAt": "2025-07-23T14:14:26Z"
+        },
+        {
+          "author": "furry13",
+          "authorAssociation": "NONE",
+          "body": "BTW - and I will send it to the list after my changes are submitted - the ICMP section is the reason why this document MUST be in STD track, and not infrormational (as Eric suggested during the session).\r\n\r\nThat section defines (and prescribes) the router behaviour, which would be weird for the informational doc.",
+          "createdAt": "2025-07-23T14:20:31Z",
+          "updatedAt": "2025-07-23T14:20:31Z"
+        },
+        {
+          "author": "wkumari",
+          "authorAssociation": "OWNER",
+          "body": "Unsurprisingly, I agree / LGTM / etc... \r\n\r\nMuch thanks to Jen and Juliusz for all this.",
+          "createdAt": "2025-07-23T15:53:23Z",
+          "updatedAt": "2025-07-23T15:53:23Z"
         }
       ],
       "reviews": []
