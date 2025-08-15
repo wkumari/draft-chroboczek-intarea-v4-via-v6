@@ -156,7 +156,8 @@ The routing table is a data structure that maps address prefixes to
 next-hops, pairs of the form (interface, address).  In traditional
 next-hop routing, the routing table maps IPv4 prefixes to IPv4 next hops,
 and IPv6 addresses to IPv6 next hops.  With v4-via-v6 routing, the routing
-table is extended so that an IPv4 prefix  may map to an IPv6 next hop.
+table is extended so that an IPv4 prefix may map to an IPv6 next hop, or an
+IPv6 prefix to an IPv4 next hop.
 
 Resolution may be recursive: the next-hop may itself be a prefix that
 requires further resolution to map to the outgoing interface and L2
@@ -167,16 +168,14 @@ address.  V4-via-v6 routing does not prevent recursive resolution.
 The forwarding plane is the part of the routing implementation that is
 executed for every forwarded packet.  As a packet arrives, the forwarding
 plane consults the routing table, selects a single route matching the
-packet, determines the next-hop address, and forwards the packet to the
+packet, and forwards the packet out the outgoing interface to the associated
 next-hop address.
 
 With v4-via-v6 routing, the address family of the next-hop address is no
 longer determined by the address family of the prefix: since the routing
 table may map an IPv4 prefix to either an IPv4 or an IPv6 next-hop, the
-forwarding plane must be able to determine, on a per-packet basis, whether
-the next-hop address is an IPv4 or an IPv6 address, and to use that
-information in order to choose the right address resolution protocol to
-use (ARP for IP4, ND for IPv6).
+forwarding plane must be able to determine, on a per-packet basis, which
+address resolution protocol (ARP for IPv4, ND for IPv6) to consult.
 
 ## Operation of routing protocols
 
@@ -192,7 +191,7 @@ However, in order to use the additional flexibility provided by v4-via-v6
 routing, routing protocols need to be extended with the ability to
 populate the routing table with v4-via-v6 routes when an IPv4 address is
 not available or when the available IPv4 addresses are not suitable for
-use as a next-hop (for example not stable enough).
+use as a next-hop.
 
 Some protocols already support the advertisement of IPv4 routes with an
 IPv6 next-hop, including Babel {{RFC8966}} and BGP {{RFC8950}}.  Other
