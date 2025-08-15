@@ -15,11 +15,11 @@ packets across a network where routers have not been assigned IPv4 addresses.
 The document both describes the technique, as well as discussing its
 operational implications. 
     ' name="description">
-<meta content="xml2rfc 3.29.0" name="generator">
+<meta content="xml2rfc 3.30.0" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-ietf-intarea-v4-via-v6-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.29.0
+  xml2rfc 3.30.0
     Python 3.12.11
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
@@ -1050,11 +1050,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">v4-via-v6</td>
-<td class="right">June 2025</td>
+<td class="right">August 2025</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Chroboczek, et al.</td>
-<td class="center">Expires 25 December 2025</td>
+<td class="center">Expires 16 February 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1067,12 +1067,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-intarea-v4-via-v6-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-06-23" class="published">23 June 2025</time>
+<time datetime="2025-08-15" class="published">15 August 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-12-25">25 December 2025</time></dd>
+<dd class="expires"><time datetime="2026-02-16">16 February 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1134,7 +1134,7 @@ operational implications.<a href="#section-abstract-1" class="pilcrow">¶</a></p
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 25 December 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 16 February 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1184,71 +1184,68 @@ operational implications.<a href="#section-abstract-1" class="pilcrow">¶</a></p
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
-            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-operational-considerations" class="internal xref">Operational Considerations</a></p>
+            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-icmp-considerations" class="internal xref">ICMP Considerations</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
-            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-icmp-considerations" class="internal xref">ICMP Considerations</a></p>
+            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-implementation-status" class="internal xref">Implementation Status</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1">
+                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-arista-eos" class="internal xref">Arista EOS</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2">
+                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-the-babel-routing-protocol" class="internal xref">The Babel routing protocol</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.3">
+                <p id="section-toc.1-1.5.2.3.1"><a href="#section-5.3" class="auto internal xref">5.3</a>.  <a href="#name-linux" class="internal xref">Linux</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.3.2.1">
+                    <p id="section-toc.1-1.5.2.3.2.1.1"><a href="#section-5.3.1" class="auto internal xref">5.3.1</a>.  <a href="#name-example" class="internal xref">Example:</a></p>
+</li>
+                </ul>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.4">
+                <p id="section-toc.1-1.5.2.4.1"><a href="#section-5.4" class="auto internal xref">5.4</a>.  <a href="#name-mikrotik-routeros" class="internal xref">Mikrotik RouterOS</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.4.2.1">
+                    <p id="section-toc.1-1.5.2.4.2.1.1"><a href="#section-5.4.1" class="auto internal xref">5.4.1</a>.  <a href="#name-example-2" class="internal xref">Example</a></p>
+</li>
+                </ul>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.5">
+                <p id="section-toc.1-1.5.2.5.1"><a href="#section-5.5" class="auto internal xref">5.5</a>.  <a href="#name-cisco-nx-os" class="internal xref">Cisco NX-OS</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
-            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-implementation-status" class="internal xref">Implementation Status</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1">
-                <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="auto internal xref">6.1</a>.  <a href="#name-arista-eos" class="internal xref">Arista EOS</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.2">
-                <p id="section-toc.1-1.6.2.2.1"><a href="#section-6.2" class="auto internal xref">6.2</a>.  <a href="#name-the-babel-routing-protocol" class="internal xref">The Babel routing protocol</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.3">
-                <p id="section-toc.1-1.6.2.3.1"><a href="#section-6.3" class="auto internal xref">6.3</a>.  <a href="#name-linux" class="internal xref">Linux</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.3.2.1">
-                    <p id="section-toc.1-1.6.2.3.2.1.1"><a href="#section-6.3.1" class="auto internal xref">6.3.1</a>.  <a href="#name-example" class="internal xref">Example:</a></p>
-</li>
-                </ul>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.4">
-                <p id="section-toc.1-1.6.2.4.1"><a href="#section-6.4" class="auto internal xref">6.4</a>.  <a href="#name-mikrotik-routeros" class="internal xref">Mikrotik RouterOS</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.4.2.1">
-                    <p id="section-toc.1-1.6.2.4.2.1.1"><a href="#section-6.4.1" class="auto internal xref">6.4.1</a>.  <a href="#name-example-2" class="internal xref">Example</a></p>
-</li>
-                </ul>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.5">
-                <p id="section-toc.1-1.6.2.5.1"><a href="#section-6.5" class="auto internal xref">6.5</a>.  <a href="#name-cisco-nx-os" class="internal xref">Cisco NX-OS</a></p>
-</li>
-            </ul>
+            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
-            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
+            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
-            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
+            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-references" class="internal xref">References</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.1">
+                <p id="section-toc.1-1.8.2.1.1"><a href="#section-8.1" class="auto internal xref">8.1</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.2">
+                <p id="section-toc.1-1.8.2.2.1"><a href="#section-8.2" class="auto internal xref">8.2</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
-            <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-references" class="internal xref">References</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.1">
-                <p id="section-toc.1-1.9.2.1.1"><a href="#section-9.1" class="auto internal xref">9.1</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2">
-                <p id="section-toc.1-1.9.2.2.1"><a href="#section-9.2" class="auto internal xref">9.2</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
-</li>
-            </ul>
+            <p id="section-toc.1-1.9.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
-            <p id="section-toc.1-1.10.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
-</li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
-            <p id="section-toc.1-1.11.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-changes" class="internal xref">Changes</a></p>
+            <p id="section-toc.1-1.10.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-changes" class="internal xref">Changes</a></p>
 <ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.1">
-                <p id="section-toc.1-1.11.2.1.1"><a href="#appendix-B.1" class="auto internal xref"></a><a href="#name-version-00-01" class="internal xref">Version 00-01</a></p>
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.1">
+                <p id="section-toc.1-1.10.2.1.1"><a href="#appendix-B.1" class="auto internal xref"></a><a href="#name-version-00-01" class="internal xref">Version 00-01</a></p>
 </li>
             </ul>
 </li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
-            <p id="section-toc.1-1.12.1"><a href="#appendix-C" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
+            <p id="section-toc.1-1.11.1"><a href="#appendix-C" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
 </li>
         </ul>
 </nav>
@@ -1285,41 +1282,37 @@ the same address family: there is nothing preventing an IPv6 packet from
 being routed through a next hop with an IPv4 address (in which case the
 next hop's MAC address will be obtained using ARP), or, conversely, an
 IPv4 packet from being routed through a next hop with an IPv6 address.
-This document focuses on routing IPv4 packets through an IPv6 next-hop, as this
-is expected to be the primary use case, the reverse is also possible: an IPv6
-packet can be routed through an IPv4 next-hop address, in which case the next
-hop's MAC address will be obtained using ARP. In addition, hosts may also be
-able to take advantage this technique, as they can be viewed as the first
-routing hop; there are, however, unsolved problems around things like L2
-resolution.<a href="#section-1-4" class="pilcrow">¶</a></p>
-<p id="section-1-5">In fact, it is even possible to store link-layer addresses directly in
+(In fact, it is even possible to store link-layer addresses directly in
 the next-hop entry of the routing table, thus avoiding the use of an
 address resolution protocol altogether, which is commonly done in networks
-using the OSI protocol suite.<a href="#section-1-5" class="pilcrow">¶</a></p>
-<p id="section-1-6">The case of routing IPv4 packets through an IPv6 next hop is
-particularly interesting, since it makes it possible to build
-networks that have no IPv4 addresses except at the edges and still
-provide IPv4 connectivity to edge hosts. In addition, since an IPv6
-next hop can use a link-local address that is autonomously
-configured, the use of such routes enables a mode of operation where
-the network core has no statically assigned IP addresses of either
-family, which significantly reduces the amount of manual
-configuration required.  (See also <span>[<a href="#RFC7404" class="cite xref">RFC7404</a>]</span> for a discussion of the
-issues involved with such an approach.)<a href="#section-1-6" class="pilcrow">¶</a></p>
-<p id="section-1-7">We call a route towards an IPv4 prefix that uses an IPv6 next hop a
-"v4-via-v6" route.<a href="#section-1-7" class="pilcrow">¶</a></p>
-<p id="section-1-8"><span>[<a href="#RFC8950" class="cite xref">RFC8950</a>]</span> discusses advertising of IPv4 NLRI with a next-hop address that
+using the OSI protocol suite.)<a href="#section-1-4" class="pilcrow">¶</a></p>
+<p id="section-1-5">This document focuses on the specific case of routing IPv4 packets through
+an IPv6 next-hop.  This case is particularly interesting, since it makes
+it possible to build networks that have no IPv4 addresses except at the
+edges and still provide IPv4 connectivity to edge hosts. In addition,
+since an IPv6 next hop can use a link-local address that is autonomously
+configured, the use of such routes enables a mode of operation where the
+network core has no statically assigned IP addresses of either family,
+which significantly reduces the amount of manual configuration required.
+(See also <span>[<a href="#RFC7404" class="cite xref">RFC7404</a>]</span> for a discussion of the issues involved with such an
+approach.)<a href="#section-1-5" class="pilcrow">¶</a></p>
+<p id="section-1-6">We call a route towards an IPv4 prefix that uses an IPv6 next hop
+a "v4-via-v6" route.  V4-via-v6 routing is not restricted to routers, and
+could usefully be applied to hosts, although doing so would require
+solving the issue of host configuration, for example by extending either
+DHCPv4 or DHCPv6 to publish an IPv4 default route with an IPv6 next hop.<a href="#section-1-6" class="pilcrow">¶</a></p>
+<p id="section-1-7"><span>[<a href="#RFC8950" class="cite xref">RFC8950</a>]</span> discusses advertising of IPv4 NLRI with a next-hop address that
 belongs to the IPv6 protocol, but confines itself to how this is carried and
 advertised in the BGP protocol. This document, on the other hand, discusses the
 concept of v4-via-v6 routes independently of any specific routing protocol,
 their design and operational considerations, and the implications of using
-them.<a href="#section-1-8" class="pilcrow">¶</a></p>
-<p id="section-1-9">{ Editor note, to be removed before publication. This document is heavily based
+them.<a href="#section-1-7" class="pilcrow">¶</a></p>
+<p id="section-1-8">{ Editor note, to be removed before publication. This document is heavily based
 on draft-ietf-babel-v4viav6. When draft-ietf-babel-v4viav6 was
 going through IESG eval, Warren raised concerns that something this
 fundamental deserved to be documented in a separate, standalone document, so
 that it can be more fully discussed, and, more importantly, referenced
-cleanly in the future.}<a href="#section-1-9" class="pilcrow">¶</a></p>
+cleanly in the future.}<a href="#section-1-8" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="conventions-and-definitions">
@@ -1346,14 +1339,15 @@ data structure, the routing table.<a href="#section-3-1" class="pilcrow">¶</a><
         <h3 id="name-structure-of-the-routing-ta">
 <a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-structure-of-the-routing-ta" class="section-name selfRef">Structure of the routing table</a>
         </h3>
-<p id="section-3.1-1">The routing table is a data structure that maps address prefixes to next-hops,
-pairs of the form (interface, address). Sometimes this resolution is
-"recursive" - the next-hop may itself be a prefix that requires further
-resolution to map to the outgoing interface and L2 address. In traditional
-next-hop routing, the routing table maps IPv4 prefixes to IPv4 next hops, and
-IPv6 addresses to IPv6 next hops.  With v4-via-v6 routing, the routing table is
-extended so that a prefix (IPv4 or IPv6) may map to either an IPv4 or an IPv6
-next hop.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.1-1">The routing table is a data structure that maps address prefixes to
+next-hops, pairs of the form (interface, address).  In traditional
+next-hop routing, the routing table maps IPv4 prefixes to IPv4 next hops,
+and IPv6 addresses to IPv6 next hops.  With v4-via-v6 routing, the routing
+table is extended so that an IPv4 prefix may map to an IPv6 next hop, or an
+IPv6 prefix to an IPv4 next hop.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.1-2">Resolution may be recursive: the next-hop may itself be a prefix that
+requires further resolution to map to the outgoing interface and L2
+address.  V4-via-v6 routing does not prevent recursive resolution.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="operation-of-the-forwarding-plane">
@@ -1364,15 +1358,13 @@ next hop.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
 <p id="section-3.2-1">The forwarding plane is the part of the routing implementation that is
 executed for every forwarded packet.  As a packet arrives, the forwarding
 plane consults the routing table, selects a single route matching the
-packet, determines the next-hop address, and forwards the packet to the
+packet, and forwards the packet out the outgoing interface to the associated
 next-hop address.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
 <p id="section-3.2-2">With v4-via-v6 routing, the address family of the next-hop address is no
 longer determined by the address family of the prefix: since the routing
 table may map an IPv4 prefix to either an IPv4 or an IPv6 next-hop, the
-forwarding plane must be able to determine, on a per-packet basis, whether
-the next-hop address is an IPv4 or an IPv6 address, and to use that
-information in order to choose the right address resolution protocol to
-use (ARP for IP4, ND for IPv6).<a href="#section-3.2-2" class="pilcrow">¶</a></p>
+forwarding plane must be able to determine, on a per-packet basis, which
+address resolution protocol (ARP for IPv4, ND for IPv6) to consult.<a href="#section-3.2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="operation-of-routing-protocols">
@@ -1388,47 +1380,35 @@ routing protocols: a traditional routing protocol produces a traditional
 next-hop routing table, which can be used by an implementation supporting
 v4-via-v6 routing.<a href="#section-3.3-1" class="pilcrow">¶</a></p>
 <p id="section-3.3-2">However, in order to use the additional flexibility provided by v4-via-v6
-routing, routing protocols will need to be extended with the ability to
+routing, routing protocols need to be extended with the ability to
 populate the routing table with v4-via-v6 routes when an IPv4 address is
 not available or when the available IPv4 addresses are not suitable for
-use as a next-hop (e.g., not stable enough).<a href="#section-3.3-2" class="pilcrow">¶</a></p>
-<p id="section-3.3-3">Various protocols already support the advertisement of IPv4 routes with an IPv6
-next-hop, including Babel <span>[<a href="#RFC8966" class="cite xref">RFC8966</a>]</span> and BGP <span>[<a href="#RFC8950" class="cite xref">RFC8950</a>]</span>.<a href="#section-3.3-3" class="pilcrow">¶</a></p>
-<p id="section-3.3-4">A number of IGPs advertise both IPv4 and IPv6 prefixes over a single neighbor.
-These include:
+use as a next-hop.<a href="#section-3.3-2" class="pilcrow">¶</a></p>
+<p id="section-3.3-3">Some protocols already support the advertisement of IPv4 routes with an
+IPv6 next-hop, including Babel <span>[<a href="#RFC8966" class="cite xref">RFC8966</a>]</span> and BGP <span>[<a href="#RFC8950" class="cite xref">RFC8950</a>]</span>.  Other
+protocol advertise both IPv4 and IPv6 prefixes over a single neighbor;
+these include:
   * Multi-Topology (MT) Routing in OSPF (<span>[<a href="#RFC4915" class="cite xref">RFC4915</a>]</span>)
-  * Multi-Topology (MT) Routing in IS-IS (<span>[<a href="#RFC5120" class="cite xref">RFC5120</a>]</span>)<a href="#section-3.3-4" class="pilcrow">¶</a></p>
-<p id="section-3.3-5">Both of these utilize a common control plane but separate data planes.<a href="#section-3.3-5" class="pilcrow">¶</a></p>
+  * Multi-Topology (MT) Routing in IS-IS (<span>[<a href="#RFC5120" class="cite xref">RFC5120</a>]</span>) While both of these
+employ a common control plane, they use separate data planes, and
+therefore don't implement v4-via-v6 routing.<a href="#section-3.3-3" class="pilcrow">¶</a></p>
 </section>
 </div>
-</section>
-</div>
-<div id="operational-considerations">
-<section id="section-4">
-      <h2 id="name-operational-considerations">
-<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-operational-considerations" class="section-name selfRef">Operational Considerations</a>
-      </h2>
-<p id="section-4-1">The routing "logic" is not fundamentally different between IPv4 and IPv6, and
-the primary thing preventing many implementations from supporting v4-via-v6
-operations is the command line / configuration syntax. This means that the
-required changes to support v4-via-v6 routing in many implementations are
-relatively small - basically just changing the command line parsing to allow
-specifying an IPv6 address as a next-hop for an IPv4 route.<a href="#section-4-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="icmp-considerations">
-<section id="section-5">
+<section id="section-4">
       <h2 id="name-icmp-considerations">
-<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-icmp-considerations" class="section-name selfRef">ICMP Considerations</a>
+<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-icmp-considerations" class="section-name selfRef">ICMP Considerations</a>
       </h2>
-<p id="section-5-1">The Internet Control Message Protocol (ICMPv4, or simply ICMP)
+<p id="section-4-1">The Internet Control Message Protocol (ICMPv4, or simply ICMP)
 <span>[<a href="#RFC0792" class="cite xref">RFC0792</a>]</span> is a protocol related to IPv4 that is primarily used to
 carry diagnostic and debugging information.  ICMPv4 packets may be
 originated by end hosts (e.g., the "destination unreachable, port
 unreachable" ICMPv4 packet), but they may also be originated by
 intermediate routers (e.g., most other kinds of "destination
-unreachable" packets).<a href="#section-5-1" class="pilcrow">¶</a></p>
-<p id="section-5-2">Some protocols deployed in the Internet rely on ICMPv4 packets sent
+unreachable" packets).<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-4-2">Some protocols deployed in the Internet rely on ICMPv4 packets sent
 by intermediate routers.  Most notably, path MTU Discovery (PMTUd)
 <span>[<a href="#RFC1191" class="cite xref">RFC1191</a>]</span> is an algorithm executed by end hosts to discover the
 maximum packet size that a route is able to carry.  While there exist
@@ -1436,78 +1416,78 @@ variants of PMTUd that are purely end-to-end <span>[<a href="#RFC4821" class="ci
 most commonly deployed in the Internet has a hard dependency on
 ICMPv4 packets originated by intermediate routers: if intermediate
 routers are unable to send ICMPv4 packets, PMTUd may lead to
-persistent black-holing of IPv4 traffic.<a href="#section-5-2" class="pilcrow">¶</a></p>
-<p id="section-5-3">Due to this kind of dependency, every router that is able to
+persistent black-holing of IPv4 traffic.<a href="#section-4-2" class="pilcrow">¶</a></p>
+<p id="section-4-3">Due to this kind of dependency, every router that is able to
 forward IPv4 traffic <span class="bcp14">SHOULD</span> be able originate ICMPv4 traffic.  Since
 the extension described in this document enables routers to forward
 IPv4 traffic received over an interface that has not been assigned an
 IPv4 address, a router implementing this extension <span class="bcp14">MUST</span> be able to
 originate ICMPv4 packets even when the outgoing interface has not
-been assigned an IPv4 address.<a href="#section-5-3" class="pilcrow">¶</a></p>
-<p id="section-5-4">In such a situation, if the router has an interface that has been assigned a
-publicly routable IPv4 address (other than the loopback address), or if an IPv4
-address has been assigned to the router itself (to the "loopback interface"),
-then that IPv4 address may be used as the source of originated ICMPv4 packets.
-If no IPv4 address is available, the router should use the experimental
-mechanism described in Requirement R-22 of Section 4.8 <span>[<a href="#RFC7600" class="cite xref">RFC7600</a>]</span>, which
-consists of using the dummy address 192.0.0.8 as the source address of
-originated ICMPv4 packets. Note however that using the same address on multiple
-routers may hamper debugging and fault isolation, e.g., when using the
-"traceroute" utility. Note that this mirrors the behavior in Section 3 of
-<span>[<a href="#RFC9229" class="cite xref">RFC9229</a>]</span>.<a href="#section-5-4" class="pilcrow">¶</a></p>
-<p id="section-5-5">In addition, <span>[<a href="#I-D.draft-ietf-intarea-extended-icmp-nodeid" class="cite xref">I-D.draft-ietf-intarea-extended-icmp-nodeid</a>]</span> provides a
-possible solution to this issue, by allowing the ICMP packet to carry a "host
-identifier" that can be used to identify the router that originated the ICMP by
-providing a unique IP address and/or a textual name for the node, in the case
-where each node may not have a unique IP address.<a href="#section-5-5" class="pilcrow">¶</a></p>
+been assigned an IPv4 address.<a href="#section-4-3" class="pilcrow">¶</a></p>
+<p id="section-4-4">In such a situation, if the router has an interface that has been assigned
+a publicly routable IPv4 address (other than the loopback address), or if
+an IPv4 address has been assigned to the router itself (to the "loopback
+interface"), then that IPv4 address may be used as the source of
+originated ICMPv4 packets.  If no IPv4 address is available, the router
+should use the mechanism described in Requirement R-22 of Section 4.8
+<span>[<a href="#RFC7600" class="cite xref">RFC7600</a>]</span>, which consists of using the dummy address 192.0.0.8 as the
+source address of originated ICMPv4 packets.  Note however that using the
+same address on multiple routers may hamper debugging and fault isolation,
+e.g., when using the "traceroute" utility.  This mirrors the
+behavior in Section 3 of <span>[<a href="#RFC9229" class="cite xref">RFC9229</a>]</span>.<a href="#section-4-4" class="pilcrow">¶</a></p>
+<p id="section-4-5"><span>[<a href="#I-D.draft-ietf-intarea-extended-icmp-nodeid" class="cite xref">I-D.draft-ietf-intarea-extended-icmp-nodeid</a>]</span> provides a possible
+solution to this issue, by allowing the ICMP packet to carry a "host
+identifier" that can be used to identify the router that originated the
+ICMP by providing a unique IP address and/or a textual name for the node,
+in the case where each node may not have a unique IP address.<a href="#section-4-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="implementation-status">
-<section id="section-6">
+<section id="section-5">
       <h2 id="name-implementation-status">
-<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-implementation-status" class="section-name selfRef">Implementation Status</a>
+<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-implementation-status" class="section-name selfRef">Implementation Status</a>
       </h2>
-<p id="section-6-1">( This section to be removed before publication. )<a href="#section-6-1" class="pilcrow">¶</a></p>
-<p id="section-6-2">As this document does not really define a protocol, this implementation status
+<p id="section-5-1">( This section to be removed before publication. )<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-2">As this document does not really define a protocol, this implementation status
 section is much less formal. Instead, it is being used as a place to list
 implementations that are known to support this functionality, examples, notes,
 etc. This information is provided as a guide to the reader, and is not intended
 to be a complete list, nor endorsement, etc. If you know of an implementation
-which is not listed, please let the authors know.<a href="#section-6-2" class="pilcrow">¶</a></p>
+which is not listed, please let the authors know.<a href="#section-5-2" class="pilcrow">¶</a></p>
 <div id="arista-eos">
-<section id="section-6.1">
+<section id="section-5.1">
         <h3 id="name-arista-eos">
-<a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-arista-eos" class="section-name selfRef">Arista EOS</a>
+<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-arista-eos" class="section-name selfRef">Arista EOS</a>
         </h3>
-<p id="section-6.1-1">Arista has supported static IPv4 routes with IPv6 nexthops since EOS-4.30.1.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
+<p id="section-5.1-1">Arista has supported static IPv4 routes with IPv6 nexthops since EOS-4.30.1.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="the-babel-routing-protocol">
-<section id="section-6.2">
+<section id="section-5.2">
         <h3 id="name-the-babel-routing-protocol">
-<a href="#section-6.2" class="section-number selfRef">6.2. </a><a href="#name-the-babel-routing-protocol" class="section-name selfRef">The Babel routing protocol</a>
+<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-the-babel-routing-protocol" class="section-name selfRef">The Babel routing protocol</a>
         </h3>
-<p id="section-6.2-1">As noted above, this document is heavily based on RFC9229
-(nee draft-ietf-babel-v4viav6), and this functionality is supported by babeld.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
-<p id="section-6.2-2">Pasted below is email sent to the babel mailing list (archived
-at https://mailarchive.ietf.org/arch/msg/babel/QtFi3F4TFfF7fXXlkHSpEnuT44Y/)<a href="#section-6.2-2" class="pilcrow">¶</a></p>
-<p id="section-6.2-3">A route across three IPv6-only nodes:<a href="#section-6.2-3" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-6.2-4">
+<p id="section-5.2-1">As noted above, this document is heavily based on RFC9229
+(nee draft-ietf-babel-v4viav6), and this functionality is supported by babeld.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.2-2">Pasted below is email sent to the babel mailing list (archived
+at https://mailarchive.ietf.org/arch/msg/babel/QtFi3F4TFfF7fXXlkHSpEnuT44Y/)<a href="#section-5.2-2" class="pilcrow">¶</a></p>
+<p id="section-5.2-3">A route across three IPv6-only nodes:<a href="#section-5.2-3" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.2-4">
 <pre>
 $ ip route show 10.0.0.2
 10.0.0.2 via inet6 fe80::216:3eff:fe00:1 dev lxcbr0 proto babel onlink
-</pre><a href="#section-6.2-4" class="pilcrow">¶</a>
+</pre><a href="#section-5.2-4" class="pilcrow">¶</a>
 </div>
-<p id="section-6.2-5">Here's how it's logged by babeld:<a href="#section-6.2-5" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-6.2-6">
+<p id="section-5.2-5">Here's how it's logged by babeld:<a href="#section-5.2-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.2-6">
 <pre>
 10.0.0.2/32 from 0.0.0.0/0 metric 384 (384) refmetric 288 id
 02:16:3e:ff:fe:9a:5e:22 seqno 36425 chan (255) age 15 via lxcbr0 neigh
 fe80::216:3eff:fe00:1 (installed)
-</pre><a href="#section-6.2-6" class="pilcrow">¶</a>
+</pre><a href="#section-5.2-6" class="pilcrow">¶</a>
 </div>
-<p id="section-6.2-7">Traceroute is a little confusing:<a href="#section-6.2-7" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-6.2-8">
+<p id="section-5.2-7">Traceroute is a little confusing:<a href="#section-5.2-7" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.2-8">
 <pre>
 $ traceroute 10.0.0.2
 traceroute to 10.0.0.2 (10.0.0.2), 30 hops max, 60 byte packets
@@ -1515,10 +1495,10 @@ traceroute to 10.0.0.2 (10.0.0.2), 30 hops max, 60 byte packets
  2  192.0.0.8 (192.0.0.8)  0.040 ms  0.023 ms  0.042 ms
  3  192.0.0.8 (192.0.0.8)  0.061 ms  0.030 ms  0.030 ms
  4  10.0.0.2 (10.0.0.2)  0.060 ms  0.040 ms  0.039 ms
-</pre><a href="#section-6.2-8" class="pilcrow">¶</a>
+</pre><a href="#section-5.2-8" class="pilcrow">¶</a>
 </div>
-<p id="section-6.2-9">PMTUD works fine (thanks to Toke):<a href="#section-6.2-9" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-6.2-10">
+<p id="section-5.2-9">PMTUD works fine (thanks to Toke):<a href="#section-5.2-9" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.2-10">
 <pre>
 19:58:47.402871 IP 192.168.0.27.60046 &gt; 10.0.0.2.22: Flags [.],\
 seq 33:1481, ack 33, win 502, options [nop,nop,TS val 917354570\
@@ -1534,52 +1514,52 @@ ecr 917354569,nop,nop,sac 1 {1481:1537}], length 0
 19:58:47.402934 IP 192.168.0.27.60046 &gt; 10.0.0.2.22: Flags [.], \
 seq 33:1401, ack 33, win 502, options [nop,nop,TS val 917354570 \
 ecr 1849974692], length 1368
-</pre><a href="#section-6.2-10" class="pilcrow">¶</a>
+</pre><a href="#section-5.2-10" class="pilcrow">¶</a>
 </div>
-<p id="section-6.2-11">-- Juliusz<a href="#section-6.2-11" class="pilcrow">¶</a></p>
+<p id="section-5.2-11">-- Juliusz<a href="#section-5.2-11" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="linux">
-<section id="section-6.3">
+<section id="section-5.3">
         <h3 id="name-linux">
-<a href="#section-6.3" class="section-number selfRef">6.3. </a><a href="#name-linux" class="section-name selfRef">Linux</a>
+<a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-linux" class="section-name selfRef">Linux</a>
         </h3>
-<p id="section-6.3-1">Linux has supported v4-via-v6 routes since kernel version 5.2, released on
-2019-07-07.<a href="#section-6.3-1" class="pilcrow">¶</a></p>
+<p id="section-5.3-1">Linux has supported v4-via-v6 routes since kernel version 5.2, released on
+2019-07-07.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
 <div id="example">
-<section id="section-6.3.1">
+<section id="section-5.3.1">
           <h4 id="name-example">
-<a href="#section-6.3.1" class="section-number selfRef">6.3.1. </a><a href="#name-example" class="section-name selfRef">Example:</a>
+<a href="#section-5.3.1" class="section-number selfRef">5.3.1. </a><a href="#name-example" class="section-name selfRef">Example:</a>
           </h4>
-<div class="alignLeft art-text artwork" id="section-6.3.1-1">
+<div class="alignLeft art-text artwork" id="section-5.3.1-1">
 <pre>
 rincewind ~ #
 ip -4 r a 192.0.2.23/32 via inet6 2001:db8::2342
 
 rincewind ~ # ip r s 192.0.2.23/32
 192.0.2.23 via inet6 2001:db8::2342 dev wlp36s0.25
-</pre><a href="#section-6.3.1-1" class="pilcrow">¶</a>
+</pre><a href="#section-5.3.1-1" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
 </section>
 </div>
 <div id="mikrotik-routeros">
-<section id="section-6.4">
+<section id="section-5.4">
         <h3 id="name-mikrotik-routeros">
-<a href="#section-6.4" class="section-number selfRef">6.4. </a><a href="#name-mikrotik-routeros" class="section-name selfRef">Mikrotik RouterOS</a>
+<a href="#section-5.4" class="section-number selfRef">5.4. </a><a href="#name-mikrotik-routeros" class="section-name selfRef">Mikrotik RouterOS</a>
         </h3>
-<p id="section-6.4-1">Mikrotik RouterOS has supported v4-via-v6 routes since (at least) version
-7.11beta2<a href="#section-6.4-1" class="pilcrow">¶</a></p>
-<p id="section-6.4-2">{Editor note: I'm not sure when support was added. I tested this in Version
+<p id="section-5.4-1">Mikrotik RouterOS has supported v4-via-v6 routes since (at least) version
+7.11beta2<a href="#section-5.4-1" class="pilcrow">¶</a></p>
+<p id="section-5.4-2">{Editor note: I'm not sure when support was added. I tested this in Version
 7.11beta2, and it worked there, but I believe that this functionality has
-existed for a while. I'll try to find out when it was added.}<a href="#section-6.4-2" class="pilcrow">¶</a></p>
+existed for a while. I'll try to find out when it was added.}<a href="#section-5.4-2" class="pilcrow">¶</a></p>
 <div id="example-1">
-<section id="section-6.4.1">
+<section id="section-5.4.1">
           <h4 id="name-example-2">
-<a href="#section-6.4.1" class="section-number selfRef">6.4.1. </a><a href="#name-example-2" class="section-name selfRef">Example</a>
+<a href="#section-5.4.1" class="section-number selfRef">5.4.1. </a><a href="#name-example-2" class="section-name selfRef">Example</a>
           </h4>
-<div class="alignLeft art-text artwork" id="section-6.4.1-1">
+<div class="alignLeft art-text artwork" id="section-5.4.1-1">
 <pre>
 [wkumari@Dulles-CCR] /ip/route&gt; print
 Flags: D - DYNAMIC; I - INACTIVE, A - ACTIVE; c - CONNECT, s - STATIC,
@@ -1587,34 +1567,34 @@ d -DHCP, v - VPN; H - HW-OFFLOADED
 Columns: DST-ADDRESS, GATEWAY, DISTANCE
 #      DST-ADDRESS       GATEWAY                             DISTANCE
 0  As  192.0.2.0/24      fe80::201:5cff:feb2:1646%1_Comcast         1
-</pre><a href="#section-6.4.1-1" class="pilcrow">¶</a>
+</pre><a href="#section-5.4.1-1" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
 </section>
 </div>
 <div id="cisco-nx-os">
-<section id="section-6.5">
+<section id="section-5.5">
         <h3 id="name-cisco-nx-os">
-<a href="#section-6.5" class="section-number selfRef">6.5. </a><a href="#name-cisco-nx-os" class="section-name selfRef">Cisco NX-OS</a>
+<a href="#section-5.5" class="section-number selfRef">5.5. </a><a href="#name-cisco-nx-os" class="section-name selfRef">Cisco NX-OS</a>
         </h3>
-<p id="section-6.5-1">Cisco NX-OS has supported v4-via-v6 routes "for more than 8 years"
-  -- Krishnaswamy Ananthamurthy<a href="#section-6.5-1" class="pilcrow">¶</a></p>
+<p id="section-5.5-1">Cisco NX-OS has supported v4-via-v6 routes "for more than 8 years"
+  -- Krishnaswamy Ananthamurthy<a href="#section-5.5-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
 </div>
 <div id="security-considerations">
-<section id="section-7">
+<section id="section-6">
       <h2 id="name-security-considerations">
-<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
+<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-7-1">The techniques described in this document make routing more flexible by
+<p id="section-6-1">The techniques described in this document make routing more flexible by
 allowing IPv4 routes to propagate across a section of a network that has
 only been assigned IPv6 addresses.  This additional flexibility might
 invalidate otherwise reasonable assumptions made by network
-administrators, which could potentially cause security issues.<a href="#section-7-1" class="pilcrow">¶</a></p>
-<p id="section-7-2">For example, if an island of IPv4-only hosts is separated from the IPv4
+administrators, which could potentially cause security issues.<a href="#section-6-1" class="pilcrow">¶</a></p>
+<p id="section-6-2">For example, if an island of IPv4-only hosts is separated from the IPv4
 Internet by routers that have not been assigned IPv4 addresses, a network
 administrator might reasonably assume that the IPv4-only hosts are
 unreachable from the IPv4 Internet.  This assumption is broken if the
@@ -1622,26 +1602,26 @@ intermediary routers implement v4-via-v6 routing, which might make the
 IPv4-only hosts reachable from the IPv4 Internet.  If this is not
 desirable, then the network administrator must filter out the undesirable
 traffic in the forwarding plane by implementing suitable packet filtering
-rules.<a href="#section-7-2" class="pilcrow">¶</a></p>
+rules.<a href="#section-6-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana-considerations">
-<section id="section-8">
+<section id="section-7">
       <h2 id="name-iana-considerations">
-<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
+<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<p id="section-8-1">This document has no IANA actions.<a href="#section-8-1" class="pilcrow">¶</a></p>
+<p id="section-7-1">This document has no IANA actions.<a href="#section-7-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-combined-references">
-<section id="section-9">
+<section id="section-8">
       <h2 id="name-references">
-<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-references" class="section-name selfRef">References</a>
+<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-references" class="section-name selfRef">References</a>
       </h2>
 <div id="sec-normative-references">
-<section id="section-9.1">
+<section id="section-8.1">
         <h3 id="name-normative-references">
-<a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+<a href="#section-8.1" class="section-number selfRef">8.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
         </h3>
 <dl class="references">
 <dt id="RFC2119">[RFC2119]</dt>
@@ -1660,14 +1640,14 @@ rules.<a href="#section-7-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-informative-references">
-<section id="section-9.2">
+<section id="section-8.2">
         <h3 id="name-informative-references">
-<a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
+<a href="#section-8.2" class="section-number selfRef">8.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
         </h3>
 <dl class="references">
 <dt id="I-D.draft-ietf-intarea-extended-icmp-nodeid">[I-D.draft-ietf-intarea-extended-icmp-nodeid]</dt>
         <dd>
-<span class="refAuthor">Fenner, B.</span> and <span class="refAuthor">R. Thomas</span>, <span class="refTitle">"Adding Extensions to ICMP Errors for Originating Node Identification"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-intarea-extended-icmp-nodeid-02</span>, <time datetime="2025-03-26" class="refDate">26 March 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-intarea-extended-icmp-nodeid-02">https://datatracker.ietf.org/doc/html/draft-ietf-intarea-extended-icmp-nodeid-02</a>&gt;</span>. </dd>
+<span class="refAuthor">Fenner, B.</span> and <span class="refAuthor">R. Thomas</span>, <span class="refTitle">"Adding Extensions to ICMP Errors for Originating Node Identification"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-intarea-extended-icmp-nodeid-03</span>, <time datetime="2025-08-06" class="refDate">6 August 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-intarea-extended-icmp-nodeid-03">https://datatracker.ietf.org/doc/html/draft-ietf-intarea-extended-icmp-nodeid-03</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="IANA-IPV4-REGISTRY">[IANA-IPV4-REGISTRY]</dt>
         <dd>
@@ -1727,12 +1707,12 @@ rules.<a href="#section-7-2" class="pilcrow">¶</a></p>
       <h2 id="name-acknowledgments">
 <a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
       </h2>
-<p id="appendix-A-1">We would like to thank Joe Abley, Krishnaswamy Ananthamurthy, Bill Fenner,
+<p id="appendix-A-1">We are grateful to nnJoe Abley, Krishnaswamy Ananthamurthy, Bill Fenner,
 Tobias Fiebig, John Gilmore, Bob Hinden, David Lamparter, Gyan Mishra, tom
-petch, Herbie Robinson, Behcet Sarikaya, David Schinazi, Ole Troan, and Éric
-Vyncke, for their helpful comments and suggestions on this document.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
-<p id="appendix-A-2">The authors would like to thank the members of the Babel community for the
-insightful discussions that led to the creation of this document.<a href="#appendix-A-2" class="pilcrow">¶</a></p>
+petch, Herbie Robinson, Behcet Sarikaya, David Schinazi, Ole Troan, and
+Éric Vyncke, for their helpful comments and suggestions on this document.
+We are also indebted to the members of the Babel community for the
+discussions that led to the creation of this document.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="changes">
@@ -1763,6 +1743,9 @@ hop. (Éric Vyncke)<a href="#appendix-B.1-1.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="appendix-B.1-1.4">
             <p id="appendix-B.1-1.4.1">Hosts are routers too! (David Lamparter)<a href="#appendix-B.1-1.4.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-B.1-1.5">
+            <p id="appendix-B.1-1.5.1">Removed the claim that it's mainly a UI issue.<a href="#appendix-B.1-1.5.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
