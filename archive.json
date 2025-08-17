@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-07-24T00:36:54.729736+00:00",
+  "timestamp": "2025-08-17T00:38:28.219508+00:00",
   "repo": "wkumari/draft-chroboczek-intarea-v4-via-v6",
   "labels": [
     {
@@ -158,7 +158,7 @@
       "labels": [],
       "body": "I found this text a bit confusing:\r\n\r\n\" every router that is able to forward IPv4 traffic SHOULD be able originate ICMPv4 traffic.  .....a router implementing this extension MUST be able to originate ICMPv4 packets even when the outgoing interface has not been assigned an IPv4 address.\"\r\n\r\nAt the very least it seems to contradict RFC1812. \r\nI'm rewritten that section (which looks like copy-n-paste from RFC9229, citing RFC1812.\r\n\r\nAlso adding some text why using 192.0.0.8 is not always a great idea.\r\n\r\nLast but not least - rephrasing a reference to RFC7404",
       "createdAt": "2025-07-23T08:46:57Z",
-      "updatedAt": "2025-07-23T15:53:23Z",
+      "updatedAt": "2025-08-15T21:11:39Z",
       "baseRepository": "wkumari/draft-chroboczek-intarea-v4-via-v6",
       "baseRefName": "main",
       "baseRefOid": "2bfdc69060004c814147677e3a83194649ae35e6",
@@ -197,6 +197,75 @@
           "body": "Unsurprisingly, I agree / LGTM / etc... \r\n\r\nMuch thanks to Jen and Juliusz for all this.",
           "createdAt": "2025-07-23T15:53:23Z",
           "updatedAt": "2025-07-23T15:53:23Z"
+        },
+        {
+          "author": "wkumari",
+          "authorAssociation": "OWNER",
+          "body": "@jech Just a bump to please apply \"changes (after squashing them), then do some word-smithing to make your text more stylistically consistent with the rest of the document\", possibly when you also look at #4 . \r\nI think that the document is largely ready other than that (and making the Status be Std Track, as discussed at IETF123).",
+          "createdAt": "2025-08-15T19:16:45Z",
+          "updatedAt": "2025-08-15T19:16:45Z"
+        },
+        {
+          "author": "jech",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Please give me until Sunday.\r\n",
+          "createdAt": "2025-08-15T20:53:52Z",
+          "updatedAt": "2025-08-15T20:53:52Z"
+        },
+        {
+          "author": "wkumari",
+          "authorAssociation": "OWNER",
+          "body": "Yeah, of course / not an issue... (my message wasn't intended to be particularity pokey, jsut \"when you get to the other one, please do this too!\")\r\n",
+          "createdAt": "2025-08-15T21:11:39Z",
+          "updatedAt": "2025-08-15T21:11:39Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 4,
+      "id": "PR_kwDOLHMNHM6j4buo",
+      "title": "Remove implication that NH resolution is per-packet",
+      "url": "https://github.com/wkumari/draft-chroboczek-intarea-v4-via-v6/pull/4",
+      "state": "OPEN",
+      "author": "wkumari",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "A few people read:\r\n```the forwarding plane must be able to determine, on a per-packet basis, whether the next-hop address is an IPv4 or an IPv6 address, and to use that information in order to choose the right address resolution protocol to use (ARP for IP4, ND for IPv6).```\r\nas meaning that, *for each packet* the forwarding plane would perform an ARP or ND. \r\n\r\nThis is not what we had meant, but I can see how it could be interpreted that way. ",
+      "createdAt": "2025-08-15T19:14:14Z",
+      "updatedAt": "2025-08-16T09:36:34Z",
+      "baseRepository": "wkumari/draft-chroboczek-intarea-v4-via-v6",
+      "baseRefName": "main",
+      "baseRefOid": "2bfdc69060004c814147677e3a83194649ae35e6",
+      "headRepository": "wkumari/draft-chroboczek-intarea-v4-via-v6",
+      "headRefName": "not_per_packet",
+      "headRefOid": "33583968df67ea788b88ea74ab273f60d6a50c14",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "jech",
+          "authorAssociation": "COLLABORATOR",
+          "body": "My mental model is that the forwarding plane makes a call to the ND module for each packet.  Whether the ND module resolves the address by performing a packet exchange or by consulting a cache is an internal implementation detail from which the forwarding plane is isolated.\r\n\r\nNo idea how to formulate it.",
+          "createdAt": "2025-08-15T20:53:28Z",
+          "updatedAt": "2025-08-15T20:53:28Z"
+        },
+        {
+          "author": "wkumari",
+          "authorAssociation": "OWNER",
+          "body": "Yah, I had a hard time wording it too\u2026 Hopefully the PR is good 'nuff\u2026\r\n\r\n\r\nOn Fri, Aug 15, 2025 at 4:53 PM, Juliusz Chroboczek <\r\n***@***.***> wrote:\r\n\r\n> *jech* left a comment (wkumari/draft-chroboczek-intarea-v4-via-v6#4)\r\n> <https://github.com/wkumari/draft-chroboczek-intarea-v4-via-v6/pull/4#issuecomment-3192727590>\r\n>\r\n> My mental model is that the forwarding plane makes a call to the ND module\r\n> for each packet. Whether the ND module resolves the address by performing a\r\n> packet exchange or by consulting a cache is an internal implementation\r\n> detail from which the forwarding plane is isolated.\r\n>\r\n> No idea how to formulate it.\r\n>\r\n> \u2014\r\n> Reply to this email directly, view it on GitHub\r\n> <https://github.com/wkumari/draft-chroboczek-intarea-v4-via-v6/pull/4#issuecomment-3192727590>,\r\n> or unsubscribe\r\n> <https://github.com/notifications/unsubscribe-auth/ABDG3XAT5TRAF7LSCGAAXNL3NZCF5AVCNFSM6AAAAACEAGI46SVHI2DSMVQWIX3LMV43OSLTON2WKQ3PNVWWK3TUHMZTCOJSG4ZDONJZGA>\r\n> .\r\n> You are receiving this because you authored the thread.Message ID:\r\n> ***@***.***>\r\n>\r\n",
+          "createdAt": "2025-08-15T21:13:08Z",
+          "updatedAt": "2025-08-15T21:13:08Z"
+        },
+        {
+          "author": "jech",
+          "authorAssociation": "COLLABORATOR",
+          "body": "That's pretty smart.\r\n\r\nMinor nits:\r\n\r\n  * so that an IPv4 prefix may map to an IPv6 next hop, or an IPv6 prefix to an IPv4 next hop -> so that an IPv4 prefix may map to either an IPv6 or an IPv4 next hop\r\n\r\n  * forwards the packet out the outgoing interface -> forwards the packet through the outgoing interface\r\n\r\nFeel free to merge.\r\n  ",
+          "createdAt": "2025-08-16T09:35:07Z",
+          "updatedAt": "2025-08-16T09:36:34Z"
         }
       ],
       "reviews": []
