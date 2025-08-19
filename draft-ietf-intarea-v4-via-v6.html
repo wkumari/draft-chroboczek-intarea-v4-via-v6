@@ -1343,7 +1343,8 @@ data structure, the routing table.<a href="#section-3-1" class="pilcrow">¶</a><
 next-hops, pairs of the form (interface, address).  In traditional
 next-hop routing, the routing table maps IPv4 prefixes to IPv4 next hops,
 and IPv6 addresses to IPv6 next hops.  With v4-via-v6 routing, the routing
-table is extended so that an IPv4 prefix  may map to an IPv6 next hop.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
+table is extended so that an IPv4 prefix may map to either an IPv6 or an
+IPv4 next hop.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
 <p id="section-3.1-2">Resolution may be recursive: the next-hop may itself be a prefix that
 requires further resolution to map to the outgoing interface and L2
 address.  V4-via-v6 routing does not prevent recursive resolution.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
@@ -1357,15 +1358,13 @@ address.  V4-via-v6 routing does not prevent recursive resolution.<a href="#sect
 <p id="section-3.2-1">The forwarding plane is the part of the routing implementation that is
 executed for every forwarded packet.  As a packet arrives, the forwarding
 plane consults the routing table, selects a single route matching the
-packet, determines the next-hop address, and forwards the packet to the
-next-hop address.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
+packet, and forwards the packet through the outgoing interface to the
+associated next-hop address.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
 <p id="section-3.2-2">With v4-via-v6 routing, the address family of the next-hop address is no
 longer determined by the address family of the prefix: since the routing
 table may map an IPv4 prefix to either an IPv4 or an IPv6 next-hop, the
-forwarding plane must be able to determine, on a per-packet basis, whether
-the next-hop address is an IPv4 or an IPv6 address, and to use that
-information in order to choose the right address resolution protocol to
-use (ARP for IP4, ND for IPv6).<a href="#section-3.2-2" class="pilcrow">¶</a></p>
+forwarding plane must be able to determine, on a per-packet basis, which
+address resolution protocol (ARP for IPv4, ND for IPv6) to consult.<a href="#section-3.2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="operation-of-routing-protocols">
@@ -1384,7 +1383,7 @@ v4-via-v6 routing.<a href="#section-3.3-1" class="pilcrow">¶</a></p>
 routing, routing protocols need to be extended with the ability to
 populate the routing table with v4-via-v6 routes when an IPv4 address is
 not available or when the available IPv4 addresses are not suitable for
-use as a next-hop (for example not stable enough).<a href="#section-3.3-2" class="pilcrow">¶</a></p>
+use as a next-hop.<a href="#section-3.3-2" class="pilcrow">¶</a></p>
 <p id="section-3.3-3">Some protocols already support the advertisement of IPv4 routes with an
 IPv6 next-hop, including Babel <span>[<a href="#RFC8966" class="cite xref">RFC8966</a>]</span> and BGP <span>[<a href="#RFC8950" class="cite xref">RFC8950</a>]</span>.  Other
 protocol advertise both IPv4 and IPv6 prefixes over a single neighbor;
