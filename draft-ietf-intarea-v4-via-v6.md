@@ -157,8 +157,8 @@ The routing table is a data structure that maps address prefixes to
 next-hops, pairs of the form (interface, address).  In traditional
 next-hop routing, the routing table maps IPv4 prefixes to IPv4 next hops,
 and IPv6 addresses to IPv6 next hops.  With v4-via-v6 routing, the routing
-table is extended so that an IPv4 prefix may map to an IPv6 next hop, or an
-IPv6 prefix to an IPv4 next hop.
+table is extended so that an IPv4 prefix may map to either an IPv6 or an
+IPv4 next hop.
 
 Resolution may be recursive: the next-hop may itself be a prefix that
 requires further resolution to map to the outgoing interface and L2
@@ -169,8 +169,8 @@ address.  V4-via-v6 routing does not prevent recursive resolution.
 The forwarding plane is the part of the routing implementation that is
 executed for every forwarded packet.  As a packet arrives, the forwarding
 plane consults the routing table, selects a single route matching the
-packet, and forwards the packet out the outgoing interface to the associated
-next-hop address.
+packet, and forwards the packet through the outgoing interface to the
+associated next-hop address.
 
 With v4-via-v6 routing, the address family of the next-hop address is no
 longer determined by the address family of the prefix: since the routing
