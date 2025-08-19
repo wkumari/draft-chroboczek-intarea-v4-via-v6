@@ -5,10 +5,10 @@
 Internet Area Working Group                                J. Chroboczek
 Internet-Draft                                 IRIF, University of Paris
 Intended status: Standards Track                               W. Kumari
-Expires: 8 January 2026                                      Google, LLC
+Expires: 20 February 2026                                    Google, LLC
                                                     T. Høiland-Jørgensen
                                                                  Red Hat
-                                                             7 July 2025
+                                                          19 August 2025
 
 
                    IPv4 routes with an IPv6 next hop
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 January 2026.
+   This Internet-Draft will expire on 20 February 2026.
 
 Copyright Notice
 
@@ -251,33 +251,33 @@ Table of Contents
    routers are unable to send ICMPv4 packets, PMTUd may lead to
    persistent black-holing of IPv4 traffic.
 
-   Due to this kind of dependency, every router that is able to forward
-   IPv4 traffic SHOULD be able originate ICMPv4 traffic.  Since the
-   extension described in this document enables routers to forward IPv4
-   traffic received over an interface that has not been assigned an IPv4
-   address, a router implementing this extension MUST be able to
-   originate ICMPv4 packets even when the outgoing interface has not
-   been assigned an IPv4 address.
+   A router must therefore be able to generate ICMP Destination
+   Unreachable messages ([RFC1812] Section 5.2.7.1).  The source address
+   of these messages must be one of the addresses assigned to the
+   outgoing interface; if no such address has been assigned, then one of
+   the other addresses assigned to the router, known as the "router-id",
+   must be used ([RFC1812] Section 4.3.2.4).
 
-   In such a situation, if the router has an interface that has been
-   assigned a publicly routable IPv4 address (other than the loopback
-   address), or if an IPv4 address has been assigned to the router
-   itself (to the "loopback interface"), then that IPv4 address may be
-   used as the source of originated ICMPv4 packets.  If no IPv4 address
-   is available, the router should use the mechanism described in
-   Requirement R-22 of Section 4.8 [RFC7600], which consists of using
-   the dummy address 192.0.0.8 as the source address of originated
-   ICMPv4 packets.  Note however that using the same address on multiple
-   routers may hamper debugging and fault isolation, e.g., when using
-   the "traceroute" utility.  This mirrors the behavior in Section 3 of
-   [RFC9229].
+   Routers implementing the mechanism described in this document do not
+   need to have any IPv4 addresses assigned to any of their interfaces,
+   and RFC 1812 does not specify what happens if no router-id has been
+   assigned.  If a router does not have any IPv4 addresses assigned, the
+   router MUST use the dummy address 192.0.0.8 as the source address of
+   outgoing ICMP packets ([RFC7600], Section 4.8, Requirement R-22).
 
-   [I-D.draft-ietf-intarea-extended-icmp-nodeid] provides a possible
-   solution to this issue, by allowing the ICMP packet to carry a "host
-   identifier" that can be used to identify the router that originated
-   the ICMP by providing a unique IP address and/or a textual name for
-   the node, in the case where each node may not have a unique IP
-   address.
+   Using the dummy address as the source of ICMPv4 packet causes a
+   number of drawbacks:
+
+   *  using the same address on multiple routers may hamper debugging
+      and fault isolation, e.g., when using the "traceroute" utility
+      (but see {I-D.draft-ietf-intarea-extended-icmp-nodeid} for a
+      possible solution to this problem);
+
+   *  packets originating from 192.0.0.8 might be considered as spoofed
+      traffic and dropped by firewalls at network boundaries.
+
+   For these reasons, even if a router performs v4-via-v6 routing on all
+   interfaces, it SHOULD be assigned at least one IPv4 address.
 
 5.  Implementation Status
 
@@ -408,6 +408,10 @@ Table of Contents
 
 8.1.  Normative References
 
+   [RFC1812]  Baker, F., Ed., "Requirements for IP Version 4 Routers",
+              RFC 1812, DOI 10.17487/RFC1812, June 1995,
+              <https://www.rfc-editor.org/rfc/rfc1812>.
+
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
@@ -428,9 +432,9 @@ Table of Contents
               Fenner, B. and R. Thomas, "Adding Extensions to ICMP
               Errors for Originating Node Identification", Work in
               Progress, Internet-Draft, draft-ietf-intarea-extended-
-              icmp-nodeid-02, 26 March 2025,
+              icmp-nodeid-04, 19 August 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-intarea-
-              extended-icmp-nodeid-02>.
+              extended-icmp-nodeid-04>.
 
    [IANA-IPV4-REGISTRY]
               "IANA IPv4 Address Registry", Web 
