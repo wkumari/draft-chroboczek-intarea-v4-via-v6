@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-08-17T00:38:28.219508+00:00",
+  "timestamp": "2025-08-21T00:31:49.207242+00:00",
   "repo": "wkumari/draft-chroboczek-intarea-v4-via-v6",
   "labels": [
     {
@@ -55,16 +55,24 @@
       "id": "I_kwDOLHMNHM7BdTbO",
       "title": "Some Notes about the usage ov v4 via v6",
       "url": "https://github.com/wkumari/draft-chroboczek-intarea-v4-via-v6/issues/2",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "ruben-herold",
       "authorAssociation": "NONE",
       "assignees": [],
       "labels": [],
       "body": "I found your work in the repository while digging around in Microsoft Windows for IPv4 with IPv6 next hop support and want to share some information with you:\n\n1.  Windows has no support for this, neither static configured nor via windows BGP (I opened tickets and waiting for feedback)\n2. There is a EURO-IX working group working to implement it in IX peering LANs: https://github.com/euro-ix/rfc8950-ixp\n3.  Also, there is a Test AS to test your systems at major IX's: https://measurement.network/services/v4less-as/\n5. frrouting has support for it via bgp, support for adding static routes was merged some days before: https://github.com/FRRouting/frr/pull/18654\n6. bird seems to run fine since bird2\n7. Mac OSX seems also not to have support for IPv4 with IPv6 next hop.\n8. VPP works also since a long time\n\n\nAlso, https://blog.bott.im/bgp-unnumbered-in-2025-same-idea-different-implementations/  could be interested especially https://datatracker.ietf.org/doc/html/draft-white-linklocal-capability-06\n\n\n ",
       "createdAt": "2025-07-19T21:32:19Z",
-      "updatedAt": "2025-07-19T21:32:19Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2025-08-19T17:55:15Z",
+      "closedAt": "2025-08-19T17:55:15Z",
+      "comments": [
+        {
+          "author": "jech",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Thanks for the info.  I'm closing this for now, please reopen if you feel there are any actionable items.",
+          "createdAt": "2025-08-19T17:55:15Z",
+          "updatedAt": "2025-08-19T17:55:15Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -151,21 +159,21 @@
       "id": "PR_kwDOLHMNHM6gOLgY",
       "title": "ICMP, 192.0.0.8 and RFC1812",
       "url": "https://github.com/wkumari/draft-chroboczek-intarea-v4-via-v6/pull/3",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "furry13",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "I found this text a bit confusing:\r\n\r\n\" every router that is able to forward IPv4 traffic SHOULD be able originate ICMPv4 traffic.  .....a router implementing this extension MUST be able to originate ICMPv4 packets even when the outgoing interface has not been assigned an IPv4 address.\"\r\n\r\nAt the very least it seems to contradict RFC1812. \r\nI'm rewritten that section (which looks like copy-n-paste from RFC9229, citing RFC1812.\r\n\r\nAlso adding some text why using 192.0.0.8 is not always a great idea.\r\n\r\nLast but not least - rephrasing a reference to RFC7404",
       "createdAt": "2025-07-23T08:46:57Z",
-      "updatedAt": "2025-08-15T21:11:39Z",
+      "updatedAt": "2025-08-19T17:43:30Z",
       "baseRepository": "wkumari/draft-chroboczek-intarea-v4-via-v6",
       "baseRefName": "main",
       "baseRefOid": "2bfdc69060004c814147677e3a83194649ae35e6",
       "headRepository": "furry13/draft-chroboczek-intarea-v4-via-v6",
       "headRefName": "ietf123",
       "headRefOid": "a33376e065c32b2d2e99698ddddabc6bb4fac451",
-      "closedAt": null,
+      "closedAt": "2025-08-19T17:43:33Z",
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
@@ -179,14 +187,14 @@
         },
         {
           "author": "furry13",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": ">rephrase \"this document does not contradict RFC 1812\" as \"RFC 1812 does not specify what happens when there is no router-id assigned\";\r\n\r\nLGTM\r\n \r\n>remove the bit about the behaviour being mandated for Babel routers, since RFC 9229 is not normative.\r\n\r\nActually I removed RFC9229 reference initially, then felt bad about it and put it back, so no objections ;))",
           "createdAt": "2025-07-23T14:14:26Z",
           "updatedAt": "2025-07-23T14:14:26Z"
         },
         {
           "author": "furry13",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "BTW - and I will send it to the list after my changes are submitted - the ICMP section is the reason why this document MUST be in STD track, and not infrormational (as Eric suggested during the session).\r\n\r\nThat section defines (and prescribes) the router behaviour, which would be weird for the informational doc.",
           "createdAt": "2025-07-23T14:20:31Z",
           "updatedAt": "2025-07-23T14:20:31Z"
@@ -218,6 +226,13 @@
           "body": "Yeah, of course / not an issue... (my message wasn't intended to be particularity pokey, jsut \"when you get to the other one, please do this too!\")\r\n",
           "createdAt": "2025-08-15T21:11:39Z",
           "updatedAt": "2025-08-15T21:11:39Z"
+        },
+        {
+          "author": "jech",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Hi Jen,\r\n\r\nI've merged your changes, then reworded them in my style.  Things I have changed:\r\n\r\n  - I've rewritten citations of RFC 1812 with non-normative language, since we're mererly quoting, not acutlaly defining a standard;\r\n  - I've put all citations in postfix big-endian, \"mice are smaller than elephants (RFC 1812 Section 7)\" rather than \"As per Section 7 of RFC 1812, mice are smaller than elephants\";\r\n  - I've removed some text that was paraphrasing other RFCs, since I prefer to refer the reader to the source; in particular, I've cut down the discussion of draft-ietf-intarea-extended-icmp-nodeid, since I don't feel this document is the right place to discuss its flaws;\r\n  - I've reinstated double spaces after periods.\r\n\r\nThe last point is the only one I strongly care about ;-)",
+          "createdAt": "2025-08-19T17:43:30Z",
+          "updatedAt": "2025-08-19T17:43:30Z"
         }
       ],
       "reviews": []
@@ -227,21 +242,21 @@
       "id": "PR_kwDOLHMNHM6j4buo",
       "title": "Remove implication that NH resolution is per-packet",
       "url": "https://github.com/wkumari/draft-chroboczek-intarea-v4-via-v6/pull/4",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "wkumari",
       "authorAssociation": "OWNER",
       "assignees": [],
       "labels": [],
       "body": "A few people read:\r\n```the forwarding plane must be able to determine, on a per-packet basis, whether the next-hop address is an IPv4 or an IPv6 address, and to use that information in order to choose the right address resolution protocol to use (ARP for IP4, ND for IPv6).```\r\nas meaning that, *for each packet* the forwarding plane would perform an ARP or ND. \r\n\r\nThis is not what we had meant, but I can see how it could be interpreted that way. ",
       "createdAt": "2025-08-15T19:14:14Z",
-      "updatedAt": "2025-08-16T09:36:34Z",
+      "updatedAt": "2025-08-19T17:47:50Z",
       "baseRepository": "wkumari/draft-chroboczek-intarea-v4-via-v6",
       "baseRefName": "main",
       "baseRefOid": "2bfdc69060004c814147677e3a83194649ae35e6",
       "headRepository": "wkumari/draft-chroboczek-intarea-v4-via-v6",
       "headRefName": "not_per_packet",
       "headRefOid": "33583968df67ea788b88ea74ab273f60d6a50c14",
-      "closedAt": null,
+      "closedAt": "2025-08-19T17:47:50Z",
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
@@ -266,6 +281,13 @@
           "body": "That's pretty smart.\r\n\r\nMinor nits:\r\n\r\n  * so that an IPv4 prefix may map to an IPv6 next hop, or an IPv6 prefix to an IPv4 next hop -> so that an IPv4 prefix may map to either an IPv6 or an IPv4 next hop\r\n\r\n  * forwards the packet out the outgoing interface -> forwards the packet through the outgoing interface\r\n\r\nFeel free to merge.\r\n  ",
           "createdAt": "2025-08-16T09:35:07Z",
           "updatedAt": "2025-08-16T09:36:34Z"
+        },
+        {
+          "author": "jech",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Applied as 46db53452af78cba10c362ba0ec27ebf04d15d22, minor tweaks in 6f7326927a2edd773f8fee4a2c9a6c47f54d7bbe.",
+          "createdAt": "2025-08-19T17:47:50Z",
+          "updatedAt": "2025-08-19T17:47:50Z"
         }
       ],
       "reviews": []
