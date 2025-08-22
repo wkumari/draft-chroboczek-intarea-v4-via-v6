@@ -5,10 +5,10 @@
 Internet Area Working Group                                J. Chroboczek
 Internet-Draft                                 IRIF, University of Paris
 Intended status: Standards Track                               W. Kumari
-Expires: 16 February 2026                                    Google, LLC
+Expires: 23 February 2026                                    Google, LLC
                                                     T. Høiland-Jørgensen
                                                                  Red Hat
-                                                          15 August 2025
+                                                          22 August 2025
 
 
                    IPv4 routes with an IPv6 next hop
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 16 February 2026.
+   This Internet-Draft will expire on 23 February 2026.
 
 Copyright Notice
 
@@ -426,9 +426,9 @@ Table of Contents
               Fenner, B. and R. Thomas, "Adding Extensions to ICMP
               Errors for Originating Node Identification", Work in
               Progress, Internet-Draft, draft-ietf-intarea-extended-
-              icmp-nodeid-03, 6 August 2025,
+              icmp-nodeid-04, 19 August 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-intarea-
-              extended-icmp-nodeid-03>.
+              extended-icmp-nodeid-04>.
 
    [IANA-IPV4-REGISTRY]
               "IANA IPv4 Address Registry", Web 
@@ -490,13 +490,14 @@ Table of Contents
 
 Acknowledgments
 
-   We are grateful to nnJoe Abley, Krishnaswamy Ananthamurthy, Bill
-   Fenner, Tobias Fiebig, John Gilmore, Bob Hinden, David Lamparter,
-   Gyan Mishra, tom petch, Herbie Robinson, Behcet Sarikaya, David
-   Schinazi, Ole Troan, and Éric Vyncke, for their helpful comments and
-   suggestions on this document.  We are also indebted to the members of
-   the Babel community for the discussions that led to the creation of
-   this document.
+   We are grateful to Joe Abley, Krishnaswamy Ananthamurthy, Bill
+   Fenner, Tobias Fiebig, John Gilmore, Bob Hinden, David Lamparter, Jen
+   Linkova, Gyan Mishra, tom petch, Herbie Robinson, Behcet Sarikaya,
+   David Schinazi, Ole Troan, and Éric Vyncke, for their helpful
+   comments and suggestions on this document.
+
+   We are also indebted to the members of the Babel community for the
+   discussions that led to the creation of this document.
 
 Changes
 
