@@ -379,10 +379,11 @@ This document has no IANA actions.
 # Acknowledgments
 {:numbered="false"}
 
-We are grateful to nnJoe Abley, Krishnaswamy Ananthamurthy, Bill Fenner,
-Tobias Fiebig, John Gilmore, Bob Hinden, David Lamparter, Gyan Mishra, tom
-petch, Herbie Robinson, Behcet Sarikaya, David Schinazi, Ole Troan, and
+We are grateful to Joe Abley, Krishnaswamy Ananthamurthy, Bill Fenner, Tobias
+Fiebig, John Gilmore, Bob Hinden, David Lamparter, Jen Linkova, Gyan Mishra,
+tom petch, Herbie Robinson, Behcet Sarikaya, David Schinazi, Ole Troan, and
 Éric Vyncke, for their helpful comments and suggestions on this document.
+
 We are also indebted to the members of the Babel community for the
 discussions that led to the creation of this document.
 
