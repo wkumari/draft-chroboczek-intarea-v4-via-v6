@@ -41,6 +41,7 @@ author:
 
 normative:
   RFC7600:
+  RFC1812:
 
 informative:
   RFC0792:
@@ -156,7 +157,8 @@ The routing table is a data structure that maps address prefixes to
 next-hops, pairs of the form (interface, address).  In traditional
 next-hop routing, the routing table maps IPv4 prefixes to IPv4 next hops,
 and IPv6 addresses to IPv6 next hops.  With v4-via-v6 routing, the routing
-table is extended so that an IPv4 prefix  may map to an IPv6 next hop.
+table is extended so that an IPv4 prefix may map to either an IPv6 or an
+IPv4 next hop.
 
 Resolution may be recursive: the next-hop may itself be a prefix that
 requires further resolution to map to the outgoing interface and L2
@@ -167,16 +169,14 @@ address.  V4-via-v6 routing does not prevent recursive resolution.
 The forwarding plane is the part of the routing implementation that is
 executed for every forwarded packet.  As a packet arrives, the forwarding
 plane consults the routing table, selects a single route matching the
-packet, determines the next-hop address, and forwards the packet to the
-next-hop address.
+packet, and forwards the packet through the outgoing interface to the
+associated next-hop address.
 
 With v4-via-v6 routing, the address family of the next-hop address is no
 longer determined by the address family of the prefix: since the routing
 table may map an IPv4 prefix to either an IPv4 or an IPv6 next-hop, the
-forwarding plane must be able to determine, on a per-packet basis, whether
-the next-hop address is an IPv4 or an IPv6 address, and to use that
-information in order to choose the right address resolution protocol to
-use (ARP for IP4, ND for IPv6).
+forwarding plane must be able to determine, on a per-packet basis, which
+address resolution protocol (ARP for IPv4, ND for IPv6) to consult.
 
 ## Operation of routing protocols
 
@@ -192,7 +192,7 @@ However, in order to use the additional flexibility provided by v4-via-v6
 routing, routing protocols need to be extended with the ability to
 populate the routing table with v4-via-v6 routes when an IPv4 address is
 not available or when the available IPv4 addresses are not suitable for
-use as a next-hop (for example not stable enough).
+use as a next-hop.
 
 Some protocols already support the advertisement of IPv4 routes with an
 IPv6 next-hop, including Babel {{RFC8966}} and BGP {{RFC8950}}.  Other
@@ -223,32 +223,32 @@ ICMPv4 packets originated by intermediate routers: if intermediate
 routers are unable to send ICMPv4 packets, PMTUd may lead to
 persistent black-holing of IPv4 traffic.
 
-Due to this kind of dependency, every router that is able to
-forward IPv4 traffic SHOULD be able originate ICMPv4 traffic.  Since
-the extension described in this document enables routers to forward
-IPv4 traffic received over an interface that has not been assigned an
-IPv4 address, a router implementing this extension MUST be able to
-originate ICMPv4 packets even when the outgoing interface has not
-been assigned an IPv4 address.
+A router must therefore be able to generate ICMP Destination Unreachable
+messages ([RFC1812] Section 5.2.7.1).  The source address of these
+messages must be one of the addresses assigned to the outgoing interface;
+if no such address has been assigned, then one of the other addresses
+assigned to the router, known as the "router-id", must be used ([RFC1812]
+Section 4.3.2.4).
 
-In such a situation, if the router has an interface that has been assigned
-a publicly routable IPv4 address (other than the loopback address), or if
-an IPv4 address has been assigned to the router itself (to the "loopback
-interface"), then that IPv4 address may be used as the source of
-originated ICMPv4 packets.  If no IPv4 address is available, the router
-should use the mechanism described in Requirement R-22 of Section 4.8
-[RFC7600], which consists of using the dummy address 192.0.0.8 as the
-source address of originated ICMPv4 packets.  Note however that using the
-same address on multiple routers may hamper debugging and fault isolation,
-e.g., when using the "traceroute" utility.  This mirrors the
-behavior in Section 3 of {{RFC9229}}.
+Routers implementing the mechanism described in this document do not need
+to have any IPv4 addresses assigned to any of their interfaces, and RFC 1812
+does not specify what happens if no router-id has been assigned.  If
+a router does not have any IPv4 addresses assigned, the router MUST use
+the dummy address 192.0.0.8 as the source address of outgoing ICMP packets
+([RFC7600], Section 4.8, Requirement R-22).
 
-{{I-D.draft-ietf-intarea-extended-icmp-nodeid}} provides a possible
-solution to this issue, by allowing the ICMP packet to carry a "host
-identifier" that can be used to identify the router that originated the
-ICMP by providing a unique IP address and/or a textual name for the node,
-in the case where each node may not have a unique IP address.
+Using the dummy address as the source of ICMPv4 packet causes a number of
+drawbacks:
 
+  * using the same address on multiple routers may hamper debugging and
+    fault isolation, e.g., when using the "traceroute" utility (but see
+    {I-D.draft-ietf-intarea-extended-icmp-nodeid} for a possible solution
+    to this problem);
+  * packets originating from 192.0.0.8 might be considered as spoofed
+    traffic and dropped by firewalls at network boundaries.
+
+For these reasons, even if a router performs v4-via-v6 routing on all
+interfaces, it SHOULD be assigned at least one IPv4 address.
 
 # Implementation Status
 ( This section to be removed before publication. )
