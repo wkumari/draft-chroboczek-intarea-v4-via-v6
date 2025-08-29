@@ -380,11 +380,11 @@ This document has no IANA actions.
 # Acknowledgments
 {:numbered="false"}
 
-We are grateful to nnJoe Abley, Krishnaswamy Ananthamurthy, Bill Fenner,
-Tobias Fiebig, John Gilmore, Bob Hinden, David Lamparter, Gyan Mishra, tom
-petch, Herbie Robinson, Behcet Sarikaya, David Schinazi, Ole Troan, and
-Éric Vyncke, for their helpful comments and suggestions on this document.
-We are also indebted to the members of the Babel community for the
+We are grateful to Joe Abley, Vint Cerf, Krishnaswamy Ananthamurthy, Bill
+Fenner, Tobias Fiebig, John Gilmore, Bob Hinden, Jen Linkova, David Lamparter,
+Gyan Mishra, tom petch, Herbie Robinson, Behcet Sarikaya, David Schinazi, Ole
+Troan, and Éric Vyncke, for their helpful comments and suggestions on this
+document. We are also indebted to the members of the Babel community for the
 discussions that led to the creation of this document.
 
 # Changes
@@ -392,6 +392,23 @@ discussions that led to the creation of this document.
 This section is to be removed before publication, and the primary change log is
 the git repository. This is just a place to note some of the more substantive
 changes.
+
+## Version 03-04
+{:numbered="false"}
+
+* Updated the acknowledgements
+*
+
+## Version 02-03
+{:numbered="false"}
+
+* Warren is an idiot, and pushed a branch instead of the main one, so -03 is
+  actually what -02 should have been.
+
+## Version 01-02
+{:numbered="false"}
+
+* Addressed comments from Vint and Jen.
 
 ## Version 00-01
 {:numbered="false"}
