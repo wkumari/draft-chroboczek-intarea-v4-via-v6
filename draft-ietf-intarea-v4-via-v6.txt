@@ -131,8 +131,8 @@ Table of Contents
    through a next hop with an IPv6 address.  (In fact, it is even
    possible to store link-layer addresses directly in the next-hop entry
    of the routing table, thus avoiding the use of an address resolution
-   protocol altogether, which is commonly done in networks using the OSI
-   protocol suite.)
+   protocol altogether, which was commonly done in networks using the
+   OSI protocol suite.)
 
    This document focuses on the specific case of routing IPv4 packets
    through an IPv6 next-hop.  This case is particularly interesting,
@@ -274,7 +274,7 @@ Table of Contents
 
    *  using the same address on multiple routers may hamper debugging
       and fault isolation, e.g., when using the "traceroute" utility
-      (but see {I-D.draft-ietf-intarea-extended-icmp-nodeid} for a
+      (but see [I-D.draft-ietf-intarea-extended-icmp-nodeid] for a
       possible solution to this problem);
 
    *  packets originating from 192.0.0.8 might be considered as spoofed
