@@ -106,7 +106,7 @@ next hop's MAC address will be obtained using ARP), or, conversely, an
 IPv4 packet from being routed through a next hop with an IPv6 address.
 (In fact, it is even possible to store link-layer addresses directly in
 the next-hop entry of the routing table, thus avoiding the use of an
-address resolution protocol altogether, which is commonly done in networks
+address resolution protocol altogether, which was commonly done in networks
 using the OSI protocol suite.)
 
 This document focuses on the specific case of routing IPv4 packets through
@@ -243,7 +243,7 @@ drawbacks:
 
   * using the same address on multiple routers may hamper debugging and
     fault isolation, e.g., when using the "traceroute" utility (but see
-    {I-D.draft-ietf-intarea-extended-icmp-nodeid} for a possible solution
+    {{I-D.draft-ietf-intarea-extended-icmp-nodeid}} for a possible solution
     to this problem);
   * packets originating from 192.0.0.8 might be considered as spoofed
     traffic and dropped by firewalls at network boundaries.
