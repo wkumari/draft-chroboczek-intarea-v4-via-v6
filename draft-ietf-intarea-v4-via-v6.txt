@@ -5,10 +5,10 @@
 Internet Area Working Group                                J. Chroboczek
 Internet-Draft                                 IRIF, University of Paris
 Intended status: Standards Track                               W. Kumari
-Expires: 2 March 2026                                        Google, LLC
+Expires: 30 March 2026                                       Google, LLC
                                                     T. Høiland-Jørgensen
                                                                  Red Hat
-                                                          29 August 2025
+                                                       26 September 2025
 
 
                    IPv4 routes with an IPv6 next hop
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 2 March 2026.
+   This Internet-Draft will expire on 30 March 2026.
 
 Copyright Notice
 
@@ -227,10 +227,13 @@ Table of Contents
    Some protocols already support the advertisement of IPv4 routes with
    an IPv6 next-hop, including Babel [RFC8966] and BGP [RFC8950].  Other
    protocol advertise both IPv4 and IPv6 prefixes over a single
-   neighbor; these include: * Multi-Topology (MT) Routing in OSPF
-   ([RFC4915]) * Multi-Topology (MT) Routing in IS-IS ([RFC5120]) While
-   both of these employ a common control plane, they use separate data
-   planes, and therefore don't implement v4-via-v6 routing.
+   neighbor; these include:
+
+   *  Multi-Topology (MT) Routing in OSPF ([RFC4915])
+
+   *  Multi-Topology (MT) Routing in IS-IS ([RFC5120]) While both of
+      these employ a common control plane, they use separate data
+      planes, and therefore don't implement v4-via-v6 routing.
 
 4.  ICMP Considerations
 
