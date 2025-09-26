@@ -198,6 +198,7 @@ Some protocols already support the advertisement of IPv4 routes with an
 IPv6 next-hop, including Babel {{RFC8966}} and BGP {{RFC8950}}.  Other
 protocol advertise both IPv4 and IPv6 prefixes over a single neighbor;
 these include:
+
   * Multi-Topology (MT) Routing in OSPF ({{RFC4915}})
   * Multi-Topology (MT) Routing in IS-IS ({{RFC5120}}) While both of these
 employ a common control plane, they use separate data planes, and
