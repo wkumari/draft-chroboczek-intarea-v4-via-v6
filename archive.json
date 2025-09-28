@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-08-21T00:31:49.207242+00:00",
+  "timestamp": "2025-09-28T00:35:55.341578+00:00",
   "repo": "wkumari/draft-chroboczek-intarea-v4-via-v6",
   "labels": [
     {
@@ -288,6 +288,42 @@
           "body": "Applied as 46db53452af78cba10c362ba0ec27ebf04d15d22, minor tweaks in 6f7326927a2edd773f8fee4a2c9a6c47f54d7bbe.",
           "createdAt": "2025-08-19T17:47:50Z",
           "updatedAt": "2025-08-19T17:47:50Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 5,
+      "id": "PR_kwDOLHMNHM6qo_tn",
+      "title": "Fixing bullet list formatting",
+      "url": "https://github.com/wkumari/draft-chroboczek-intarea-v4-via-v6/pull/5",
+      "state": "MERGED",
+      "author": "furry13",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "...so it is rendered correctly.",
+      "createdAt": "2025-09-26T07:31:55Z",
+      "updatedAt": "2025-09-26T14:34:02Z",
+      "baseRepository": "wkumari/draft-chroboczek-intarea-v4-via-v6",
+      "baseRefName": "main",
+      "baseRefOid": "21b00eed690e13d3a2e590d515ec3c36f60ff7e3",
+      "headRepository": "furry13/draft-chroboczek-intarea-v4-via-v6",
+      "headRefName": "wglc-1",
+      "headRefOid": "e59acfd14fbbfc787a3f1cb56ac7e04fbe7d24ca",
+      "closedAt": "2025-09-26T14:34:02Z",
+      "mergedAt": "2025-09-26T14:34:02Z",
+      "mergedBy": "wkumari",
+      "mergeCommit": {
+        "oid": "716fddbb8fe96d58f60d4e39a030243e56fed8d8"
+      },
+      "comments": [
+        {
+          "author": "wkumari",
+          "authorAssociation": "OWNER",
+          "body": "Ta!",
+          "createdAt": "2025-09-26T14:33:55Z",
+          "updatedAt": "2025-09-26T14:33:55Z"
         }
       ],
       "reviews": []
