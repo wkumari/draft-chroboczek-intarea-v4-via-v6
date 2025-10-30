@@ -375,7 +375,7 @@ rules.
 
 # IANA Considerations
 
-This document has no IANA actions.
+No IANA actions are requested by this document.
 
 --- back
 
