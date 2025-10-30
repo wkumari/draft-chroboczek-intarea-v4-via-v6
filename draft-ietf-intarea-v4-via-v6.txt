@@ -408,7 +408,7 @@ Table of Contents
 
 7.  IANA Considerations
 
-   This document has no IANA actions.
+   No IANA actions are requested by this document.
 
 8.  References
 
