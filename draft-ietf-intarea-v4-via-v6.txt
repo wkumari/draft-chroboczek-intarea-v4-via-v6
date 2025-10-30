@@ -5,10 +5,10 @@
 Internet Area Working Group                                J. Chroboczek
 Internet-Draft                                 IRIF, University of Paris
 Intended status: Standards Track                               W. Kumari
-Expires: 30 March 2026                                       Google, LLC
+Expires: 3 May 2026                                          Google, LLC
                                                     T. Høiland-Jørgensen
                                                                  Red Hat
-                                                       26 September 2025
+                                                         30 October 2025
 
 
                    IPv4 routes with an IPv6 next hop
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 30 March 2026.
+   This Internet-Draft will expire on 3 May 2026.
 
 Copyright Notice
 
@@ -231,9 +231,10 @@ Table of Contents
 
    *  Multi-Topology (MT) Routing in OSPF ([RFC4915])
 
-   *  Multi-Topology (MT) Routing in IS-IS ([RFC5120]) While both of
-      these employ a common control plane, they use separate data
-      planes, and therefore don't implement v4-via-v6 routing.
+   *  Multi-Topology (MT) Routing in IS-IS ([RFC5120])
+
+   While both of these employ a common control plane, they use separate
+   data planes, and therefore don't implement v4-via-v6 routing.
 
 4.  ICMP Considerations
 
@@ -309,7 +310,7 @@ Table of Contents
    https://mailarchive.ietf.org/arch/msg/babel/
    QtFi3F4TFfF7fXXlkHSpEnuT44Y/)
 
-   A route across three IPv6-only nodes:
+   An IPv4 route across three nodes with IPv6 addresses only:
 
   $ ip route show 10.0.0.2
   10.0.0.2 via inet6 fe80::216:3eff:fe00:1 dev lxcbr0 proto babel onlink
@@ -499,6 +500,9 @@ Table of Contents
               May 2022, <https://www.rfc-editor.org/rfc/rfc9229>.
 
 Acknowledgments
+
+   We are indebted to the contributors to [RFC9229], on which this
+   document is heavily based.
 
    We are grateful to Joe Abley, Vint Cerf, Krishnaswamy Ananthamurthy,
    Bill Fenner, Tobias Fiebig, John Gilmore, Bob Hinden, Jen Linkova,
