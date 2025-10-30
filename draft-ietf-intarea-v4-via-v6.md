@@ -195,7 +195,7 @@ not available or when the available IPv4 addresses are not suitable for
 use as a next-hop.
 
 Some protocols already support the advertisement of IPv4 routes with an
-IPv6 next-hop, including Babel {{RFC8966}} and BGP {{RFC8950}}.  Other
+IPv6 next-hop, including Babel {{RFC9229}} and BGP {{RFC8950}}.  Other
 protocol advertise both IPv4 and IPv6 prefixes over a single neighbor;
 these include:
 
