@@ -382,6 +382,9 @@ This document has no IANA actions.
 # Acknowledgments
 {:numbered="false"}
 
+We are indebted to the contributors to {{RFC9229}}, on which this document
+is heavily based.
+
 We are grateful to Joe Abley, Vint Cerf, Krishnaswamy Ananthamurthy, Bill
 Fenner, Tobias Fiebig, John Gilmore, Bob Hinden, Jen Linkova, David Lamparter,
 Gyan Mishra, tom petch, Herbie Robinson, Behcet Sarikaya, David Schinazi, Ole
