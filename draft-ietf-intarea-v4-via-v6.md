@@ -91,12 +91,12 @@ address, for example:
       203.0.113.0/24                  eth0, 192.0.2.1
 
 When a packet is routed according to a given routing table entry, the
-forwarding plane uses a neighbor discovery protocol (the Neighbor
-Discovery protocol (ND) [RFC4861] in the case of IPv6, the Address
-Resolution Protocol (ARP) [RFC0826] in the case of IPv4) to map the
-next-hop address to a link-layer address (a "MAC address"), which is then
-used to construct the link-layer frames that encapsulate forwarded
-packets.
+forwarding plane typically maps the next-hop address to a link-layer
+address (a "MAC address") by using a neighbor discovery protocol (for
+example the Neighbor Discovery protocol (ND) [RFC4861] in the case of
+IPv6 over Ethernet, and the Address Resolution Protocol (ARP) [RFC0826]
+in the case of IPv4 over Ethernet).  The link-layer address is then used
+to construct the link-layer frames that encapsulate forwarded packets.
 
 It is apparent from the description above that there is no fundamental
 reason why the destination prefix and the next-hop address should be in
@@ -385,12 +385,13 @@ This document has no IANA actions.
 We are indebted to the contributors to {{RFC9229}}, on which this document
 is heavily based.
 
-We are grateful to Joe Abley, Vint Cerf, Krishnaswamy Ananthamurthy, Bill
-Fenner, Tobias Fiebig, John Gilmore, Bob Hinden, Jen Linkova, David Lamparter,
-Gyan Mishra, tom petch, Herbie Robinson, Behcet Sarikaya, David Schinazi, Ole
-Troan, and Éric Vyncke, for their helpful comments and suggestions on this
-document. We are also indebted to the members of the Babel community for the
-discussions that led to the creation of this document.
+We are grateful to Joe Abley, Vint Cerf, Krishnaswamy Ananthamurthy,
+Lorenzo Colitti, Bill Fenner, Tobias Fiebig, John Gilmore, Bob Hinden, Jen
+Linkova, David Lamparter, Gyan Mishra, tom petch, Herbie Robinson, Behcet
+Sarikaya, David Schinazi, Ole Troan, and Éric Vyncke, for their helpful
+comments and suggestions on this document. We are also indebted to the
+members of the Babel community for the discussions that led to the
+creation of this document.
 
 # Changes
 {:numbered="false"}
