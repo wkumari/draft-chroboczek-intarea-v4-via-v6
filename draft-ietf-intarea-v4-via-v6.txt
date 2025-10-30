@@ -88,11 +88,12 @@ Table of Contents
      5.4.  Mikrotik RouterOS
        5.4.1.  Example
      5.5.  Cisco NX-OS
-   6.  Security Considerations
-   7.  IANA Considerations
-   8.  References
-     8.1.  Normative References
-     8.2.  Informative References
+   6.  Operational Considerations
+   7.  Security Considerations
+   8.  IANA Considerations
+   9.  References
+     9.1.  Normative References
+     9.2.  Informative References
    Acknowledgments
    Changes
      Version 03-04
@@ -226,7 +227,7 @@ Table of Contents
    are not suitable for use as a next-hop.
 
    Some protocols already support the advertisement of IPv4 routes with
-   an IPv6 next-hop, including Babel [RFC8966] and BGP [RFC8950].  Other
+   an IPv6 next-hop, including Babel [RFC9229] and BGP [RFC8950].  Other
    protocol advertise both IPv4 and IPv6 prefixes over a single
    neighbor; these include:
 
@@ -275,7 +276,7 @@ Table of Contents
    number of drawbacks:
 
    *  using the same address on multiple routers may hamper debugging
-      and fault isolation, e.g., when using the "traceroute" utility
+      and fault isolation, e.g., when using the _traceroute_ utility
       (but see [I-D.draft-ietf-intarea-extended-icmp-nodeid] for a
       possible solution to this problem);
 
@@ -387,7 +388,27 @@ Table of Contents
    Cisco NX-OS has supported v4-via-v6 routes "for more than 8 years" --
    Krishnaswamy Ananthamurthy
 
-6.  Security Considerations
+6.  Operational Considerations
+
+   Even though v4-via-v6 routes are similar in structure to traditional
+   next-hop routes, at least some monitoring and management tools will
+   not be able to interpret them.  Deployment of v4-via-v6 routing in a
+   network will require testing and updating of all tools and scripts
+   that manipulate or examine routes.
+
+   V4-via-v6 routing encourages a model of deployment where some routers
+   have no IPv4 addresses even though they forward IPv4 traffic.  Such
+   routers make debugging of IPv4 routing issues somewhat more
+   difficult, most notably by making the output of the _traceroute_
+   utility less informative than it would otherwise be (see
+   Section Section 4).  Even if the procedures described
+   in[I-D.draft-ietf-intarea-extended-icmp-nodeid] are deployed on all
+   such routers, older versions of _traceroute_ will not be able to
+   interpret the additional information.  Network administrators might
+   want to provision IPv4 addresses on all routers in order to simplify
+   debugging.
+
+7.  Security Considerations
 
    The techniques described in this document make routing more flexible
    by allowing IPv4 routes to propagate across a section of a network
@@ -406,13 +427,13 @@ Table of Contents
    the undesirable traffic in the forwarding plane by implementing
    suitable packet filtering rules.
 
-7.  IANA Considerations
+8.  IANA Considerations
 
    No IANA actions are requested by this document.
 
-8.  References
+9.  References
 
-8.1.  Normative References
+9.1.  Normative References
 
    [RFC1812]  Baker, F., Ed., "Requirements for IP Version 4 Routers",
               RFC 1812, DOI 10.17487/RFC1812, June 1995,
@@ -432,7 +453,7 @@ Table of Contents
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
 
-8.2.  Informative References
+9.2.  Informative References
 
    [I-D.draft-ietf-intarea-extended-icmp-nodeid]
               Fenner, B. and R. Thomas, "Adding Extensions to ICMP
@@ -502,16 +523,15 @@ Table of Contents
 
 Acknowledgments
 
-   We are indebted to the contributors to [RFC9229], on which this
-   document is heavily based.
+   This document is based on [RFC9229], which was produced by the IETF
+   Babel working group.
 
-   We are grateful to Joe Abley, Vint Cerf, Krishnaswamy Ananthamurthy,
-   Lorenzo Colitti, Bill Fenner, Tobias Fiebig, John Gilmore, Bob
-   Hinden, Jen Linkova, David Lamparter, Gyan Mishra, tom petch, Herbie
-   Robinson, Behcet Sarikaya, David Schinazi, Ole Troan, and Éric
-   Vyncke, for their helpful comments and suggestions on this document.
-   We are also indebted to the members of the Babel community for the
-   discussions that led to the creation of this document.
+   We are grateful to Joe Abley, Krishnaswamy Ananthamurthy, Vint Cerf,
+   Joe Clarke, Lorenzo Colitti, Bill Fenner, Tobias Fiebig, John
+   Gilmore, Bob Hinden, Jen Linkova, David Lamparter, Gyan Mishra, tom
+   petch, Herbie Robinson, Behcet Sarikaya, David Schinazi, Ole Troan,
+   and Éric Vyncke for helpful comments and suggestions about this
+   document.
 
 Changes
 
