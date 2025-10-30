@@ -201,7 +201,7 @@ these include:
 
   * Multi-Topology (MT) Routing in OSPF ({{RFC4915}})
   * Multi-Topology (MT) Routing in IS-IS ({{RFC5120}})
-  
+
 While both of these employ a common control plane, they use separate data
 planes, and therefore don't implement v4-via-v6 routing.
 
