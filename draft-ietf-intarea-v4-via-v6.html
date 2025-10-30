@@ -1278,12 +1278,12 @@ address, for example:<a href="#section-1-1" class="pilcrow">¶</a></p>
 </pre><a href="#section-1-2" class="pilcrow">¶</a>
 </div>
 <p id="section-1-3">When a packet is routed according to a given routing table entry, the
-forwarding plane uses a neighbor discovery protocol (the Neighbor
-Discovery protocol (ND) <span>[<a href="#RFC4861" class="cite xref">RFC4861</a>]</span> in the case of IPv6, the Address
-Resolution Protocol (ARP) <span>[<a href="#RFC0826" class="cite xref">RFC0826</a>]</span> in the case of IPv4) to map the
-next-hop address to a link-layer address (a "MAC address"), which is then
-used to construct the link-layer frames that encapsulate forwarded
-packets.<a href="#section-1-3" class="pilcrow">¶</a></p>
+forwarding plane typically maps the next-hop address to a link-layer
+address (a "MAC address") by using a neighbor discovery protocol (for
+example the Neighbor Discovery protocol (ND) <span>[<a href="#RFC4861" class="cite xref">RFC4861</a>]</span> in the case of
+IPv6 over Ethernet, and the Address Resolution Protocol (ARP) <span>[<a href="#RFC0826" class="cite xref">RFC0826</a>]</span>
+in the case of IPv4 over Ethernet).  The link-layer address is then used
+to construct the link-layer frames that encapsulate forwarded packets.<a href="#section-1-3" class="pilcrow">¶</a></p>
 <p id="section-1-4">It is apparent from the description above that there is no fundamental
 reason why the destination prefix and the next-hop address should be in
 the same address family: there is nothing preventing an IPv6 packet from
@@ -1732,12 +1732,13 @@ rules.<a href="#section-6-2" class="pilcrow">¶</a></p>
       </h2>
 <p id="appendix-A-1">We are indebted to the contributors to <span>[<a href="#RFC9229" class="cite xref">RFC9229</a>]</span>, on which this document
 is heavily based.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
-<p id="appendix-A-2">We are grateful to Joe Abley, Vint Cerf, Krishnaswamy Ananthamurthy, Bill
-Fenner, Tobias Fiebig, John Gilmore, Bob Hinden, Jen Linkova, David Lamparter,
-Gyan Mishra, tom petch, Herbie Robinson, Behcet Sarikaya, David Schinazi, Ole
-Troan, and Éric Vyncke, for their helpful comments and suggestions on this
-document. We are also indebted to the members of the Babel community for the
-discussions that led to the creation of this document.<a href="#appendix-A-2" class="pilcrow">¶</a></p>
+<p id="appendix-A-2">We are grateful to Joe Abley, Vint Cerf, Krishnaswamy Ananthamurthy,
+Lorenzo Colitti, Bill Fenner, Tobias Fiebig, John Gilmore, Bob Hinden, Jen
+Linkova, David Lamparter, Gyan Mishra, tom petch, Herbie Robinson, Behcet
+Sarikaya, David Schinazi, Ole Troan, and Éric Vyncke, for their helpful
+comments and suggestions on this document. We are also indebted to the
+members of the Babel community for the discussions that led to the
+creation of this document.<a href="#appendix-A-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="changes">
