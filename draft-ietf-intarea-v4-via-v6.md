@@ -275,7 +275,7 @@ As noted above, this document is heavily based on RFC9229
 Pasted below is email sent to the babel mailing list (archived
 at https://mailarchive.ietf.org/arch/msg/babel/QtFi3F4TFfF7fXXlkHSpEnuT44Y/)
 
-A route across three IPv6-only nodes:
+An IPv4 route across three nodes with IPv6 addresses only:
 
     $ ip route show 10.0.0.2
     10.0.0.2 via inet6 fe80::216:3eff:fe00:1 dev lxcbr0 proto babel onlink
