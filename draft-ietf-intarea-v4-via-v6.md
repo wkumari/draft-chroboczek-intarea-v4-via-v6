@@ -205,7 +205,7 @@ these include:
 While both of these employ a common control plane, they use separate data
 planes, and therefore don't implement v4-via-v6 routing.
 
-# ICMP Considerations
+# ICMP Considerations {#sec-icmp}
 
 The Internet Control Message Protocol (ICMPv4, or simply ICMP)
 [RFC0792] is a protocol related to IPv4 that is primarily used to
@@ -243,7 +243,7 @@ Using the dummy address as the source of ICMPv4 packet causes a number of
 drawbacks:
 
   * using the same address on multiple routers may hamper debugging and
-    fault isolation, e.g., when using the "traceroute" utility (but see
+    fault isolation, e.g., when using the *traceroute* utility (but see
     {{I-D.draft-ietf-intarea-extended-icmp-nodeid}} for a possible solution
     to this problem);
   * packets originating from 192.0.0.8 might be considered as spoofed
@@ -355,6 +355,25 @@ Columns: DST-ADDRESS, GATEWAY, DISTANCE
 Cisco NX-OS has supported v4-via-v6 routes "for more than 8 years"
   -- Krishnaswamy Ananthamurthy
 
+# Operational Considerations
+
+Even though v4-via-v6 routes are similar in structure to traditional
+next-hop routes, at least some monitoring and management tools will not be
+able to interpret them.  Deployment of v4-via-v6 routing in a network will
+require testing and updating of all tools and scripts that manipulate or
+examine routes.
+
+V4-via-v6 routing encourages a model of deployment where some routers have
+no IPv4 addresses even though they forward IPv4 traffic.  Such routers
+make debugging of IPv4 routing issues somewhat more difficult, most
+notably by making the output of the *traceroute* utility less informative
+than it would otherwise be (see Section {{sec-icmp}}).  Even if the
+procedures described in{{I-D.draft-ietf-intarea-extended-icmp-nodeid}} are
+deployed on all such routers, older versions of *traceroute* will not be
+able to interpret the additional information.  Network administrators
+might want to provision IPv4 addresses on all routers in order to simplify
+debugging.
+
 # Security Considerations
 
 The techniques described in this document make routing more flexible by
@@ -382,16 +401,14 @@ No IANA actions are requested by this document.
 # Acknowledgments
 {:numbered="false"}
 
-We are indebted to the contributors to {{RFC9229}}, on which this document
-is heavily based.
+This document is based on {{RFC9229}}, which was produced by the IETF
+Babel working group.
 
-We are grateful to Joe Abley, Vint Cerf, Krishnaswamy Ananthamurthy,
-Lorenzo Colitti, Bill Fenner, Tobias Fiebig, John Gilmore, Bob Hinden, Jen
-Linkova, David Lamparter, Gyan Mishra, tom petch, Herbie Robinson, Behcet
-Sarikaya, David Schinazi, Ole Troan, and Éric Vyncke, for their helpful
-comments and suggestions on this document. We are also indebted to the
-members of the Babel community for the discussions that led to the
-creation of this document.
+We are grateful to Joe Abley, Krishnaswamy Ananthamurthy, Vint Cerf, Joe
+Clarke, Lorenzo Colitti, Bill Fenner, Tobias Fiebig, John Gilmore, Bob
+Hinden, Jen Linkova, David Lamparter, Gyan Mishra, tom petch, Herbie
+Robinson, Behcet Sarikaya, David Schinazi, Ole Troan, and Éric Vyncke for
+helpful comments and suggestions about this document.
 
 # Changes
 {:numbered="false"}
