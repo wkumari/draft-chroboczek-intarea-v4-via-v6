@@ -5,10 +5,10 @@
 Internet Area Working Group                                J. Chroboczek
 Internet-Draft                                 IRIF, University of Paris
 Intended status: Standards Track                               W. Kumari
-Expires: 3 May 2026                                          Google, LLC
+Expires: 4 May 2026                                          Google, LLC
                                                     T. Høiland-Jørgensen
                                                                  Red Hat
-                                                         30 October 2025
+                                                         31 October 2025
 
 
                    IPv4 routes with an IPv6 next hop
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 3 May 2026.
+   This Internet-Draft will expire on 4 May 2026.
 
 Copyright Notice
 
@@ -401,8 +401,8 @@ Table of Contents
    routers make debugging of IPv4 routing issues somewhat more
    difficult, most notably by making the output of the _traceroute_
    utility less informative than it would otherwise be (see
-   Section Section 4).  Even if the procedures described
-   in[I-D.draft-ietf-intarea-extended-icmp-nodeid] are deployed on all
+   Section Section 4).  Even if the procedures described in
+   [I-D.draft-ietf-intarea-extended-icmp-nodeid] are deployed on all
    such routers, older versions of _traceroute_ will not be able to
    interpret the additional information.  Network administrators might
    want to provision IPv4 addresses on all routers in order to simplify
