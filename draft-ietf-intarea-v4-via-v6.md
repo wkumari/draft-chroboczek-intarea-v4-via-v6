@@ -368,7 +368,7 @@ no IPv4 addresses even though they forward IPv4 traffic.  Such routers
 make debugging of IPv4 routing issues somewhat more difficult, most
 notably by making the output of the *traceroute* utility less informative
 than it would otherwise be (see Section {{sec-icmp}}).  Even if the
-procedures described in{{I-D.draft-ietf-intarea-extended-icmp-nodeid}} are
+procedures described in {{I-D.draft-ietf-intarea-extended-icmp-nodeid}} are
 deployed on all such routers, older versions of *traceroute* will not be
 able to interpret the additional information.  Network administrators
 might want to provision IPv4 addresses on all routers in order to simplify
