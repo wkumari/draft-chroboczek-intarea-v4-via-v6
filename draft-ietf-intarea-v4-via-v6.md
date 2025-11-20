@@ -420,14 +420,16 @@ changes.
 ## Version 03-04
 {:numbered="false"}
 
-* Updated the acknowledgements
-*
+* Added a section about operational considerations.
+* Made it clear that ARP/ND are not necessarily used.
+* Removed any mention of v4-only, since it's not quite correct that
+  v4-via-v6 is v4-only.
 
 ## Version 02-03
 {:numbered="false"}
 
-* Warren is an idiot, and pushed a branch instead of the main one, so -03 is
-  actually what -02 should have been.
+* Warren is a smart guy, but he still pushed a branch instead of the main
+  one, so -03 is actually what -02 should have been.
 
 ## Version 01-02
 {:numbered="false"}
