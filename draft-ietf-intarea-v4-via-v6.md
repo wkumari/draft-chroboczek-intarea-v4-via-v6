@@ -122,16 +122,17 @@ approach.)
 
 We call a route towards an IPv4 prefix that uses an IPv6 next hop
 a "v4-via-v6" route.  V4-via-v6 routing is not restricted to routers, and
-could usefully be applied to hosts, although doing so would require
-solving the issue of host configuration, for example by extending either
-DHCPv4 or DHCPv6 to publish an IPv4 default route with an IPv6 next hop.
+could usefully be applied to hosts, but doing so would require solving the
+issue of host configuration, for example by extending either DHCPv4 or
+DHCPv6 to publish an IPv4 default route with an IPv6 next hop, which is
+out of scope for this document.
 
-{{RFC8950}} discusses advertising of IPv4 NLRI with a next-hop address that
-belongs to the IPv6 protocol, but confines itself to how this is carried and
-advertised in the BGP protocol. This document, on the other hand, discusses the
-concept of v4-via-v6 routes independently of any specific routing protocol,
-their design and operational considerations, and the implications of using
-them.
+{{RFC8950}} discusses advertising of IPv4 Network Layer Reachability
+Information (NLRI) with a next-hop address that belongs to the IPv6
+protocol, but confines itself to how this is carried and advertised in the
+BGP protocol. This document, on the other hand, discusses the concept of
+v4-via-v6 routes independently of any specific routing protocol, their
+design and operational considerations, and the implications of using them.
 
 { Editor note, to be removed before publication. This document is heavily based
 on draft-ietf-babel-v4viav6. When draft-ietf-babel-v4viav6 was
