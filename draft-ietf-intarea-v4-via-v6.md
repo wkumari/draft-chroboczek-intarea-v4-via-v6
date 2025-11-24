@@ -226,7 +226,7 @@ assigned to the router, known as the "router-id", must be used ([RFC1812]
 Section 4.3.2.4).
 
 Routers implementing the mechanism described in this document do not need
-to have any IPv4 addresses assigned to any of their interfaces, and RFC 1812
+to have any IPv4 addresses assigned to any of their interfaces, and [RFC1812]
 does not specify what happens if no router-id has been assigned.  If
 a router does not have any IPv4 addresses assigned, the router MUST use
 the dummy address 192.0.0.8 as the source address of outgoing ICMP packets
