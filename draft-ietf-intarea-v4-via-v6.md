@@ -53,16 +53,8 @@ informative:
   RFC5120:
   RFC7404:
   RFC8950:
-  RFC8966:
   RFC9229:
   I-D.draft-ietf-intarea-extended-icmp-nodeid:
-  IANA-IPV4-REGISTRY:
-    title: IANA IPv4 Address Registry
-    author:
-    - org:
-    date: false
-    seriesinfo:
-      Web: https://www.iana.org/assignments/iana-ipv4-special-registry/
 
 
 --- abstract
