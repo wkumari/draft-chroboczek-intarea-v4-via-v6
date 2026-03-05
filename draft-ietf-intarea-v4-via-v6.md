@@ -40,8 +40,8 @@ author:
     email: toke@toke.dk
 
 normative:
-  RFC7600:
   RFC1812:
+  RFC7600:
 
 informative:
   RFC0792:
@@ -59,11 +59,12 @@ informative:
 
 --- abstract
 
-This document proposes "v4-via-v6" routing, a technique that uses IPv6 next-hop
-addresses for routing IPv4 packets, thus making it possible to route IPv4
-packets across a network where routers have not been assigned IPv4 addresses.
-The document both describes the technique, as well as discussing its
-operational implications.
+V4-via-v6 routing is a technique that uses IPv6 next-hop addresses for
+routing IPv4 packets, and thus makes it possible to route IPv4 packets
+across a network where some routers have not been assigned IPv4 addresses.
+This document describes v4-via-v6 routing, and defines related operational
+procedures, notably the origination of ICMPv4 packets by nodes that might
+not have an IPv4 address.
 
 --- middle
 
@@ -71,11 +72,11 @@ operational implications.
 
 
 The dominant form of routing in the Internet is next-hop routing, where
-a routing protocol constructs a routing table which is used by
-a forwarding process to forward packets.  The routing table is a data
-structure that maps network prefixes in a given family (IPv4 or IPv6) to
-next hops, pairs of an outgoing interface and a neighbor's network
-address, for example:
+a routing protocol constructs a routing table (or routing information
+base, RIB) which is used by a forwarding process to forward packets.  The
+routing table is a data structure that maps network prefixes in a given
+family (IPv4 or IPv6) to next hops, pairs of an outgoing interface and
+a neighbor's network address, for example:
 
 
         destination                      next hop
@@ -102,7 +103,7 @@ address resolution protocol altogether, which was commonly done in networks
 using the OSI protocol suite.)
 
 This document focuses on the specific case of routing IPv4 packets through
-an IPv6 next-hop.  This case is particularly interesting, since it makes
+an IPv6 next hop.  This case is particularly interesting, since it makes
 it possible to build networks that have no IPv4 addresses except at the
 edges and still provide IPv4 connectivity to edge hosts. In addition,
 since an IPv6 next hop can use a link-local address that is autonomously
@@ -112,7 +113,7 @@ which significantly reduces the amount of manual configuration required.
 (See also [RFC7404] for a discussion of the issues involved with such an
 approach.)
 
-We call a route towards an IPv4 prefix that uses an IPv6 next hop
+A route towards an IPv4 prefix that uses an IPv6 next hop is called
 a "v4-via-v6" route.  V4-via-v6 routing is not restricted to routers, and
 could usefully be applied to hosts, but doing so would require solving the
 issue of host configuration, for example by extending either DHCPv4 or
@@ -147,13 +148,13 @@ data structure, the routing table.
 ## Structure of the routing table
 
 The routing table is a data structure that maps address prefixes to
-next-hops, pairs of the form (interface, address).  In traditional
+next hops, pairs of the form (interface, address).  In traditional
 next-hop routing, the routing table maps IPv4 prefixes to IPv4 next hops,
-and IPv6 addresses to IPv6 next hops.  With v4-via-v6 routing, the routing
+and IPv6 prefixes to IPv6 next hops.  With v4-via-v6 routing, the routing
 table is extended so that an IPv4 prefix may map to either an IPv6 or an
 IPv4 next hop.
 
-Resolution may be recursive: the next-hop may itself be a prefix that
+Resolution may be recursive: the next hop may itself be a prefix that
 requires further resolution to map to the outgoing interface and L2
 address.  V4-via-v6 routing does not prevent recursive resolution.
 
@@ -167,7 +168,7 @@ associated next-hop address.
 
 With v4-via-v6 routing, the address family of the next-hop address is no
 longer determined by the address family of the prefix: since the routing
-table may map an IPv4 prefix to either an IPv4 or an IPv6 next-hop, the
+table may map an IPv4 prefix to either an IPv4 or an IPv6 next hop, the
 forwarding plane must be able to determine, on a per-packet basis, which
 address resolution protocol (ARP for IPv4, ND for IPv6) to consult.
 
@@ -185,11 +186,11 @@ However, in order to use the additional flexibility provided by v4-via-v6
 routing, routing protocols need to be extended with the ability to
 populate the routing table with v4-via-v6 routes when an IPv4 address is
 not available or when the available IPv4 addresses are not suitable for
-use as a next-hop.
+use as a next hop.
 
 Some protocols already support the advertisement of IPv4 routes with an
-IPv6 next-hop, including Babel {{RFC9229}} and BGP {{RFC8950}}.  Other
-protocol advertise both IPv4 and IPv6 prefixes over a single neighbor;
+IPv6 next hop, including Babel {{RFC9229}} and BGP {{RFC8950}}.  Other
+protocols advertise both IPv4 and IPv6 prefixes over a single neighbor;
 these include:
 
   * Multi-Topology (MT) Routing in OSPF ({{RFC4915}})
@@ -246,19 +247,24 @@ For these reasons, even if a router performs v4-via-v6 routing on all
 interfaces, it SHOULD be assigned at least one IPv4 address.
 
 # Implementation Status
-( This section to be removed before publication. )
 
-As this document does not really define a protocol, this implementation status
-section is much less formal. Instead, it is being used as a place to list
-implementations that are known to support this functionality, examples, notes,
-etc. This information is provided as a guide to the reader, and is not intended
-to be a complete list, nor endorsement, etc. If you know of an implementation
-which is not listed, please let the authors know.
+(RFC Editor: please remove this section before publication.)
 
+(This section records the status of known implementations of the protocol
+defined by this specification at the time of writing, and is based on
+a proposal described in RFC 7942.  The description of implementations in
+this section is intended to assist the IETF in its decision processes in
+progressing drafts to RFCs.  Please note that the listing of any
+individual implementation here does not imply endorsement by the IETF.
+Furthermore, no effort has been spent to verify the information presented
+here that was supplied by IETF contributors.  This is not intended as, and
+must not be construed to be, a catalog of available implementations or
+their features.  Readers are advised to note that other implementations
+may exist.)
 
 ## Arista EOS
 
-Arista has supported static IPv4 routes with IPv6 nexthops since EOS-4.30.1.
+Arista has supported static IPv4 routes with IPv6 next hops since EOS-4.30.1.
 
 ## The Babel routing protocol
 
@@ -350,11 +356,20 @@ Cisco NX-OS has supported v4-via-v6 routes "for more than 8 years"
 
 # Operational Considerations
 
-Even though v4-via-v6 routes are similar in structure to traditional
-next-hop routes, at least some monitoring and management tools will not be
-able to interpret them.  Deployment of v4-via-v6 routing in a network will
-require testing and updating of all tools and scripts that manipulate or
-examine routes.
+V4-via-v6 routing makes it easy to route IPv4 traffic across interfaces
+that have not been assigned IPv4 addresses, and therefore has the
+potential to reduce the number of IPv4 addresses consumed and hopefully
+simplify the management of double-stack networks.  Since it promises IPv4
+routing essentially "for free" once IPv6 addressing has been set up, it
+has the potential to slightly accelerate the deployment of IPv6.
+
+Just like any other extension to an existing technology, however, it
+requires changes to existing infrastructure.  Even though v4-via-v6 routes
+are similar in structure to traditional next-hop routes, at least some
+monitoring and management tools will not be able to interpret them.
+Deployment of v4-via-v6 routing in a network requires testing and
+potentially updating of all tools and scripts that manipulate or examine
+routes.
 
 V4-via-v6 routing encourages a model of deployment where some routers have
 no IPv4 addresses even though they forward IPv4 traffic.  Such routers
@@ -408,6 +423,20 @@ helpful comments and suggestions about this document.
 This section is to be removed before publication, and the primary change log is
 the git repository. This is just a place to note some of the more substantive
 changes.
+
+## Version 05-06
+{:numbered="false"}
+
+* Rewrote abstract.
+* Added RFC 7942 boilerplate.
+* Added positive factors to Operational Considerations.
+* Editorial changes.
+
+
+## Version 04-05
+{:numbered="false"}
+
+* Minor editorial changes.
 
 ## Version 03-04
 {:numbered="false"}
