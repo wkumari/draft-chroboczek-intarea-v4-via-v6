@@ -3,12 +3,12 @@
 
 
 Internet Area Working Group                                J. Chroboczek
-Internet-Draft                                 IRIF, University of Paris
+Internet-Draft                               IRIF, Université Paris-Cité
 Intended status: Standards Track                               W. Kumari
-Expires: 6 September 2026                                    Google, LLC
+Expires: 17 September 2026                                   Google, LLC
                                                     T. Høiland-Jørgensen
                                                                  Red Hat
-                                                            5 March 2026
+                                                           16 March 2026
 
 
                    IPv4 routes with an IPv6 next hop
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 6 September 2026.
+   This Internet-Draft will expire on 17 September 2026.
 
 Copyright Notice
 
@@ -97,6 +97,7 @@ Table of Contents
      9.2.  Informative References
    Acknowledgments
    Changes
+     Version 06-07
      Version 05-06
      Version 04-05
      Version 03-04
@@ -289,7 +290,7 @@ Table of Contents
       traffic and dropped by firewalls at network boundaries.
 
    For these reasons, even if a router performs v4-via-v6 routing on all
-   interfaces, it SHOULD be assigned at least one IPv4 address.
+   interfaces, it MAY be assigned one or more IPv4 addresses.
 
 5.  Implementation Status
 
@@ -463,11 +464,6 @@ Table of Contents
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/rfc/rfc2119>.
 
-   [RFC7600]  Despres, R., Jiang, S., Ed., Penno, R., Lee, Y., Chen, G.,
-              and M. Chen, "IPv4 Residual Deployment via IPv6 - A
-              Stateless Solution (4rd)", RFC 7600, DOI 10.17487/RFC7600,
-              July 2015, <https://www.rfc-editor.org/rfc/rfc7600>.
-
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
@@ -521,6 +517,11 @@ Table of Contents
               DOI 10.17487/RFC7404, November 2014,
               <https://www.rfc-editor.org/rfc/rfc7404>.
 
+   [RFC7600]  Despres, R., Jiang, S., Ed., Penno, R., Lee, Y., Chen, G.,
+              and M. Chen, "IPv4 Residual Deployment via IPv6 - A
+              Stateless Solution (4rd)", RFC 7600, DOI 10.17487/RFC7600,
+              July 2015, <https://www.rfc-editor.org/rfc/rfc7600>.
+
    [RFC8950]  Litkowski, S., Agrawal, S., Ananthamurthy, K., and K.
               Patel, "Advertising IPv4 Network Layer Reachability
               Information (NLRI) with an IPv6 Next Hop", RFC 8950,
@@ -548,6 +549,16 @@ Changes
    This section is to be removed before publication, and the primary
    change log is the git repository.  This is just a place to note some
    of the more substantive changes.
+
+Version 06-07
+
+   *  Made the reference to RFC 7600 informative.
+
+   *  Downgraded the suggestion to assign an IPv4 address from SHOULD to
+      MAY.
+
+   *  Changed the first author's affiliation (but don't get used to it,
+      they'll likely rename us again).
 
 Version 05-06
 
@@ -599,7 +610,7 @@ Version 00-01
 Authors' Addresses
 
    Juliusz Chroboczek
-   IRIF, University of Paris
+   IRIF, Université Paris-Cité
    Case 7014
    75205 Paris Cedex 13
    France

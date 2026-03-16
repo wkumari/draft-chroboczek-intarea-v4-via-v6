@@ -16,22 +16,22 @@ This document describes v4-via-v6 routing, and defines related operational
 procedures, notably the origination of ICMPv4 packets by nodes that might
 not have an IPv4 address. 
     " name="description">
-<meta content="xml2rfc 3.31.0" name="generator">
+<meta content="xml2rfc 3.32.0" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-ietf-intarea-v4-via-v6-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.31.0
+  xml2rfc 3.32.0
     Python 3.12.12
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.2.1
     Jinja2 3.1.6
     lxml 6.0.2
-    platformdirs 4.5.1
+    platformdirs 4.9.4
     pycountry 24.6.1
     PyYAML 6.0.3
     requests 2.32.5
-    wcwidth 0.3.0
+    wcwidth 0.6.0
 -->
 <link href="draft-ietf-intarea-v4-via-v6.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -1056,7 +1056,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Chroboczek, et al.</td>
-<td class="center">Expires 6 September 2026</td>
+<td class="center">Expires 17 September 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1069,17 +1069,17 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-intarea-v4-via-v6-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-03-05" class="published">5 March 2026</time>
+<time datetime="2026-03-16" class="published">16 March 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-09-06">6 September 2026</time></dd>
+<dd class="expires"><time datetime="2026-09-17">17 September 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
       <div class="author-name">J. Chroboczek</div>
-<div class="org">IRIF, University of Paris</div>
+<div class="org">IRIF, Université Paris-Cité</div>
 </div>
 <div class="author">
       <div class="author-name">W. Kumari</div>
@@ -1137,7 +1137,7 @@ not have an IPv4 address.<a href="#section-abstract-1" class="pilcrow">¶</a></p
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 6 September 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 17 September 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1246,22 +1246,25 @@ not have an IPv4 address.<a href="#section-abstract-1" class="pilcrow">¶</a></p
             <p id="section-toc.1-1.11.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-changes" class="internal xref">Changes</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.1">
-                <p id="section-toc.1-1.11.2.1.1"><a href="#appendix-B.1" class="auto internal xref"></a><a href="#name-version-05-06" class="internal xref">Version 05-06</a></p>
+                <p id="section-toc.1-1.11.2.1.1"><a href="#appendix-B.1" class="auto internal xref"></a><a href="#name-version-06-07" class="internal xref">Version 06-07</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.2">
-                <p id="section-toc.1-1.11.2.2.1"><a href="#appendix-B.2" class="auto internal xref"></a><a href="#name-version-04-05" class="internal xref">Version 04-05</a></p>
+                <p id="section-toc.1-1.11.2.2.1"><a href="#appendix-B.2" class="auto internal xref"></a><a href="#name-version-05-06" class="internal xref">Version 05-06</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.3">
-                <p id="section-toc.1-1.11.2.3.1"><a href="#appendix-B.3" class="auto internal xref"></a><a href="#name-version-03-04" class="internal xref">Version 03-04</a></p>
+                <p id="section-toc.1-1.11.2.3.1"><a href="#appendix-B.3" class="auto internal xref"></a><a href="#name-version-04-05" class="internal xref">Version 04-05</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.4">
-                <p id="section-toc.1-1.11.2.4.1"><a href="#appendix-B.4" class="auto internal xref"></a><a href="#name-version-02-03" class="internal xref">Version 02-03</a></p>
+                <p id="section-toc.1-1.11.2.4.1"><a href="#appendix-B.4" class="auto internal xref"></a><a href="#name-version-03-04" class="internal xref">Version 03-04</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.5">
-                <p id="section-toc.1-1.11.2.5.1"><a href="#appendix-B.5" class="auto internal xref"></a><a href="#name-version-01-02" class="internal xref">Version 01-02</a></p>
+                <p id="section-toc.1-1.11.2.5.1"><a href="#appendix-B.5" class="auto internal xref"></a><a href="#name-version-02-03" class="internal xref">Version 02-03</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.6">
-                <p id="section-toc.1-1.11.2.6.1"><a href="#appendix-B.6" class="auto internal xref"></a><a href="#name-version-00-01" class="internal xref">Version 00-01</a></p>
+                <p id="section-toc.1-1.11.2.6.1"><a href="#appendix-B.6" class="auto internal xref"></a><a href="#name-version-01-02" class="internal xref">Version 01-02</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.7">
+                <p id="section-toc.1-1.11.2.7.1"><a href="#appendix-B.7" class="auto internal xref"></a><a href="#name-version-00-01" class="internal xref">Version 00-01</a></p>
 </li>
             </ul>
 </li>
@@ -1472,7 +1475,7 @@ traffic and dropped by firewalls at network boundaries.<a href="#section-4-6.2.1
 </li>
       </ul>
 <p id="section-4-7">For these reasons, even if a router performs v4-via-v6 routing on all
-interfaces, it <span class="bcp14">SHOULD</span> be assigned at least one IPv4 address.<a href="#section-4-7" class="pilcrow">¶</a></p>
+interfaces, it <span class="bcp14">MAY</span> be assigned one or more IPv4 addresses.<a href="#section-4-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="implementation-status">
@@ -1700,10 +1703,6 @@ rules.<a href="#section-7-2" class="pilcrow">¶</a></p>
         <dd>
 <span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="RFC7600">[RFC7600]</dt>
-        <dd>
-<span class="refAuthor">Despres, R.</span>, <span class="refAuthor">Jiang, S., Ed.</span>, <span class="refAuthor">Penno, R.</span>, <span class="refAuthor">Lee, Y.</span>, <span class="refAuthor">Chen, G.</span>, and <span class="refAuthor">M. Chen</span>, <span class="refTitle">"IPv4 Residual Deployment via IPv6 - A Stateless Solution (4rd)"</span>, <span class="seriesInfo">RFC 7600</span>, <span class="seriesInfo">DOI 10.17487/RFC7600</span>, <time datetime="2015-07" class="refDate">July 2015</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7600">https://www.rfc-editor.org/rfc/rfc7600</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="RFC8174">[RFC8174]</dt>
       <dd>
 <span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
@@ -1753,6 +1752,10 @@ rules.<a href="#section-7-2" class="pilcrow">¶</a></p>
         <dd>
 <span class="refAuthor">Behringer, M.</span> and <span class="refAuthor">E. Vyncke</span>, <span class="refTitle">"Using Only Link-Local Addressing inside an IPv6 Network"</span>, <span class="seriesInfo">RFC 7404</span>, <span class="seriesInfo">DOI 10.17487/RFC7404</span>, <time datetime="2014-11" class="refDate">November 2014</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7404">https://www.rfc-editor.org/rfc/rfc7404</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC7600">[RFC7600]</dt>
+        <dd>
+<span class="refAuthor">Despres, R.</span>, <span class="refAuthor">Jiang, S., Ed.</span>, <span class="refAuthor">Penno, R.</span>, <span class="refAuthor">Lee, Y.</span>, <span class="refAuthor">Chen, G.</span>, and <span class="refAuthor">M. Chen</span>, <span class="refTitle">"IPv4 Residual Deployment via IPv6 - A Stateless Solution (4rd)"</span>, <span class="seriesInfo">RFC 7600</span>, <span class="seriesInfo">DOI 10.17487/RFC7600</span>, <time datetime="2015-07" class="refDate">July 2015</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7600">https://www.rfc-editor.org/rfc/rfc7600</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC8950">[RFC8950]</dt>
         <dd>
 <span class="refAuthor">Litkowski, S.</span>, <span class="refAuthor">Agrawal, S.</span>, <span class="refAuthor">Ananthamurthy, K.</span>, and <span class="refAuthor">K. Patel</span>, <span class="refTitle">"Advertising IPv4 Network Layer Reachability Information (NLRI) with an IPv6 Next Hop"</span>, <span class="seriesInfo">RFC 8950</span>, <span class="seriesInfo">DOI 10.17487/RFC8950</span>, <time datetime="2020-11" class="refDate">November 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8950">https://www.rfc-editor.org/rfc/rfc8950</a>&gt;</span>. </dd>
@@ -1788,106 +1791,125 @@ helpful comments and suggestions about this document.<a href="#appendix-A-2" cla
 <p id="appendix-B-1">This section is to be removed before publication, and the primary change log is
 the git repository. This is just a place to note some of the more substantive
 changes.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
-<div id="version-05-06">
+<div id="version-06-07">
 <section id="appendix-B.1">
+        <h3 id="name-version-06-07">
+<a href="#name-version-06-07" class="section-name selfRef">Version 06-07</a>
+        </h3>
+<ul class="normal">
+<li class="normal" id="appendix-B.1-1.1">
+            <p id="appendix-B.1-1.1.1">Made the reference to RFC 7600 informative.<a href="#appendix-B.1-1.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-B.1-1.2">
+            <p id="appendix-B.1-1.2.1">Downgraded the suggestion to assign an IPv4 address from <span class="bcp14">SHOULD</span> to <span class="bcp14">MAY</span>.<a href="#appendix-B.1-1.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-B.1-1.3">
+            <p id="appendix-B.1-1.3.1">Changed the first author's affiliation (but don't get used to it,
+they'll likely rename us again).<a href="#appendix-B.1-1.3.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+<div id="version-05-06">
+<section id="appendix-B.2">
         <h3 id="name-version-05-06">
 <a href="#name-version-05-06" class="section-name selfRef">Version 05-06</a>
         </h3>
 <ul class="normal">
-<li class="normal" id="appendix-B.1-1.1">
-            <p id="appendix-B.1-1.1.1">Rewrote abstract.<a href="#appendix-B.1-1.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="appendix-B.2-1.1">
+            <p id="appendix-B.2-1.1.1">Rewrote abstract.<a href="#appendix-B.2-1.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-B.1-1.2">
-            <p id="appendix-B.1-1.2.1">Added RFC 7942 boilerplate.<a href="#appendix-B.1-1.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-B.2-1.2">
+            <p id="appendix-B.2-1.2.1">Added RFC 7942 boilerplate.<a href="#appendix-B.2-1.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-B.1-1.3">
-            <p id="appendix-B.1-1.3.1">Added positive factors to Operational Considerations.<a href="#appendix-B.1-1.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-B.2-1.3">
+            <p id="appendix-B.2-1.3.1">Added positive factors to Operational Considerations.<a href="#appendix-B.2-1.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-B.1-1.4">
-            <p id="appendix-B.1-1.4.1">Editorial changes.<a href="#appendix-B.1-1.4.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-B.2-1.4">
+            <p id="appendix-B.2-1.4.1">Editorial changes.<a href="#appendix-B.2-1.4.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
 </div>
 <div id="version-04-05">
-<section id="appendix-B.2">
+<section id="appendix-B.3">
         <h3 id="name-version-04-05">
 <a href="#name-version-04-05" class="section-name selfRef">Version 04-05</a>
         </h3>
 <ul class="normal">
-<li class="normal" id="appendix-B.2-1.1">
-            <p id="appendix-B.2-1.1.1">Minor editorial changes.<a href="#appendix-B.2-1.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="appendix-B.3-1.1">
+            <p id="appendix-B.3-1.1.1">Minor editorial changes.<a href="#appendix-B.3-1.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
 </div>
 <div id="version-03-04">
-<section id="appendix-B.3">
+<section id="appendix-B.4">
         <h3 id="name-version-03-04">
 <a href="#name-version-03-04" class="section-name selfRef">Version 03-04</a>
         </h3>
 <ul class="normal">
-<li class="normal" id="appendix-B.3-1.1">
-            <p id="appendix-B.3-1.1.1">Added a section about operational considerations.<a href="#appendix-B.3-1.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="appendix-B.4-1.1">
+            <p id="appendix-B.4-1.1.1">Added a section about operational considerations.<a href="#appendix-B.4-1.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-B.3-1.2">
-            <p id="appendix-B.3-1.2.1">Made it clear that ARP/ND are not necessarily used.<a href="#appendix-B.3-1.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-B.4-1.2">
+            <p id="appendix-B.4-1.2.1">Made it clear that ARP/ND are not necessarily used.<a href="#appendix-B.4-1.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-B.3-1.3">
-            <p id="appendix-B.3-1.3.1">Removed any mention of v4-only, since it's not quite correct that
-v4-via-v6 is v4-only.<a href="#appendix-B.3-1.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-B.4-1.3">
+            <p id="appendix-B.4-1.3.1">Removed any mention of v4-only, since it's not quite correct that
+v4-via-v6 is v4-only.<a href="#appendix-B.4-1.3.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
 </div>
 <div id="version-02-03">
-<section id="appendix-B.4">
+<section id="appendix-B.5">
         <h3 id="name-version-02-03">
 <a href="#name-version-02-03" class="section-name selfRef">Version 02-03</a>
         </h3>
 <ul class="normal">
-<li class="normal" id="appendix-B.4-1.1">
-            <p id="appendix-B.4-1.1.1">Warren is a smart guy, but he still pushed a branch instead of the main
-one, so -03 is actually what -02 should have been.<a href="#appendix-B.4-1.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="appendix-B.5-1.1">
+            <p id="appendix-B.5-1.1.1">Warren is a smart guy, but he still pushed a branch instead of the main
+one, so -03 is actually what -02 should have been.<a href="#appendix-B.5-1.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
 </div>
 <div id="version-01-02">
-<section id="appendix-B.5">
+<section id="appendix-B.6">
         <h3 id="name-version-01-02">
 <a href="#name-version-01-02" class="section-name selfRef">Version 01-02</a>
         </h3>
 <ul class="normal">
-<li class="normal" id="appendix-B.5-1.1">
-            <p id="appendix-B.5-1.1.1">Addressed comments from Vint and Jen.<a href="#appendix-B.5-1.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="appendix-B.6-1.1">
+            <p id="appendix-B.6-1.1.1">Addressed comments from Vint and Jen.<a href="#appendix-B.6-1.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
 </div>
 <div id="version-00-01">
-<section id="appendix-B.6">
+<section id="appendix-B.7">
         <h3 id="name-version-00-01">
 <a href="#name-version-00-01" class="section-name selfRef">Version 00-01</a>
         </h3>
 <ul class="normal">
-<li class="normal" id="appendix-B.6-1.1">
-            <p id="appendix-B.6-1.1.1">Added note that this works just as well for IPv6 routes with an IPv4 next
-hop. (Éric Vyncke)<a href="#appendix-B.6-1.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="appendix-B.7-1.1">
+            <p id="appendix-B.7-1.1.1">Added note that this works just as well for IPv6 routes with an IPv4 next
+hop. (Éric Vyncke)<a href="#appendix-B.7-1.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-B.6-1.2">
-            <p id="appendix-B.6-1.2.1">Cisco NX-OS has supported v4-via-v6 routes "for more than 8 years"
-(Krishnaswamy Ananthamurthy)<a href="#appendix-B.6-1.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-B.7-1.2">
+            <p id="appendix-B.7-1.2.1">Cisco NX-OS has supported v4-via-v6 routes "for more than 8 years"
+(Krishnaswamy Ananthamurthy)<a href="#appendix-B.7-1.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-B.6-1.3">
-            <p id="appendix-B.6-1.3.1">Mention recursive next hops, and that the next hop may be a prefix.
-(Krishnaswamy Ananthamurthy)<a href="#appendix-B.6-1.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-B.7-1.3">
+            <p id="appendix-B.7-1.3.1">Mention recursive next hops, and that the next hop may be a prefix.
+(Krishnaswamy Ananthamurthy)<a href="#appendix-B.7-1.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-B.6-1.4">
-            <p id="appendix-B.6-1.4.1">Hosts are routers too! (David Lamparter)<a href="#appendix-B.6-1.4.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-B.7-1.4">
+            <p id="appendix-B.7-1.4.1">Hosts are routers too! (David Lamparter)<a href="#appendix-B.7-1.4.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-B.6-1.5">
-            <p id="appendix-B.6-1.5.1">Removed the claim that it's mainly a UI issue.<a href="#appendix-B.6-1.5.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-B.7-1.5">
+            <p id="appendix-B.7-1.5.1">Removed the claim that it's mainly a UI issue.<a href="#appendix-B.7-1.5.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -1901,7 +1923,7 @@ hop. (Éric Vyncke)<a href="#appendix-B.6-1.1.1" class="pilcrow">¶</a></p>
       </h2>
 <address class="vcard">
         <div dir="auto" class="left"><span class="fn nameRole">Juliusz Chroboczek</span></div>
-<div dir="auto" class="left"><span class="org">IRIF, University of Paris</span></div>
+<div dir="auto" class="left"><span class="org">IRIF, Université Paris-Cité</span></div>
 <div dir="auto" class="left"><span class="street-address">Case 7014<br>75205 Paris Cedex 13<br>France</span></div>
 <div class="email">
 <span>Email:</span>
