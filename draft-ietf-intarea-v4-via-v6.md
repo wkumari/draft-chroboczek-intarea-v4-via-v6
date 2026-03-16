@@ -21,7 +21,7 @@ venue:
 author:
  -
     fullname: Juliusz Chroboczek
-    organization: IRIF, University of Paris
+    organization: IRIF, Université Paris-Cité
     street:
     - Case 7014
     - 75205 Paris Cedex 13
@@ -41,7 +41,6 @@ author:
 
 normative:
   RFC1812:
-  RFC7600:
 
 informative:
   RFC0792:
@@ -52,6 +51,7 @@ informative:
   RFC4915:
   RFC5120:
   RFC7404:
+  RFC7600:
   RFC8950:
   RFC9229:
   I-D.draft-ietf-intarea-extended-icmp-nodeid:
@@ -244,7 +244,7 @@ drawbacks:
     traffic and dropped by firewalls at network boundaries.
 
 For these reasons, even if a router performs v4-via-v6 routing on all
-interfaces, it SHOULD be assigned at least one IPv4 address.
+interfaces, it MAY be assigned one or more IPv4 addresses.
 
 # Implementation Status
 
@@ -420,9 +420,19 @@ helpful comments and suggestions about this document.
 
 # Changes
 {:numbered="false"}
+
 This section is to be removed before publication, and the primary change log is
 the git repository. This is just a place to note some of the more substantive
 changes.
+
+## Version 06-07
+{:numbered="false"}
+
+* Made the reference to RFC 7600 informative.
+* Downgraded the suggestion to assign an IPv4 address from SHOULD to MAY.
+* Changed the first author's affiliation (but don't get used to it,
+  they'll likely rename us again).
+
 
 ## Version 05-06
 {:numbered="false"}
