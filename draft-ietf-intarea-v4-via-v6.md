@@ -114,11 +114,11 @@ which significantly reduces the amount of manual configuration required.
 approach.)
 
 A route towards an IPv4 prefix that uses an IPv6 next hop is called
-a "v4-via-v6" route.  V4-via-v6 routing is not restricted to routers, and
-could usefully be applied to hosts, but doing so would require solving the
-issue of host configuration, for example by extending either DHCPv4 or
-DHCPv6 to publish an IPv4 default route with an IPv6 next hop, which is
-out of scope for this document.
+a "v4-via-v6" route.  While v4-via-v6 routing is applicable both to hosts
+and to routers, this document focuses on its implementation in routers.
+Applying v4-via-v6 routing to hosts will require solving the issue of host
+configuration, for example by extending either DHCPv4 or DHCPv6 to publish
+an IPv4 default route with an IPv6 next hop.
 
 {{RFC8950}} discusses advertising of IPv4 Network Layer Reachability
 Information (NLRI) with a next-hop address that belongs to the IPv6
@@ -219,19 +219,19 @@ ICMPv4 packets originated by intermediate routers: if intermediate
 routers are unable to send ICMPv4 packets, PMTUd may lead to
 persistent black-holing of IPv4 traffic.
 
-A router must therefore be able to generate ICMP Destination Unreachable
-messages ([RFC1812] Section 5.2.7.1).  The source address of these
-messages must be one of the addresses assigned to the outgoing interface;
-if no such address has been assigned, then one of the other addresses
-assigned to the router, known as the "router-id", must be used ([RFC1812]
-Section 4.3.2.4).
+A router must therefore be able to generate ICMPv4 Destination Unreachable
+messages (as required by [RFC1812] Section 5.2.7.1).  The source address
+of these messages must be one of the addresses assigned to the outgoing
+interface; if no such address has been assigned, then one of the other
+addresses assigned to the router, known as the "router-id", must be used
+([RFC1812] Section 4.3.2.4).
 
 Routers implementing the mechanism described in this document do not need
 to have any IPv4 addresses assigned to any of their interfaces, and [RFC1812]
 does not specify what happens if no router-id has been assigned.  If
 a router does not have any IPv4 addresses assigned, the router MUST use
-the dummy address 192.0.0.8 as the source address of outgoing ICMP packets
-([RFC7600], Section 4.8, Requirement R-22).
+the dummy address 192.0.0.8 as the source address of outgoing ICMPv4 packets
+(which is compatible with [RFC7600], Section 4.8, Requirement R-22).
 
 Using the dummy address as the source of ICMPv4 packet causes a number of
 drawbacks:
@@ -424,6 +424,13 @@ helpful comments and suggestions about this document.
 This section is to be removed before publication, and the primary change log is
 the git repository. This is just a place to note some of the more substantive
 changes.
+
+## Version 07-08
+{:numbered="false"}
+
+* Use ICMPv4 consistently (rather than plain ICMP).
+* Clarify that the requirements about ICMPv4 merely rephrase what is
+  already required by RFC 1812.
 
 ## Version 06-07
 {:numbered="false"}
