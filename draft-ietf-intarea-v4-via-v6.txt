@@ -239,7 +239,9 @@ Table of Contents
    protocols advertise both IPv4 and IPv6 prefixes over a single
    neighbor; these include:
 
-   *  Multi-Topology (MT) Routing in OSPF ([RFC4915])
+   *  Multiple Instance Routing in OSPFv3 ([RFC5838]),
+
+   *  Integrated Routing in IS-IS ([RFC5308]), and
 
    *  Multi-Topology (MT) Routing in IS-IS ([RFC5120])
 
@@ -504,16 +506,20 @@ Table of Contents
               DOI 10.17487/RFC4861, September 2007,
               <https://www.rfc-editor.org/rfc/rfc4861>.
 
-   [RFC4915]  Psenak, P., Mirtorabi, S., Roy, A., Nguyen, L., and P.
-              Pillay-Esnault, "Multi-Topology (MT) Routing in OSPF",
-              RFC 4915, DOI 10.17487/RFC4915, June 2007,
-              <https://www.rfc-editor.org/rfc/rfc4915>.
-
    [RFC5120]  Przygienda, T., Shen, N., and N. Sheth, "M-ISIS: Multi
               Topology (MT) Routing in Intermediate System to
               Intermediate Systems (IS-ISs)", RFC 5120,
               DOI 10.17487/RFC5120, February 2008,
               <https://www.rfc-editor.org/rfc/rfc5120>.
+
+   [RFC5308]  Hopps, C., "Routing IPv6 with IS-IS", RFC 5308,
+              DOI 10.17487/RFC5308, October 2008,
+              <https://www.rfc-editor.org/rfc/rfc5308>.
+
+   [RFC5838]  Lindem, A., Ed., Mirtorabi, S., Roy, A., Barnes, M., and
+              R. Aggarwal, "Support of Address Families in OSPFv3",
+              RFC 5838, DOI 10.17487/RFC5838, April 2010,
+              <https://www.rfc-editor.org/rfc/rfc5838>.
 
    [RFC7404]  Behringer, M. and E. Vyncke, "Using Only Link-Local
               Addressing inside an IPv6 Network", RFC 7404,
