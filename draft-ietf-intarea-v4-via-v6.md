@@ -85,7 +85,7 @@ a neighbor's network address, for example:
 
 When a packet is routed according to a given routing table entry, the
 forwarding plane typically maps the next-hop address to a link-layer
-address (a "MAC address") by using a neighbor discovery protocol (for
+address (a "MAC address") by using an address resolution protocol (for
 example the Neighbor Discovery protocol (ND) [RFC4861] in the case of
 IPv6 over Ethernet, and the Address Resolution Protocol (ARP) [RFC0826]
 in the case of IPv4 over Ethernet).  The link-layer address is then used
@@ -269,7 +269,7 @@ Arista has supported static IPv4 routes with IPv6 next hops since EOS-4.30.1.
 ## The Babel routing protocol
 
 As noted above, this document is heavily based on RFC9229
-(nee draft-ietf-babel-v4viav6), and this functionality is supported by babeld.
+(née draft-ietf-babel-v4viav6), and this functionality is supported by babeld.
 
 Pasted below is email sent to the babel mailing list (archived
 at https://mailarchive.ietf.org/arch/msg/babel/QtFi3F4TFfF7fXXlkHSpEnuT44Y/)
@@ -375,12 +375,11 @@ V4-via-v6 routing encourages a model of deployment where some routers have
 no IPv4 addresses even though they forward IPv4 traffic.  Such routers
 make debugging of IPv4 routing issues somewhat more difficult, most
 notably by making the output of the *traceroute* utility less informative
-than it would otherwise be (see Section {{sec-icmp}}).  Even if the
-procedures described in {{I-D.draft-ietf-intarea-extended-icmp-nodeid}} are
-deployed on all such routers, older versions of *traceroute* will not be
-able to interpret the additional information.  Network administrators
-might want to provision IPv4 addresses on all routers in order to simplify
-debugging.
+than it would otherwise be (see {{sec-icmp}}).  Even if the procedures
+described in {{I-D.draft-ietf-intarea-extended-icmp-nodeid}} are deployed
+on all such routers, older versions of *traceroute* will not be able to
+interpret the additional information.  Network administrators might want
+to provision IPv4 addresses on all routers in order to simplify debugging.
 
 # Security Considerations
 
