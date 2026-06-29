@@ -48,8 +48,9 @@ informative:
   RFC1191:
   RFC4821:
   RFC4861:
-  RFC4915:
   RFC5120:
+  RFC5308:
+  RFC5838:
   RFC7404:
   RFC7600:
   RFC8950:
@@ -190,14 +191,13 @@ use as a next hop.
 
 Some protocols already support the advertisement of IPv4 routes with an
 IPv6 next hop, including Babel {{RFC9229}} and BGP {{RFC8950}}.  Other
-protocols advertise both IPv4 and IPv6 prefixes over a single neighbor;
-these include:
+protocols advertise both IPv4 and IPv6 prefixes over a single neighbor
+association, but don't use a single data plane, and therefore don't
+implement v4-via-v6 routing.  These protocols include:
 
-  * Multi-Topology (MT) Routing in OSPF ({{RFC4915}})
-  * Multi-Topology (MT) Routing in IS-IS ({{RFC5120}})
-
-While both of these employ a common control plane, they use separate data
-planes, and therefore don't implement v4-via-v6 routing.
+  * Multiple Instance Routing in OSPFv3 ({{RFC5838}}),
+  * Integrated Routing in IS-IS ({{RFC5308}}), and
+  * Multi-Topology (MT) Routing in IS-IS ({{RFC5120}}).
 
 # ICMP Considerations {#sec-icmp}
 
