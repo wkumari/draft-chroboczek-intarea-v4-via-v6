@@ -61,7 +61,7 @@ informative:
 --- abstract
 
 V4-via-v6 routing is a technique that uses IPv6 next-hop addresses for
-routing IPv4 packets, and thus makes it possible to route IPv4 packets
+forwarding IPv4 packets, and thus makes it possible to route IPv4 packets
 across a network where some routers have not been assigned IPv4 addresses.
 This document describes v4-via-v6 routing, and defines related operational
 procedures, notably the origination of ICMPv4 packets by nodes that might
@@ -84,7 +84,7 @@ a neighbor's network address, for example:
       2001:db8:0:1::/64               eth0, fe80::1234:5678
       203.0.113.0/24                  eth0, 192.0.2.1
 
-When a packet is routed according to a given routing table entry, the
+When a packet is forwarded according to a given routing table entry, the
 forwarding plane typically maps the next-hop address to a link-layer
 address (a "MAC address") by using an address resolution protocol (for
 example the Neighbor Discovery protocol (ND) [RFC4861] in the case of
@@ -95,9 +95,9 @@ to construct the link-layer frames that encapsulate forwarded packets.
 It is apparent from the description above that there is no fundamental
 reason why the destination prefix and the next-hop address should be in
 the same address family: there is nothing preventing an IPv6 packet from
-being routed through a next hop with an IPv4 address (in which case the
+being forwarded through a next hop with an IPv4 address (in which case the
 next hop's MAC address will be obtained using ARP), or, conversely, an
-IPv4 packet from being routed through a next hop with an IPv6 address.
+IPv4 packet from being forwarded through a next hop with an IPv6 address.
 (In fact, it is even possible to store link-layer addresses directly in
 the next-hop entry of the routing table, thus avoiding the use of an
 address resolution protocol altogether, which was commonly done in networks
@@ -163,7 +163,7 @@ address.  V4-via-v6 routing does not prevent recursive resolution.
 
 The forwarding plane is the part of the routing implementation that is
 executed for every forwarded packet.  As a packet arrives, the forwarding
-plane consults the routing table, selects a single route matching the
+plane consults the routing table, selects a single entry matching the
 packet, and forwards the packet through the outgoing interface to the
 associated next-hop address.
 
@@ -356,7 +356,7 @@ Cisco NX-OS has supported v4-via-v6 routes "for more than 8 years"
 
 # Operational Considerations
 
-V4-via-v6 routing makes it easy to route IPv4 traffic across interfaces
+V4-via-v6 routing makes it easy to forward IPv4 traffic across interfaces
 that have not been assigned IPv4 addresses, and therefore has the
 potential to reduce the number of IPv4 addresses consumed and hopefully
 simplify the management of double-stack networks.  Since it promises IPv4
