@@ -162,10 +162,10 @@ address.  V4-via-v6 routing does not prevent recursive resolution.
 ## Operation of the forwarding plane
 
 The forwarding plane is the part of the routing implementation that is
-executed for every forwarded packet.  As a packet arrives, the forwarding
-plane consults the routing table, selects a single entry matching the
-packet, and forwards the packet through the outgoing interface to the
-associated next-hop address.
+executed for every packet to be forwarded.  As a packet arrives, the
+forwarding plane consults the routing table, selects a single entry
+matching the packet, and forwards the packet through the outgoing
+interface to the associated next-hop address.
 
 With v4-via-v6 routing, the address family of the next-hop address is no
 longer determined by the address family of the prefix: since the routing
