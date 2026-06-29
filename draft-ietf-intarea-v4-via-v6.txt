@@ -237,16 +237,15 @@ Table of Contents
    Some protocols already support the advertisement of IPv4 routes with
    an IPv6 next hop, including Babel [RFC9229] and BGP [RFC8950].  Other
    protocols advertise both IPv4 and IPv6 prefixes over a single
-   neighbor; these include:
+   neighbor association, but don't use a single data plane, and
+   therefore don't implement v4-via-v6 routing.  These protocols
+   include:
 
    *  Multiple Instance Routing in OSPFv3 ([RFC5838]),
 
    *  Integrated Routing in IS-IS ([RFC5308]), and
 
-   *  Multi-Topology (MT) Routing in IS-IS ([RFC5120])
-
-   While both of these employ a common control plane, they use separate
-   data planes, and therefore don't implement v4-via-v6 routing.
+   *  Multi-Topology (MT) Routing in IS-IS ([RFC5120]).
 
 4.  ICMP Considerations
 

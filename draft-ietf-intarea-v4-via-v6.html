@@ -1413,8 +1413,9 @@ not available or when the available IPv4 addresses are not suitable for
 use as a next hop.<a href="#section-3.3-2" class="pilcrow">¶</a></p>
 <p id="section-3.3-3">Some protocols already support the advertisement of IPv4 routes with an
 IPv6 next hop, including Babel <span>[<a href="#RFC9229" class="cite xref">RFC9229</a>]</span> and BGP <span>[<a href="#RFC8950" class="cite xref">RFC8950</a>]</span>.  Other
-protocols advertise both IPv4 and IPv6 prefixes over a single neighbor;
-these include:<a href="#section-3.3-3" class="pilcrow">¶</a></p>
+protocols advertise both IPv4 and IPv6 prefixes over a single neighbor
+association, but don't use a single data plane, and therefore don't
+implement v4-via-v6 routing.  These protocols include:<a href="#section-3.3-3" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.3-4.1">
             <p id="section-3.3-4.1.1">Multiple Instance Routing in OSPFv3 (<span>[<a href="#RFC5838" class="cite xref">RFC5838</a>]</span>),<a href="#section-3.3-4.1.1" class="pilcrow">¶</a></p>
@@ -1423,11 +1424,9 @@ these include:<a href="#section-3.3-3" class="pilcrow">¶</a></p>
             <p id="section-3.3-4.2.1">Integrated Routing in IS-IS (<span>[<a href="#RFC5308" class="cite xref">RFC5308</a>]</span>), and<a href="#section-3.3-4.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.3-4.3">
-            <p id="section-3.3-4.3.1">Multi-Topology (MT) Routing in IS-IS (<span>[<a href="#RFC5120" class="cite xref">RFC5120</a>]</span>)<a href="#section-3.3-4.3.1" class="pilcrow">¶</a></p>
+            <p id="section-3.3-4.3.1">Multi-Topology (MT) Routing in IS-IS (<span>[<a href="#RFC5120" class="cite xref">RFC5120</a>]</span>).<a href="#section-3.3-4.3.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-3.3-5">While both of these employ a common control plane, they use separate data
-planes, and therefore don't implement v4-via-v6 routing.<a href="#section-3.3-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
