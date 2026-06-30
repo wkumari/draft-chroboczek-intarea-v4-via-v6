@@ -214,7 +214,7 @@ unreachable" packets).
 Some protocols deployed in the Internet rely on ICMPv4 packets sent by
 intermediate routers.  Most notably, path MTU Discovery (PMTUd) [RFC1191]
 is an algorithm executed by end hosts to discover the maximum packet size
-that a route is able to carry.  While there exist variants of PMTUd that
+that a path is able to carry.  While there exist variants of PMTUd that
 are purely end-to-end [RFC4821] [RFC 8899], the variant most commonly
 deployed in the Internet has a hard dependency on ICMPv4 packets
 originated by intermediate routers: if intermediate routers are unable to
