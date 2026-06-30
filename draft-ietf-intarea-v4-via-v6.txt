@@ -135,12 +135,13 @@ Table of Contents
    address should be in the same address family: there is nothing
    preventing an IPv6 packet from being forwarded through a next hop
    with an IPv4 address (in which case the next hop's MAC address will
-   be obtained using ARP), or, conversely, an IPv4 packet from being
-   forwarded through a next hop with an IPv6 address.  (In fact, it is
-   even possible to store link-layer addresses directly in the next-hop
-   entry of the routing table, thus avoiding the use of an address
-   resolution protocol altogether, which was commonly done in networks
-   using the OSI protocol suite.)
+   typically be obtained using ARP), or, conversely, an IPv4 packet from
+   being forwarded through a next hop with an IPv6 address (in which
+   case it will be resolved using ND).  (In fact, it is even possible to
+   store link-layer addresses directly in the next-hop entry of the
+   routing table, thus avoiding the use of an address resolution
+   protocol altogether, which was commonly done in networks using the
+   OSI protocol suite.)
 
    This document focuses on the specific case of routing IPv4 packets
    through an IPv6 next hop.  This case is particularly interesting,
@@ -237,9 +238,9 @@ Table of Contents
    Some protocols already support the advertisement of IPv4 routes with
    an IPv6 next hop, including Babel [RFC9229] and BGP [RFC8950].  Other
    protocols advertise both IPv4 and IPv6 prefixes over a single
-   neighbor association, but don't use a single data plane, and
-   therefore don't implement v4-via-v6 routing.  These protocols
-   include:
+   neighbor association, but they use completely separate data planes
+   for IPv4 and IPv6, and do not implement v4-via-v6 routing.  These
+   protocols include:
 
    *  Multiple Instance Routing in OSPFv3 ([RFC5838]),
 
@@ -261,11 +262,11 @@ Table of Contents
    by intermediate routers.  Most notably, path MTU Discovery (PMTUd)
    [RFC1191] is an algorithm executed by end hosts to discover the
    maximum packet size that a route is able to carry.  While there exist
-   variants of PMTUd that are purely end-to-end [RFC4821], the variant
-   most commonly deployed in the Internet has a hard dependency on
-   ICMPv4 packets originated by intermediate routers: if intermediate
-   routers are unable to send ICMPv4 packets, PMTUd may lead to
-   persistent black-holing of IPv4 traffic.
+   variants of PMTUd that are purely end-to-end [RFC4821] [RFC 8899],
+   the variant most commonly deployed in the Internet has a hard
+   dependency on ICMPv4 packets originated by intermediate routers: if
+   intermediate routers are unable to send ICMPv4 packets, PMTUd may
+   lead to persistent black-holing of IPv4 traffic.
 
    A router must therefore be able to generate ICMPv4 Destination
    Unreachable messages (as required by [RFC1812] Section 5.2.7.1).  The
@@ -529,6 +530,11 @@ Table of Contents
               and M. Chen, "IPv4 Residual Deployment via IPv6 - A
               Stateless Solution (4rd)", RFC 7600, DOI 10.17487/RFC7600,
               July 2015, <https://www.rfc-editor.org/rfc/rfc7600>.
+
+   [RFC8899]  Fairhurst, G., Jones, T., Tüxen, M., Rüngeler, I., and T.
+              Völker, "Packetization Layer Path MTU Discovery for
+              Datagram Transports", RFC 8899, DOI 10.17487/RFC8899,
+              September 2020, <https://www.rfc-editor.org/rfc/rfc8899>.
 
    [RFC8950]  Litkowski, S., Agrawal, S., Ananthamurthy, K., and K.
               Patel, "Advertising IPv4 Network Layer Reachability

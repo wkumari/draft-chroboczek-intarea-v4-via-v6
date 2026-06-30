@@ -1306,12 +1306,13 @@ to construct the link-layer frames that encapsulate forwarded packets.<a href="#
 reason why the destination prefix and the next-hop address should be in
 the same address family: there is nothing preventing an IPv6 packet from
 being forwarded through a next hop with an IPv4 address (in which case the
-next hop's MAC address will be obtained using ARP), or, conversely, an
-IPv4 packet from being forwarded through a next hop with an IPv6 address.
-(In fact, it is even possible to store link-layer addresses directly in
-the next-hop entry of the routing table, thus avoiding the use of an
-address resolution protocol altogether, which was commonly done in networks
-using the OSI protocol suite.)<a href="#section-1-4" class="pilcrow">¶</a></p>
+next hop's MAC address will typically be obtained using ARP), or,
+conversely, an IPv4 packet from being forwarded through a next hop with an
+IPv6 address (in which case it will be resolved using ND).  (In fact, it
+is even possible to store link-layer addresses directly in the next-hop
+entry of the routing table, thus avoiding the use of an address resolution
+protocol altogether, which was commonly done in networks using the OSI
+protocol suite.)<a href="#section-1-4" class="pilcrow">¶</a></p>
 <p id="section-1-5">This document focuses on the specific case of routing IPv4 packets through
 an IPv6 next hop.  This case is particularly interesting, since it makes
 it possible to build networks that have no IPv4 addresses except at the
@@ -1414,8 +1415,8 @@ use as a next hop.<a href="#section-3.3-2" class="pilcrow">¶</a></p>
 <p id="section-3.3-3">Some protocols already support the advertisement of IPv4 routes with an
 IPv6 next hop, including Babel <span>[<a href="#RFC9229" class="cite xref">RFC9229</a>]</span> and BGP <span>[<a href="#RFC8950" class="cite xref">RFC8950</a>]</span>.  Other
 protocols advertise both IPv4 and IPv6 prefixes over a single neighbor
-association, but don't use a single data plane, and therefore don't
-implement v4-via-v6 routing.  These protocols include:<a href="#section-3.3-3" class="pilcrow">¶</a></p>
+association, but they use completely separate data planes for IPv4 and
+IPv6, and do not implement v4-via-v6 routing.  These protocols include:<a href="#section-3.3-3" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.3-4.1">
             <p id="section-3.3-4.1.1">Multiple Instance Routing in OSPFv3 (<span>[<a href="#RFC5838" class="cite xref">RFC5838</a>]</span>),<a href="#section-3.3-4.1.1" class="pilcrow">¶</a></p>
@@ -1443,15 +1444,15 @@ originated by end hosts (e.g., the "destination unreachable, port
 unreachable" ICMPv4 packet), but they may also be originated by
 intermediate routers (e.g., most other kinds of "destination
 unreachable" packets).<a href="#section-4-1" class="pilcrow">¶</a></p>
-<p id="section-4-2">Some protocols deployed in the Internet rely on ICMPv4 packets sent
-by intermediate routers.  Most notably, path MTU Discovery (PMTUd)
-<span>[<a href="#RFC1191" class="cite xref">RFC1191</a>]</span> is an algorithm executed by end hosts to discover the
-maximum packet size that a route is able to carry.  While there exist
-variants of PMTUd that are purely end-to-end <span>[<a href="#RFC4821" class="cite xref">RFC4821</a>]</span>, the variant
-most commonly deployed in the Internet has a hard dependency on
-ICMPv4 packets originated by intermediate routers: if intermediate
-routers are unable to send ICMPv4 packets, PMTUd may lead to
-persistent black-holing of IPv4 traffic.<a href="#section-4-2" class="pilcrow">¶</a></p>
+<p id="section-4-2">Some protocols deployed in the Internet rely on ICMPv4 packets sent by
+intermediate routers.  Most notably, path MTU Discovery (PMTUd) <span>[<a href="#RFC1191" class="cite xref">RFC1191</a>]</span>
+is an algorithm executed by end hosts to discover the maximum packet size
+that a route is able to carry.  While there exist variants of PMTUd that
+are purely end-to-end [RFC4821] [RFC 8899], the variant most commonly
+deployed in the Internet has a hard dependency on ICMPv4 packets
+originated by intermediate routers: if intermediate routers are unable to
+send ICMPv4 packets, PMTUd may lead to persistent black-holing of IPv4
+traffic.<a href="#section-4-2" class="pilcrow">¶</a></p>
 <p id="section-4-3">A router must therefore be able to generate ICMPv4 Destination Unreachable
 messages (as required by <span>[<a href="#RFC1812" class="cite xref">RFC1812</a>]</span> Section 5.2.7.1).  The source address
 of these messages must be one of the addresses assigned to the outgoing
@@ -1762,6 +1763,10 @@ rules.<a href="#section-7-2" class="pilcrow">¶</a></p>
 <dt id="RFC7600">[RFC7600]</dt>
         <dd>
 <span class="refAuthor">Despres, R.</span>, <span class="refAuthor">Jiang, S., Ed.</span>, <span class="refAuthor">Penno, R.</span>, <span class="refAuthor">Lee, Y.</span>, <span class="refAuthor">Chen, G.</span>, and <span class="refAuthor">M. Chen</span>, <span class="refTitle">"IPv4 Residual Deployment via IPv6 - A Stateless Solution (4rd)"</span>, <span class="seriesInfo">RFC 7600</span>, <span class="seriesInfo">DOI 10.17487/RFC7600</span>, <time datetime="2015-07" class="refDate">July 2015</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7600">https://www.rfc-editor.org/rfc/rfc7600</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8899">[RFC8899]</dt>
+        <dd>
+<span class="refAuthor">Fairhurst, G.</span>, <span class="refAuthor">Jones, T.</span>, <span class="refAuthor">Tüxen, M.</span>, <span class="refAuthor">Rüngeler, I.</span>, and <span class="refAuthor">T. Völker</span>, <span class="refTitle">"Packetization Layer Path MTU Discovery for Datagram Transports"</span>, <span class="seriesInfo">RFC 8899</span>, <span class="seriesInfo">DOI 10.17487/RFC8899</span>, <time datetime="2020-09" class="refDate">September 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8899">https://www.rfc-editor.org/rfc/rfc8899</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8950">[RFC8950]</dt>
         <dd>
