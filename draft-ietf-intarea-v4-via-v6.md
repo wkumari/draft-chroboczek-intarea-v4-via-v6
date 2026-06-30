@@ -53,6 +53,7 @@ informative:
   RFC5838:
   RFC7404:
   RFC7600:
+  RFC8899:
   RFC8950:
   RFC9229:
   I-D.draft-ietf-intarea-extended-icmp-nodeid:
@@ -96,12 +97,13 @@ It is apparent from the description above that there is no fundamental
 reason why the destination prefix and the next-hop address should be in
 the same address family: there is nothing preventing an IPv6 packet from
 being forwarded through a next hop with an IPv4 address (in which case the
-next hop's MAC address will be obtained using ARP), or, conversely, an
-IPv4 packet from being forwarded through a next hop with an IPv6 address.
-(In fact, it is even possible to store link-layer addresses directly in
-the next-hop entry of the routing table, thus avoiding the use of an
-address resolution protocol altogether, which was commonly done in networks
-using the OSI protocol suite.)
+next hop's MAC address will typically be obtained using ARP), or,
+conversely, an IPv4 packet from being forwarded through a next hop with an
+IPv6 address (in which case it will be resolved using ND).  (In fact, it
+is even possible to store link-layer addresses directly in the next-hop
+entry of the routing table, thus avoiding the use of an address resolution
+protocol altogether, which was commonly done in networks using the OSI
+protocol suite.)
 
 This document focuses on the specific case of routing IPv4 packets through
 an IPv6 next hop.  This case is particularly interesting, since it makes
@@ -192,8 +194,8 @@ use as a next hop.
 Some protocols already support the advertisement of IPv4 routes with an
 IPv6 next hop, including Babel {{RFC9229}} and BGP {{RFC8950}}.  Other
 protocols advertise both IPv4 and IPv6 prefixes over a single neighbor
-association, but don't use a single data plane, and therefore don't
-implement v4-via-v6 routing.  These protocols include:
+association, but they use completely separate data planes for IPv4 and
+IPv6, and do not implement v4-via-v6 routing.  These protocols include:
 
   * Multiple Instance Routing in OSPFv3 ({{RFC5838}}),
   * Integrated Routing in IS-IS ({{RFC5308}}), and
@@ -209,15 +211,15 @@ unreachable" ICMPv4 packet), but they may also be originated by
 intermediate routers (e.g., most other kinds of "destination
 unreachable" packets).
 
-Some protocols deployed in the Internet rely on ICMPv4 packets sent
-by intermediate routers.  Most notably, path MTU Discovery (PMTUd)
-[RFC1191] is an algorithm executed by end hosts to discover the
-maximum packet size that a route is able to carry.  While there exist
-variants of PMTUd that are purely end-to-end [RFC4821], the variant
-most commonly deployed in the Internet has a hard dependency on
-ICMPv4 packets originated by intermediate routers: if intermediate
-routers are unable to send ICMPv4 packets, PMTUd may lead to
-persistent black-holing of IPv4 traffic.
+Some protocols deployed in the Internet rely on ICMPv4 packets sent by
+intermediate routers.  Most notably, path MTU Discovery (PMTUd) [RFC1191]
+is an algorithm executed by end hosts to discover the maximum packet size
+that a route is able to carry.  While there exist variants of PMTUd that
+are purely end-to-end [RFC4821] [RFC 8899], the variant most commonly
+deployed in the Internet has a hard dependency on ICMPv4 packets
+originated by intermediate routers: if intermediate routers are unable to
+send ICMPv4 packets, PMTUd may lead to persistent black-holing of IPv4
+traffic.
 
 A router must therefore be able to generate ICMPv4 Destination Unreachable
 messages (as required by [RFC1812] Section 5.2.7.1).  The source address
