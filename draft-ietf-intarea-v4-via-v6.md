@@ -51,6 +51,8 @@ informative:
   RFC5120:
   RFC5308:
   RFC5838:
+  RFC5881:
+  RFC5883:
   RFC7404:
   RFC7600:
   RFC8899:
@@ -201,21 +203,38 @@ IPv6, and do not implement v4-via-v6 routing.  These protocols include:
   * Integrated Routing in IS-IS ({{RFC5308}}), and
   * Multi-Topology (MT) Routing in IS-IS ({{RFC5120}}).
 
+## Interaction with BFD and Link OAM
+
+When Bidirectional Forwarding Detection (BFD) is used to monitor the liveliness
+of a v4-via-v6 route, the behavior depends on the next-hop configuration:
+
+* Single-Hop BFD: Because the next-hop is an IPv6 address, BFD sessions MUST be
+  established over IPv6 (using the next-hop's IPv6 Link-Local or Global Unicast
+  address) as defined in [RFC5881]. Liveliness detection of the IPv6 next-hop is
+  treated as authoritative for the associated IPv4 route.
+
+* Multi-Hop BFD: If an implementation requires validation of the IPv4 data
+  plane separately, multi-hop BFD over IPv4 ([RFC5883]) MAY be run. However,
+  operators must ensure that the dummy or loopback IPv4 addresses utilized for
+  the session are fully routable across the v4-via-v6 transit path.
+
+
+
 # ICMP Considerations {#sec-icmp}
 
-The Internet Control Message Protocol (ICMPv4, or simply ICMP)
-[RFC0792] is a protocol related to IPv4 that is primarily used to
-carry diagnostic and debugging information.  ICMPv4 packets may be
-originated by end hosts (e.g., the "destination unreachable, port
-unreachable" ICMPv4 packet), but they may also be originated by
-intermediate routers (e.g., most other kinds of "destination
-unreachable" packets).
+The Internet Control Message Protocol (ICMP) [RFC0792] is a protocol related to
+IPv4 that is primarily used to carry diagnostic and debugging information.
+Within this document we use the term "ICMPv4" to refer to ICMP packets related
+to IPv4. ICMPv4 packets may be originated by end hosts (e.g., the "destination
+unreachable, port unreachable" ICMPv4 packet), but they may also be originated
+by intermediate routers (e.g., most other kinds of "destination unreachable"
+packets).
 
 Some protocols deployed in the Internet rely on ICMPv4 packets sent by
 intermediate routers.  Most notably, path MTU Discovery (PMTUd) [RFC1191]
 is an algorithm executed by end hosts to discover the maximum packet size
 that a path is able to carry.  While there exist variants of PMTUd that
-are purely end-to-end [RFC4821] [RFC 8899], the variant most commonly
+are purely end-to-end [RFC4821] [RFC8899], the variant most commonly
 deployed in the Internet has a hard dependency on ICMPv4 packets
 originated by intermediate routers: if intermediate routers are unable to
 send ICMPv4 packets, PMTUd may lead to persistent black-holing of IPv4
@@ -382,6 +401,28 @@ described in {{I-D.draft-ietf-intarea-extended-icmp-nodeid}} are deployed
 on all such routers, older versions of *traceroute* will not be able to
 interpret the additional information.  Network administrators might want
 to provision IPv4 addresses on all routers in order to simplify debugging.
+
+To ensure proper manageability and visibility for network operators,
+implementations MUST implement the following behaviors:
+
+1. Routing Table Representation: When displaying the routing table (via CLI,
+NETCONF/RESTCONF, or gNMI), the next-hop for a v4-via-v6 route must be
+explicitly  shown as an IPv6 address. Implementations MUST NOT attempt to
+synthesize a  dummy or mapped IPv4 next-hop address for display purposes, as
+this can mislead  operators during troubleshooting.
+
+1. YANG Data Model Interaction: Standard routing YANG models (such as those
+defined in RFC 8349, "A YANG Data Model for Routing Management") represent
+next-hops within container structures restricted by IP address family. To
+support  v4-via-v6 routing:
+
+* The implementation's YANG datastore MUST allow the next-hop of an IPv4 route
+  entry to point to an 'ipv6-address' type leaf.
+* If an implementation's strict schema validation prevents mixing address
+  families in standard containers, augmented schemas or local deviations MUST
+  be used to explicitly allow an IPv6 next-hop within the IPv4 routing context.
+
+
 
 # Security Considerations
 
