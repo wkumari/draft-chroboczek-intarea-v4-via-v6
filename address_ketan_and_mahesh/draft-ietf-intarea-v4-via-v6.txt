@@ -5,10 +5,10 @@
 Internet Area Working Group                                J. Chroboczek
 Internet-Draft                               IRIF, Université Paris-Cité
 Intended status: Standards Track                               W. Kumari
-Expires: 5 April 2027                                        Google, LLC
+Expires: 14 May 2027                                         Google, LLC
                                                     T. Høiland-Jørgensen
                                                                  Red Hat
-                                                          2 October 2026
+                                                        10 November 2026
 
 
                    IPv4 routes with an IPv6 next hop
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 5 April 2027.
+   This Internet-Draft will expire on 14 May 2027.
 
 Copyright Notice
 
@@ -80,7 +80,7 @@ Table of Contents
      3.1.  Structure of the routing table
      3.2.  Operation of the forwarding plane
      3.3.  Operation of routing protocols
-     3.4.  Interaction with BFD and Link OAM
+     3.4.  Interaction with BFD
    4.  ICMP Considerations
    5.  Implementation Status
      5.1.  Arista EOS
@@ -249,23 +249,11 @@ Table of Contents
 
    *  Multi-Topology (MT) Routing in IS-IS ([RFC5120]).
 
-3.4.  Interaction with BFD and Link OAM
+3.4.  Interaction with BFD
 
    When Bidirectional Forwarding Detection (BFD) is used to monitor the
-   liveliness of a v4-via-v6 route, the behavior depends on the next-hop
-   configuration:
-
-   *  Single-Hop BFD: Because the next-hop is an IPv6 address, BFD
-      sessions MUST be established over IPv6 (using the next-hop's IPv6
-      Link-Local or Global Unicast address) as defined in [RFC5881].
-      Liveliness detection of the IPv6 next-hop is treated as
-      authoritative for the associated IPv4 route.
-
-   *  Multi-Hop BFD: If an implementation requires validation of the
-      IPv4 data plane separately, multi-hop BFD over IPv4 ([RFC5883])
-      MAY be run.  However, operators must ensure that the dummy or
-      loopback IPv4 addresses utilized for the session are fully
-      routable across the v4-via-v6 transit path.
+   liveliness of a v4-via-v6 route, only the data from the IPv6 BFD
+   session should be used for input to the v4-via-v6 routing process.
 
 4.  ICMP Considerations
 
@@ -522,9 +510,9 @@ Table of Contents
               Fenner, B. and R. Thomas, "ICMP Message Extension for
               Originating Node Identification", Work in Progress,
               Internet-Draft, draft-ietf-intarea-extended-icmp-nodeid-
-              06, 28 September 2026,
+              07, 6 October 2026,
               <https://datatracker.ietf.org/doc/html/draft-ietf-intarea-
-              extended-icmp-nodeid-06>.
+              extended-icmp-nodeid-07>.
 
    [RFC0792]  Postel, J., "Internet Control Message Protocol", STD 5,
               RFC 792, DOI 10.17487/RFC792, September 1981,

@@ -16,23 +16,23 @@ This document describes v4-via-v6 routing, and defines related operational
 procedures, notably the origination of ICMPv4 packets by nodes that might
 not have an IPv4 address. 
     " name="description">
-<meta content="xml2rfc 3.34.1" name="generator">
+<meta content="xml2rfc 3.35.0" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-ietf-intarea-v4-via-v6-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.34.1
-    Python 3.14.7
-    ConfigArgParse 1.7.7
+  xml2rfc 3.35.0
+    Python 3.14.10
+    ConfigArgParse 1.9.0
     google-i18n-address 3.1.1
     intervaltree 3.2.1
     Jinja2 3.1.6
     lxml 6.1.1
     natsort 8.4.0
-    platformdirs 4.11.10
+    platformdirs 4.14.3
     pycountry 24.6.1
     PyYAML 6.0.3
     requests 2.33.1
-    wcwidth 0.8.4
+    wcwidth 0.9.4
 -->
 <link href="draft-ietf-intarea-v4-via-v6.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -1033,7 +1033,7 @@ svg {
   & :is([stroke="white"], [stroke^="#fff"]) {
     stroke: var(--background-color);
   }
-  & :is([fill="black"], [fill^="#000"], :not([fill])) {
+  & :is([fill="black"], [fill^="#000"], :not([fill], [fill] *)) {
     fill: var(--text-color);
   }
   & :is([fill="white"], [fill^="#fff"]) {
@@ -1048,11 +1048,11 @@ svg {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">v4-via-v6</td>
-<td class="right">October 2026</td>
+<td class="right">November 2026</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Chroboczek, et al.</td>
-<td class="center">Expires 5 April 2027</td>
+<td class="center">Expires 14 May 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1065,12 +1065,12 @@ svg {
 <dd class="internet-draft">draft-ietf-intarea-v4-via-v6-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-10-02" class="published">2 October 2026</time>
+<time datetime="2026-11-10" class="published">10 November 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2027-04-05">5 April 2027</time></dd>
+<dd class="expires"><time datetime="2027-05-14">14 May 2027</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1133,7 +1133,7 @@ not have an IPv4 address.<a href="#section-abstract-1" class="pilcrow">¶</a></p
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 5 April 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 14 May 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1181,7 +1181,7 @@ not have an IPv4 address.<a href="#section-abstract-1" class="pilcrow">¶</a></p
                 <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="auto internal xref">3.3</a>.  <a href="#name-operation-of-routing-protoc" class="internal xref">Operation of routing protocols</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4">
-                <p id="section-toc.1-1.3.2.4.1"><a href="#section-3.4" class="auto internal xref">3.4</a>.  <a href="#name-interaction-with-bfd-and-li" class="internal xref">Interaction with BFD and Link OAM</a></p>
+                <p id="section-toc.1-1.3.2.4.1"><a href="#section-3.4" class="auto internal xref">3.4</a>.  <a href="#name-interaction-with-bfd" class="internal xref">Interaction with BFD</a></p>
 </li>
             </ul>
 </li>
@@ -1430,27 +1430,14 @@ IPv6, and do not implement v4-via-v6 routing.  These protocols include:<a href="
         </ul>
 </section>
 </div>
-<div id="interaction-with-bfd-and-link-oam">
+<div id="interaction-with-bfd">
 <section id="section-3.4">
-        <h3 id="name-interaction-with-bfd-and-li">
-<a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-interaction-with-bfd-and-li" class="section-name selfRef">Interaction with BFD and Link OAM</a>
+        <h3 id="name-interaction-with-bfd">
+<a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-interaction-with-bfd" class="section-name selfRef">Interaction with BFD</a>
         </h3>
 <p id="section-3.4-1">When Bidirectional Forwarding Detection (BFD) is used to monitor the liveliness
-of a v4-via-v6 route, the behavior depends on the next-hop configuration:<a href="#section-3.4-1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-3.4-2.1">
-            <p id="section-3.4-2.1.1">Single-Hop BFD: Because the next-hop is an IPv6 address, BFD sessions <span class="bcp14">MUST</span> be
-established over IPv6 (using the next-hop's IPv6 Link-Local or Global Unicast
-address) as defined in <span>[<a href="#RFC5881" class="cite xref">RFC5881</a>]</span>. Liveliness detection of the IPv6 next-hop is
-treated as authoritative for the associated IPv4 route.<a href="#section-3.4-2.1.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-3.4-2.2">
-            <p id="section-3.4-2.2.1">Multi-Hop BFD: If an implementation requires validation of the IPv4 data
-plane separately, multi-hop BFD over IPv4 (<span>[<a href="#RFC5883" class="cite xref">RFC5883</a>]</span>) <span class="bcp14">MAY</span> be run. However,
-operators must ensure that the dummy or loopback IPv4 addresses utilized for
-the session are fully routable across the v4-via-v6 transit path.<a href="#section-3.4-2.2.1" class="pilcrow">¶</a></p>
-</li>
-        </ul>
+of a v4-via-v6 route, only the data from the IPv6 BFD session should be used for
+input to the v4-via-v6 routing process.<a href="#section-3.4-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1773,7 +1760,7 @@ rules.<a href="#section-7-2" class="pilcrow">¶</a></p>
 <dl class="references">
 <dt id="I-D.draft-ietf-intarea-extended-icmp-nodeid">[I-D.draft-ietf-intarea-extended-icmp-nodeid]</dt>
         <dd>
-<span class="refAuthor">Fenner, B.</span> and <span class="refAuthor">R. Thomas</span>, <span class="refTitle">"ICMP Message Extension for Originating Node Identification"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-intarea-extended-icmp-nodeid-06</span>, <time datetime="2026-09-28" class="refDate">28 September 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-intarea-extended-icmp-nodeid-06">https://datatracker.ietf.org/doc/html/draft-ietf-intarea-extended-icmp-nodeid-06</a>&gt;</span>. </dd>
+<span class="refAuthor">Fenner, B.</span> and <span class="refAuthor">R. Thomas</span>, <span class="refTitle">"ICMP Message Extension for Originating Node Identification"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-intarea-extended-icmp-nodeid-07</span>, <time datetime="2026-10-06" class="refDate">6 October 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-intarea-extended-icmp-nodeid-07">https://datatracker.ietf.org/doc/html/draft-ietf-intarea-extended-icmp-nodeid-07</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC0792">[RFC0792]</dt>
         <dd>
