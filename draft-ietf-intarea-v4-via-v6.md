@@ -203,21 +203,11 @@ IPv6, and do not implement v4-via-v6 routing.  These protocols include:
   * Integrated Routing in IS-IS ({{RFC5308}}), and
   * Multi-Topology (MT) Routing in IS-IS ({{RFC5120}}).
 
-## Interaction with BFD and Link OAM
+## Interaction with BFD
 
 When Bidirectional Forwarding Detection (BFD) is used to monitor the liveliness
-of a v4-via-v6 route, the behavior depends on the next-hop configuration:
-
-* Single-Hop BFD: Because the next-hop is an IPv6 address, BFD sessions MUST be
-  established over IPv6 (using the next-hop's IPv6 Link-Local or Global Unicast
-  address) as defined in [RFC5881]. Liveliness detection of the IPv6 next-hop is
-  treated as authoritative for the associated IPv4 route.
-
-* Multi-Hop BFD: If an implementation requires validation of the IPv4 data
-  plane separately, multi-hop BFD over IPv4 ([RFC5883]) MAY be run. However,
-  operators must ensure that the dummy or loopback IPv4 addresses utilized for
-  the session are fully routable across the v4-via-v6 transit path.
-
+of a v4-via-v6 route, only the data from the IPv6 BFD session should be used for
+input to the v4-via-v6 routing process.
 
 
 # ICMP Considerations {#sec-icmp}
