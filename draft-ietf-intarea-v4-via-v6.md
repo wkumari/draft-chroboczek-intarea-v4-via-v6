@@ -212,13 +212,13 @@ input to the v4-via-v6 routing process.
 
 # ICMP Considerations {#sec-icmp}
 
-The Internet Control Message Protocol (ICMP) [RFC0792] is a protocol related to
-IPv4 that is primarily used to carry diagnostic and debugging information.
-Within this document we use the term "ICMPv4" to refer to ICMP packets related
-to IPv4. ICMPv4 packets may be originated by end hosts (e.g., the "destination
-unreachable, port unreachable" ICMPv4 packet), but they may also be originated
-by intermediate routers (e.g., most other kinds of "destination unreachable"
-packets).
+The Internet Control Message Protocol (ICMP) [RFC0792] is a protocol
+related to IPv4 that is primarily used to carry diagnostic and debugging
+information.  Within this document we use the term "ICMPv4" to refer to
+ICMP.  ICMPv4 packets may be originated by end hosts (e.g., the
+"destination unreachable, port unreachable" ICMPv4 packet), but they may
+also be originated by intermediate routers (e.g., most other kinds of
+"destination unreachable" packets).
 
 Some protocols deployed in the Internet rely on ICMPv4 packets sent by
 intermediate routers.  Most notably, path MTU Discovery (PMTUd) [RFC1191]
@@ -395,19 +395,20 @@ to provision IPv4 addresses on all routers in order to simplify debugging.
 To ensure proper manageability and visibility for network operators,
 implementations MUST implement the following behaviors:
 
-1. Routing Table Representation: When displaying the routing table (via CLI,
-NETCONF/RESTCONF, or gNMI), the next-hop for a v4-via-v6 route must be
-explicitly  shown as an IPv6 address. Implementations MUST NOT attempt to
-synthesize a  dummy or mapped IPv4 next-hop address for display purposes, as
-this can mislead  operators during troubleshooting.
+1. Routing Table Representation: When displaying the routing table (on
+a command-line interface or a management protocol), the next hop for
+a v4-via-v6 route must be explicitly shown as an IPv6 address.
+Implementations MUST NOT attempt to synthesize a dummy or mapped IPv4
+next-hop address for display purposes, as this can mislead operators
+during troubleshooting.
 
 1. YANG Data Model Interaction: Standard routing YANG models (such as those
 defined in RFC 8349, "A YANG Data Model for Routing Management") represent
-next-hops within container structures restricted by IP address family. To
+next hops within container structures restricted by IP address family.  To
 support  v4-via-v6 routing:
 
-* The implementation's YANG datastore MUST allow the next-hop of an IPv4 route
-  entry to point to an 'ipv6-address' type leaf.
+* The implementation's YANG datastore MUST allow the next hop of an IPv4 route
+  entry to point to a leaf of type 'ipv6-address'.
 * If an implementation's strict schema validation prevents mixing address
   families in standard containers, augmented schemas or local deviations MUST
   be used to explicitly allow an IPv6 next-hop within the IPv4 routing context.
