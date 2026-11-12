@@ -5,10 +5,10 @@
 Internet Area Working Group                                J. Chroboczek
 Internet-Draft                               IRIF, Université Paris-Cité
 Intended status: Standards Track                               W. Kumari
-Expires: 1 January 2027                                      Google, LLC
+Expires: 16 May 2027                                         Google, LLC
                                                     T. Høiland-Jørgensen
                                                                  Red Hat
-                                                            30 June 2026
+                                                        12 November 2026
 
 
                    IPv4 routes with an IPv6 next hop
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 January 2027.
+   This Internet-Draft will expire on 16 May 2027.
 
 Copyright Notice
 
@@ -80,6 +80,7 @@ Table of Contents
      3.1.  Structure of the routing table
      3.2.  Operation of the forwarding plane
      3.3.  Operation of routing protocols
+     3.4.  Interaction with BFD
    4.  ICMP Considerations
    5.  Implementation Status
      5.1.  Arista EOS
@@ -248,25 +249,31 @@ Table of Contents
 
    *  Multi-Topology (MT) Routing in IS-IS ([RFC5120]).
 
+3.4.  Interaction with BFD
+
+   When Bidirectional Forwarding Detection (BFD) is used to monitor the
+   liveliness of a v4-via-v6 route, only the data from the IPv6 BFD
+   session should be used for input to the v4-via-v6 routing process.
+
 4.  ICMP Considerations
 
-   The Internet Control Message Protocol (ICMPv4, or simply ICMP)
-   [RFC0792] is a protocol related to IPv4 that is primarily used to
-   carry diagnostic and debugging information.  ICMPv4 packets may be
-   originated by end hosts (e.g., the "destination unreachable, port
-   unreachable" ICMPv4 packet), but they may also be originated by
-   intermediate routers (e.g., most other kinds of "destination
-   unreachable" packets).
+   The Internet Control Message Protocol (ICMP) [RFC0792] is a protocol
+   related to IPv4 that is primarily used to carry diagnostic and
+   debugging information.  Within this document we use the term "ICMPv4"
+   to refer to ICMP.  ICMPv4 packets may be originated by end hosts
+   (e.g., the "destination unreachable, port unreachable" ICMPv4
+   packet), but they may also be originated by intermediate routers
+   (e.g., most other kinds of "destination unreachable" packets).
 
    Some protocols deployed in the Internet rely on ICMPv4 packets sent
    by intermediate routers.  Most notably, path MTU Discovery (PMTUd)
    [RFC1191] is an algorithm executed by end hosts to discover the
    maximum packet size that a path is able to carry.  While there exist
-   variants of PMTUd that are purely end-to-end [RFC4821] [RFC 8899],
-   the variant most commonly deployed in the Internet has a hard
-   dependency on ICMPv4 packets originated by intermediate routers: if
-   intermediate routers are unable to send ICMPv4 packets, PMTUd may
-   lead to persistent black-holing of IPv4 traffic.
+   variants of PMTUd that are purely end-to-end RFC4821 [RFC8899], the
+   variant most commonly deployed in the Internet has a hard dependency
+   on ICMPv4 packets originated by intermediate routers: if intermediate
+   routers are unable to send ICMPv4 packets, PMTUd may lead to
+   persistent black-holing of IPv4 traffic.
 
    A router must therefore be able to generate ICMPv4 Destination
    Unreachable messages (as required by [RFC1812] Section 5.2.7.1).  The
@@ -433,6 +440,29 @@ Table of Contents
    want to provision IPv4 addresses on all routers in order to simplify
    debugging.
 
+   To ensure proper manageability and visibility for network operators,
+   implementations MUST implement the following behaviors:
+
+   1.  Routing Table Representation: When displaying the routing table
+       (on a command-line interface or a management protocol), the next
+       hop for a v4-via-v6 route must be explicitly shown as an IPv6
+       address.  Implementations MUST NOT attempt to synthesize a dummy
+       or mapped IPv4 next-hop address for display purposes, as this can
+       mislead operators during troubleshooting.
+
+   2.  YANG Data Model Interaction: Standard routing YANG models (such
+       as those defined in RFC 8349, "A YANG Data Model for Routing
+       Management") represent next hops within container structures
+       restricted by IP address family.  To support v4-via-v6 routing:
+
+   *  The implementation's YANG datastore MUST allow the next hop of an
+      IPv4 route entry to point to a leaf of type 'ipv6-address'.
+
+   *  If an implementation's strict schema validation prevents mixing
+      address families in standard containers, augmented schemas or
+      local deviations MUST be used to explicitly allow an IPv6 next-hop
+      within the IPv4 routing context.
+
 7.  Security Considerations
 
    The techniques described in this document make routing more flexible
@@ -476,21 +506,21 @@ Table of Contents
 9.2.  Informative References
 
    [I-D.draft-ietf-intarea-extended-icmp-nodeid]
-              Fenner, B. and R. Thomas, "Adding Extensions to ICMP
-              Errors for Originating Node Identification", Work in
-              Progress, Internet-Draft, draft-ietf-intarea-extended-
-              icmp-nodeid-04, 19 August 2025,
+              Fenner, B. and R. Thomas, "ICMP Message Extension for
+              Originating Node Identification", Work in Progress,
+              Internet-Draft, draft-ietf-intarea-extended-icmp-nodeid-
+              07, 6 October 2026,
               <https://datatracker.ietf.org/doc/html/draft-ietf-intarea-
-              extended-icmp-nodeid-04>.
+              extended-icmp-nodeid-07>.
 
    [RFC0792]  Postel, J., "Internet Control Message Protocol", STD 5,
-              RFC 792, DOI 10.17487/RFC0792, September 1981,
+              RFC 792, DOI 10.17487/RFC792, September 1981,
               <https://www.rfc-editor.org/rfc/rfc792>.
 
    [RFC0826]  Plummer, D., "An Ethernet Address Resolution Protocol: Or
               Converting Network Protocol Addresses to 48.bit Ethernet
               Address for Transmission on Ethernet Hardware", STD 37,
-              RFC 826, DOI 10.17487/RFC0826, November 1982,
+              RFC 826, DOI 10.17487/RFC826, November 1982,
               <https://www.rfc-editor.org/rfc/rfc826>.
 
    [RFC1191]  Mogul, J. and S. Deering, "Path MTU discovery", RFC 1191,
@@ -520,6 +550,15 @@ Table of Contents
               R. Aggarwal, "Support of Address Families in OSPFv3",
               RFC 5838, DOI 10.17487/RFC5838, April 2010,
               <https://www.rfc-editor.org/rfc/rfc5838>.
+
+   [RFC5881]  Katz, D. and D. Ward, "Bidirectional Forwarding Detection
+              (BFD) for IPv4 and IPv6 (Single Hop)", RFC 5881,
+              DOI 10.17487/RFC5881, June 2010,
+              <https://www.rfc-editor.org/rfc/rfc5881>.
+
+   [RFC5883]  Katz, D. and D. Ward, "Bidirectional Forwarding Detection
+              (BFD) for Multihop Paths", RFC 5883, DOI 10.17487/RFC5883,
+              June 2010, <https://www.rfc-editor.org/rfc/rfc5883>.
 
    [RFC7404]  Behringer, M. and E. Vyncke, "Using Only Link-Local
               Addressing inside an IPv6 Network", RFC 7404,
