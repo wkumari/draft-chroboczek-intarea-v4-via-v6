@@ -382,6 +382,9 @@ Deployment of v4-via-v6 routing in a network requires testing and
 potentially updating of all tools and scripts that manipulate or examine
 routes.
 
+In order for the v4-via-v6 to be safely deployed, implementations should
+allow the operator to enable or disable the v4-via-v6 behavior per interface.
+
 V4-via-v6 routing encourages a model of deployment where some routers have
 no IPv4 addresses even though they forward IPv4 traffic.  Such routers
 make debugging of IPv4 routing issues somewhat more difficult, most
