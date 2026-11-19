@@ -5,10 +5,10 @@
 Internet Area Working Group                                J. Chroboczek
 Internet-Draft                               IRIF, Université Paris-Cité
 Intended status: Standards Track                               W. Kumari
-Expires: 16 May 2027                                         Google, LLC
+Expires: 23 May 2027                                         Google, LLC
                                                     T. Høiland-Jørgensen
                                                                  Red Hat
-                                                        12 November 2026
+                                                        19 November 2026
 
 
                    IPv4 routes with an IPv6 next hop
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 16 May 2027.
+   This Internet-Draft will expire on 23 May 2027.
 
 Copyright Notice
 
@@ -427,6 +427,10 @@ Table of Contents
    interpret them.  Deployment of v4-via-v6 routing in a network
    requires testing and potentially updating of all tools and scripts
    that manipulate or examine routes.
+
+   In order for the v4-via-v6 to be safely deployed, implementations
+   should allow the operator to enable or disable the v4-via-v6 behavior
+   per interface.
 
    V4-via-v6 routing encourages a model of deployment where some routers
    have no IPv4 addresses even though they forward IPv4 traffic.  Such
