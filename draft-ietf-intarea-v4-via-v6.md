@@ -177,6 +177,11 @@ table may map an IPv4 prefix to either an IPv4 or an IPv6 next hop, the
 forwarding plane must be able to determine, on a per-packet basis, which
 address resolution protocol (ARP for IPv4, ND for IPv6) to consult.
 
+In addition, even though the next hop for an IPv4 packet may be resolved to an
+IPv6 IP address, the packet is still transmitted as an IPv4 packet, with
+EtherType 0x0800, and so the link must carry IPv4 frames even when the
+interfaces have only IPv6 addresses.
+
 ## Operation of routing protocols
 
 The routing protocol is the part of the routing implementation that is
@@ -194,14 +199,8 @@ not available or when the available IPv4 addresses are not suitable for
 use as a next hop.
 
 Some protocols already support the advertisement of IPv4 routes with an
-IPv6 next hop, including Babel {{RFC9229}} and BGP {{RFC8950}}.  Other
-protocols advertise both IPv4 and IPv6 prefixes over a single neighbor
-association, but they use completely separate data planes for IPv4 and
-IPv6, and do not implement v4-via-v6 routing.  These protocols include:
+IPv6 next hop, including Babel {{RFC9229}} and BGP {{RFC8950}}.
 
-  * Multiple Instance Routing in OSPFv3 ({{RFC5838}}),
-  * Integrated Routing in IS-IS ({{RFC5308}}), and
-  * Multi-Topology (MT) Routing in IS-IS ({{RFC5120}}).
 
 ## Interaction with BFD
 
