@@ -48,17 +48,15 @@ informative:
   RFC1191:
   RFC4821:
   RFC4861:
-  RFC5120:
-  RFC5308:
-  RFC5838:
-  RFC5881:
-  RFC5883:
   RFC7404:
-  RFC7600:
   RFC8899:
   RFC8950:
   RFC9229:
   I-D.draft-ietf-intarea-extended-icmp-nodeid:
+  IPv4_Special_Purpose_Address_Space:
+    title: "IPv4 Special-Purpose Address Space"
+    target: https://www.iana.org/assignments/iana-ipv4-special-registry
+
 
 
 --- abstract
@@ -90,8 +88,8 @@ a neighbor's network address, for example:
 When a packet is forwarded according to a given routing table entry, the
 forwarding plane typically maps the next-hop address to a link-layer
 address (a "MAC address") by using an address resolution protocol (for
-example the Neighbor Discovery protocol (ND) [RFC4861] in the case of
-IPv6 over Ethernet, and the Address Resolution Protocol (ARP) [RFC0826]
+example the Neighbor Discovery protocol (ND) {{RFC4861}} in the case of
+IPv6 over Ethernet, and the Address Resolution Protocol (ARP) {{RFC0826}}
 in the case of IPv4 over Ethernet).  The link-layer address is then used
 to construct the link-layer frames that encapsulate forwarded packets.
 
@@ -115,7 +113,7 @@ since an IPv6 next hop can use a link-local address that is autonomously
 configured, the use of such routes enables a mode of operation where the
 network core has no statically assigned IP addresses of either family,
 which significantly reduces the amount of manual configuration required.
-(See also [RFC7404] for a discussion of the issues involved with such an
+(See also {{RFC7404}} for a discussion of the issues involved with such an
 approach.)
 
 A route towards an IPv4 prefix that uses an IPv6 next hop is called
@@ -177,6 +175,11 @@ table may map an IPv4 prefix to either an IPv4 or an IPv6 next hop, the
 forwarding plane must be able to determine, on a per-packet basis, which
 address resolution protocol (ARP for IPv4, ND for IPv6) to consult.
 
+In addition, even though the next hop for an IPv4 packet may be resolved to an
+IPv6 IP address, the packet is still transmitted as an IPv4 packet, and so the
+link must carry IPv4 frames even when the interfaces have only IPv6 addresses.
+For example, on Ethernet, this will be frames with an EtherType 0x0800.
+
 ## Operation of routing protocols
 
 The routing protocol is the part of the routing implementation that is
@@ -194,14 +197,8 @@ not available or when the available IPv4 addresses are not suitable for
 use as a next hop.
 
 Some protocols already support the advertisement of IPv4 routes with an
-IPv6 next hop, including Babel {{RFC9229}} and BGP {{RFC8950}}.  Other
-protocols advertise both IPv4 and IPv6 prefixes over a single neighbor
-association, but they use completely separate data planes for IPv4 and
-IPv6, and do not implement v4-via-v6 routing.  These protocols include:
+IPv6 next hop, including Babel {{RFC9229}} and BGP {{RFC8950}}.
 
-  * Multiple Instance Routing in OSPFv3 ({{RFC5838}}),
-  * Integrated Routing in IS-IS ({{RFC5308}}), and
-  * Multi-Topology (MT) Routing in IS-IS ({{RFC5120}}).
 
 ## Interaction with BFD
 
@@ -212,7 +209,7 @@ input to the v4-via-v6 routing process.
 
 # ICMP Considerations {#sec-icmp}
 
-The Internet Control Message Protocol (ICMP) [RFC0792] is a protocol
+The Internet Control Message Protocol (ICMP) {{RFC0792}} is a protocol
 related to IPv4 that is primarily used to carry diagnostic and debugging
 information.  Within this document we use the term "ICMPv4" to refer to
 ICMP.  ICMPv4 packets may be originated by end hosts (e.g., the
@@ -221,28 +218,27 @@ also be originated by intermediate routers (e.g., most other kinds of
 "destination unreachable" packets).
 
 Some protocols deployed in the Internet rely on ICMPv4 packets sent by
-intermediate routers.  Most notably, path MTU Discovery (PMTUd) [RFC1191]
+intermediate routers.  Most notably, path MTU Discovery (PMTUd) {{RFC1191}}
 is an algorithm executed by end hosts to discover the maximum packet size
 that a path is able to carry.  While there exist variants of PMTUd that
-are purely end-to-end [RFC4821] [RFC8899], the variant most commonly
+are purely end-to-end {{RFC4821}} {{RFC8899}}, the variant most commonly
 deployed in the Internet has a hard dependency on ICMPv4 packets
 originated by intermediate routers: if intermediate routers are unable to
 send ICMPv4 packets, PMTUd may lead to persistent black-holing of IPv4
 traffic.
 
 A router must therefore be able to generate ICMPv4 Destination Unreachable
-messages (as required by [RFC1812] Section 5.2.7.1).  The source address
+messages (as required by {{RFC1812}} Section 5.2.7.1).  The source address
 of these messages must be one of the addresses assigned to the outgoing
 interface; if no such address has been assigned, then one of the other
 addresses assigned to the router, known as the "router-id", must be used
-([RFC1812] Section 4.3.2.4).
+({{RFC1812}} Section 4.3.2.4).
 
 Routers implementing the mechanism described in this document do not need
-to have any IPv4 addresses assigned to any of their interfaces, and [RFC1812]
+to have any IPv4 addresses assigned to any of their interfaces, and {{RFC1812}}
 does not specify what happens if no router-id has been assigned.  If
 a router does not have any IPv4 addresses assigned, the router MUST use
-the dummy address 192.0.0.8 as the source address of outgoing ICMPv4 packets
-(which is compatible with [RFC7600], Section 4.8, Requirement R-22).
+the dummy address, 192.0.0.8 as the source address of outgoing ICMPv4 packets.
 
 Using the dummy address as the source of ICMPv4 packet causes a number of
 drawbacks:
@@ -395,27 +391,12 @@ on all such routers, older versions of *traceroute* will not be able to
 interpret the additional information.  Network administrators might want
 to provision IPv4 addresses on all routers in order to simplify debugging.
 
-To ensure proper manageability and visibility for network operators,
-implementations MUST implement the following behaviors:
-
-1. Routing Table Representation: When displaying the routing table (on
-a command-line interface or a management protocol), the next hop for
-a v4-via-v6 route must be explicitly shown as an IPv6 address.
-Implementations MUST NOT attempt to synthesize a dummy or mapped IPv4
-next-hop address for display purposes, as this can mislead operators
-during troubleshooting.
-
-1. YANG Data Model Interaction: Standard routing YANG models (such as those
-defined in RFC 8349, "A YANG Data Model for Routing Management") represent
-next hops within container structures restricted by IP address family.  To
-support  v4-via-v6 routing:
-
-* The implementation's YANG datastore MUST allow the next hop of an IPv4 route
-  entry to point to a leaf of type 'ipv6-address'.
-* If an implementation's strict schema validation prevents mixing address
-  families in standard containers, augmented schemas or local deviations MUST
-  be used to explicitly allow an IPv6 next-hop within the IPv4 routing context.
-
+To ensure proper manageability and visibility for network operators, when
+displaying the routing table (on a command-line interface or a management
+protocol), the next hop for a v4-via-v6 route must be explicitly shown as an
+IPv6 address. Implementations MUST NOT attempt to synthesize a dummy or mapped
+IPv4 next-hop address for display purposes, as this can mislead operators during
+troubleshooting.
 
 
 # Security Considerations
@@ -438,7 +419,8 @@ rules.
 
 # IANA Considerations
 
-No IANA actions are requested by this document.
+The IANA is requested to add this document as a reference for 192.0.0.8/32 ("IPv4
+dummy address") in the {{IPv4_Special_Purpose_Address_Space}} registry.
 
 --- back
 
