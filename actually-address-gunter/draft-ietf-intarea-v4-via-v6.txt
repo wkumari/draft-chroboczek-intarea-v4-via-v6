@@ -5,10 +5,10 @@
 Internet Area Working Group                                J. Chroboczek
 Internet-Draft                               IRIF, Université Paris-Cité
 Intended status: Standards Track                               W. Kumari
-Expires: 27 May 2027                                         Google, LLC
+Expires: 28 May 2027                                         Google, LLC
                                                     T. Høiland-Jørgensen
                                                                  Red Hat
-                                                        23 November 2026
+                                                        24 November 2026
 
 
                    IPv4 routes with an IPv6 next hop
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 27 May 2027.
+   This Internet-Draft will expire on 28 May 2027.
 
 Copyright Notice
 
@@ -222,8 +222,9 @@ Table of Contents
 
    In addition, even though the next hop for an IPv4 packet may be
    resolved to an IPv6 IP address, the packet is still transmitted as an
-   IPv4 packet, with EtherType 0x0800, and so the link must carry IPv4
-   frames even when the interfaces have only IPv6 addresses.
+   IPv4 packet, and so the link must carry IPv4 frames even when the
+   interfaces have only IPv6 addresses.  For example, on Ethernet, this
+   will be frames with an EtherType 0x0800.
 
 3.3.  Operation of routing protocols
 
@@ -264,7 +265,7 @@ Table of Contents
    by intermediate routers.  Most notably, path MTU Discovery (PMTUd)
    [RFC1191] is an algorithm executed by end hosts to discover the
    maximum packet size that a path is able to carry.  While there exist
-   variants of PMTUd that are purely end-to-end RFC4821 [RFC8899], the
+   variants of PMTUd that are purely end-to-end [RFC4821] [RFC8899], the
    variant most commonly deployed in the Internet has a hard dependency
    on ICMPv4 packets originated by intermediate routers: if intermediate
    routers are unable to send ICMPv4 packets, PMTUd may lead to
@@ -281,9 +282,8 @@ Table of Contents
    need to have any IPv4 addresses assigned to any of their interfaces,
    and [RFC1812] does not specify what happens if no router-id has been
    assigned.  If a router does not have any IPv4 addresses assigned, the
-   router MUST use the dummy address 192.0.0.8 as the source address of
-   outgoing ICMPv4 packets (which is compatible with [RFC7600],
-   Section 4.8, Requirement R-22).
+   router MUST use the dummy address, 192.0.0.8 as the source address of
+   outgoing ICMPv4 packets.
 
    Using the dummy address as the source of ICMPv4 packet causes a
    number of drawbacks:
@@ -440,27 +440,12 @@ Table of Contents
    debugging.
 
    To ensure proper manageability and visibility for network operators,
-   implementations MUST implement the following behaviors:
-
-   1.  Routing Table Representation: When displaying the routing table
-       (on a command-line interface or a management protocol), the next
-       hop for a v4-via-v6 route must be explicitly shown as an IPv6
-       address.  Implementations MUST NOT attempt to synthesize a dummy
-       or mapped IPv4 next-hop address for display purposes, as this can
-       mislead operators during troubleshooting.
-
-   2.  YANG Data Model Interaction: Standard routing YANG models (such
-       as those defined in RFC 8349, "A YANG Data Model for Routing
-       Management") represent next hops within container structures
-       restricted by IP address family.  To support v4-via-v6 routing:
-
-   *  The implementation's YANG datastore MUST allow the next hop of an
-      IPv4 route entry to point to a leaf of type 'ipv6-address'.
-
-   *  If an implementation's strict schema validation prevents mixing
-      address families in standard containers, augmented schemas or
-      local deviations MUST be used to explicitly allow an IPv6 next-hop
-      within the IPv4 routing context.
+   when displaying the routing table (on a command-line interface or a
+   management protocol), the next hop for a v4-via-v6 route must be
+   explicitly shown as an IPv6 address.  Implementations MUST NOT
+   attempt to synthesize a dummy or mapped IPv4 next-hop address for
+   display purposes, as this can mislead operators during
+   troubleshooting.
 
 7.  Security Considerations
 
@@ -483,7 +468,9 @@ Table of Contents
 
 8.  IANA Considerations
 
-   No IANA actions are requested by this document.
+   The IANA is requested to add this document as a reference for
+   192.0.0.8/32 ("IPv4 dummy address") in the
+   [IPv4_Special_Purpose_Address_Space] registry.
 
 9.  References
 
@@ -512,6 +499,11 @@ Table of Contents
               <https://datatracker.ietf.org/doc/html/draft-ietf-intarea-
               extended-icmp-nodeid-07>.
 
+   [IPv4_Special_Purpose_Address_Space]
+              "IPv4 Special-Purpose Address Space", n.d.,
+              <https://www.iana.org/assignments/iana-ipv4-special-
+              registry>.
+
    [RFC0792]  Postel, J., "Internet Control Message Protocol", STD 5,
               RFC 792, DOI 10.17487/RFC792, September 1981,
               <https://www.rfc-editor.org/rfc/rfc792>.
@@ -535,39 +527,10 @@ Table of Contents
               DOI 10.17487/RFC4861, September 2007,
               <https://www.rfc-editor.org/rfc/rfc4861>.
 
-   [RFC5120]  Przygienda, T., Shen, N., and N. Sheth, "M-ISIS: Multi
-              Topology (MT) Routing in Intermediate System to
-              Intermediate Systems (IS-ISs)", RFC 5120,
-              DOI 10.17487/RFC5120, February 2008,
-              <https://www.rfc-editor.org/rfc/rfc5120>.
-
-   [RFC5308]  Hopps, C., "Routing IPv6 with IS-IS", RFC 5308,
-              DOI 10.17487/RFC5308, October 2008,
-              <https://www.rfc-editor.org/rfc/rfc5308>.
-
-   [RFC5838]  Lindem, A., Ed., Mirtorabi, S., Roy, A., Barnes, M., and
-              R. Aggarwal, "Support of Address Families in OSPFv3",
-              RFC 5838, DOI 10.17487/RFC5838, April 2010,
-              <https://www.rfc-editor.org/rfc/rfc5838>.
-
-   [RFC5881]  Katz, D. and D. Ward, "Bidirectional Forwarding Detection
-              (BFD) for IPv4 and IPv6 (Single Hop)", RFC 5881,
-              DOI 10.17487/RFC5881, June 2010,
-              <https://www.rfc-editor.org/rfc/rfc5881>.
-
-   [RFC5883]  Katz, D. and D. Ward, "Bidirectional Forwarding Detection
-              (BFD) for Multihop Paths", RFC 5883, DOI 10.17487/RFC5883,
-              June 2010, <https://www.rfc-editor.org/rfc/rfc5883>.
-
    [RFC7404]  Behringer, M. and E. Vyncke, "Using Only Link-Local
               Addressing inside an IPv6 Network", RFC 7404,
               DOI 10.17487/RFC7404, November 2014,
               <https://www.rfc-editor.org/rfc/rfc7404>.
-
-   [RFC7600]  Despres, R., Jiang, S., Ed., Penno, R., Lee, Y., Chen, G.,
-              and M. Chen, "IPv4 Residual Deployment via IPv6 - A
-              Stateless Solution (4rd)", RFC 7600, DOI 10.17487/RFC7600,
-              July 2015, <https://www.rfc-editor.org/rfc/rfc7600>.
 
    [RFC8899]  Fairhurst, G., Jones, T., Tüxen, M., Rüngeler, I., and T.
               Völker, "Packetization Layer Path MTU Discovery for

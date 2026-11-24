@@ -1052,7 +1052,7 @@ svg {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Chroboczek, et al.</td>
-<td class="center">Expires 27 May 2027</td>
+<td class="center">Expires 28 May 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1065,12 +1065,12 @@ svg {
 <dd class="internet-draft">draft-ietf-intarea-v4-via-v6-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-11-23" class="published">23 November 2026</time>
+<time datetime="2026-11-24" class="published">24 November 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2027-05-27">27 May 2027</time></dd>
+<dd class="expires"><time datetime="2027-05-28">28 May 2027</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1133,7 +1133,7 @@ not have an IPv4 address.<a href="#section-abstract-1" class="pilcrow">¶</a></p
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 27 May 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 28 May 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1394,9 +1394,9 @@ table may map an IPv4 prefix to either an IPv4 or an IPv6 next hop, the
 forwarding plane must be able to determine, on a per-packet basis, which
 address resolution protocol (ARP for IPv4, ND for IPv6) to consult.<a href="#section-3.2-2" class="pilcrow">¶</a></p>
 <p id="section-3.2-3">In addition, even though the next hop for an IPv4 packet may be resolved to an
-IPv6 IP address, the packet is still transmitted as an IPv4 packet, with
-EtherType 0x0800, and so the link must carry IPv4 frames even when the
-interfaces have only IPv6 addresses.<a href="#section-3.2-3" class="pilcrow">¶</a></p>
+IPv6 IP address, the packet is still transmitted as an IPv4 packet, and so the
+link must carry IPv4 frames even when the interfaces have only IPv6 addresses.
+For example, on Ethernet, this will be frames with an EtherType 0x0800.<a href="#section-3.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="operation-of-routing-protocols">
@@ -1448,7 +1448,7 @@ also be originated by intermediate routers (e.g., most other kinds of
 intermediate routers.  Most notably, path MTU Discovery (PMTUd) <span>[<a href="#RFC1191" class="cite xref">RFC1191</a>]</span>
 is an algorithm executed by end hosts to discover the maximum packet size
 that a path is able to carry.  While there exist variants of PMTUd that
-are purely end-to-end <span><a href="#RFC8899" class="internal xref">RFC4821</a> [<a href="#RFC8899" class="cite xref">RFC8899</a>]</span>, the variant most commonly
+are purely end-to-end <span>[<a href="#RFC4821" class="cite xref">RFC4821</a>]</span> <span>[<a href="#RFC8899" class="cite xref">RFC8899</a>]</span>, the variant most commonly
 deployed in the Internet has a hard dependency on ICMPv4 packets
 originated by intermediate routers: if intermediate routers are unable to
 send ICMPv4 packets, PMTUd may lead to persistent black-holing of IPv4
@@ -1463,8 +1463,7 @@ addresses assigned to the router, known as the "router-id", must be used
 to have any IPv4 addresses assigned to any of their interfaces, and <span>[<a href="#RFC1812" class="cite xref">RFC1812</a>]</span>
 does not specify what happens if no router-id has been assigned.  If
 a router does not have any IPv4 addresses assigned, the router <span class="bcp14">MUST</span> use
-the dummy address 192.0.0.8 as the source address of outgoing ICMPv4 packets
-(which is compatible with <span>[<a href="#RFC7600" class="cite xref">RFC7600</a>]</span>, Section 4.8, Requirement R-22).<a href="#section-4-4" class="pilcrow">¶</a></p>
+the dummy address, 192.0.0.8 as the source address of outgoing ICMPv4 packets.<a href="#section-4-4" class="pilcrow">¶</a></p>
 <p id="section-4-5">Using the dummy address as the source of ICMPv4 packet causes a number of
 drawbacks:<a href="#section-4-5" class="pilcrow">¶</a></p>
 <ul class="normal">
@@ -1659,35 +1658,12 @@ described in <span>[<a href="#I-D.draft-ietf-intarea-extended-icmp-nodeid" class
 on all such routers, older versions of <em>traceroute</em> will not be able to
 interpret the additional information.  Network administrators might want
 to provision IPv4 addresses on all routers in order to simplify debugging.<a href="#section-6-4" class="pilcrow">¶</a></p>
-<p id="section-6-5">To ensure proper manageability and visibility for network operators,
-implementations <span class="bcp14">MUST</span> implement the following behaviors:<a href="#section-6-5" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-6-6">
-<li id="section-6-6.1">
-          <p id="section-6-6.1.1">Routing Table Representation: When displaying the routing table (on
-a command-line interface or a management protocol), the next hop for
-a v4-via-v6 route must be explicitly shown as an IPv6 address.
-Implementations <span class="bcp14">MUST NOT</span> attempt to synthesize a dummy or mapped IPv4
-next-hop address for display purposes, as this can mislead operators
-during troubleshooting.<a href="#section-6-6.1.1" class="pilcrow">¶</a></p>
-</li>
-        <li id="section-6-6.2">
-          <p id="section-6-6.2.1">YANG Data Model Interaction: Standard routing YANG models (such as those
-defined in RFC 8349, "A YANG Data Model for Routing Management") represent
-next hops within container structures restricted by IP address family.  To
-support  v4-via-v6 routing:<a href="#section-6-6.2.1" class="pilcrow">¶</a></p>
-</li>
-      </ol>
-<ul class="normal">
-<li class="normal" id="section-6-7.1">
-          <p id="section-6-7.1.1">The implementation's YANG datastore <span class="bcp14">MUST</span> allow the next hop of an IPv4 route
-entry to point to a leaf of type 'ipv6-address'.<a href="#section-6-7.1.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="section-6-7.2">
-          <p id="section-6-7.2.1">If an implementation's strict schema validation prevents mixing address
-families in standard containers, augmented schemas or local deviations <span class="bcp14">MUST</span>
-be used to explicitly allow an IPv6 next-hop within the IPv4 routing context.<a href="#section-6-7.2.1" class="pilcrow">¶</a></p>
-</li>
-      </ul>
+<p id="section-6-5">To ensure proper manageability and visibility for network operators, when
+displaying the routing table (on a command-line interface or a management
+protocol), the next hop for a v4-via-v6 route must be explicitly shown as an
+IPv6 address. Implementations <span class="bcp14">MUST NOT</span> attempt to synthesize a dummy or mapped
+IPv4 next-hop address for display purposes, as this can mislead operators during
+troubleshooting.<a href="#section-6-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="security-considerations">
@@ -1716,7 +1692,8 @@ rules.<a href="#section-7-2" class="pilcrow">¶</a></p>
       <h2 id="name-iana-considerations">
 <a href="#section-8" class="section-number selfRef">8. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<p id="section-8-1">No IANA actions are requested by this document.<a href="#section-8-1" class="pilcrow">¶</a></p>
+<p id="section-8-1">The IANA is requested to add this document as a reference for 192.0.0.8/32 ("IPv4
+dummy address") in the <span>[<a href="#IPv4_Special_Purpose_Address_Space" class="cite xref">IPv4_Special_Purpose_Address_Space</a>]</span> registry.<a href="#section-8-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-combined-references">
@@ -1755,6 +1732,10 @@ rules.<a href="#section-7-2" class="pilcrow">¶</a></p>
         <dd>
 <span class="refAuthor">Fenner, B.</span> and <span class="refAuthor">R. Thomas</span>, <span class="refTitle">"ICMP Message Extension for Originating Node Identification"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-intarea-extended-icmp-nodeid-07</span>, <time datetime="2026-10-06" class="refDate">6 October 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-intarea-extended-icmp-nodeid-07">https://datatracker.ietf.org/doc/html/draft-ietf-intarea-extended-icmp-nodeid-07</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="IPv4_Special_Purpose_Address_Space">[IPv4_Special_Purpose_Address_Space]</dt>
+        <dd>
+<span class="refTitle">"IPv4 Special-Purpose Address Space"</span>, <span>n.d.</span>, <span>&lt;<a href="https://www.iana.org/assignments/iana-ipv4-special-registry">https://www.iana.org/assignments/iana-ipv4-special-registry</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC0792">[RFC0792]</dt>
         <dd>
 <span class="refAuthor">Postel, J.</span>, <span class="refTitle">"Internet Control Message Protocol"</span>, <span class="seriesInfo">STD 5</span>, <span class="seriesInfo">RFC 792</span>, <span class="seriesInfo">DOI 10.17487/RFC792</span>, <time datetime="1981-09" class="refDate">September 1981</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc792">https://www.rfc-editor.org/rfc/rfc792</a>&gt;</span>. </dd>
@@ -1775,33 +1756,9 @@ rules.<a href="#section-7-2" class="pilcrow">¶</a></p>
         <dd>
 <span class="refAuthor">Narten, T.</span>, <span class="refAuthor">Nordmark, E.</span>, <span class="refAuthor">Simpson, W.</span>, and <span class="refAuthor">H. Soliman</span>, <span class="refTitle">"Neighbor Discovery for IP version 6 (IPv6)"</span>, <span class="seriesInfo">RFC 4861</span>, <span class="seriesInfo">DOI 10.17487/RFC4861</span>, <time datetime="2007-09" class="refDate">September 2007</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4861">https://www.rfc-editor.org/rfc/rfc4861</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="RFC5120">[RFC5120]</dt>
-        <dd>
-<span class="refAuthor">Przygienda, T.</span>, <span class="refAuthor">Shen, N.</span>, and <span class="refAuthor">N. Sheth</span>, <span class="refTitle">"M-ISIS: Multi Topology (MT) Routing in Intermediate System to Intermediate Systems (IS-ISs)"</span>, <span class="seriesInfo">RFC 5120</span>, <span class="seriesInfo">DOI 10.17487/RFC5120</span>, <time datetime="2008-02" class="refDate">February 2008</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc5120">https://www.rfc-editor.org/rfc/rfc5120</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC5308">[RFC5308]</dt>
-        <dd>
-<span class="refAuthor">Hopps, C.</span>, <span class="refTitle">"Routing IPv6 with IS-IS"</span>, <span class="seriesInfo">RFC 5308</span>, <span class="seriesInfo">DOI 10.17487/RFC5308</span>, <time datetime="2008-10" class="refDate">October 2008</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc5308">https://www.rfc-editor.org/rfc/rfc5308</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC5838">[RFC5838]</dt>
-        <dd>
-<span class="refAuthor">Lindem, A., Ed.</span>, <span class="refAuthor">Mirtorabi, S.</span>, <span class="refAuthor">Roy, A.</span>, <span class="refAuthor">Barnes, M.</span>, and <span class="refAuthor">R. Aggarwal</span>, <span class="refTitle">"Support of Address Families in OSPFv3"</span>, <span class="seriesInfo">RFC 5838</span>, <span class="seriesInfo">DOI 10.17487/RFC5838</span>, <time datetime="2010-04" class="refDate">April 2010</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc5838">https://www.rfc-editor.org/rfc/rfc5838</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC5881">[RFC5881]</dt>
-        <dd>
-<span class="refAuthor">Katz, D.</span> and <span class="refAuthor">D. Ward</span>, <span class="refTitle">"Bidirectional Forwarding Detection (BFD) for IPv4 and IPv6 (Single Hop)"</span>, <span class="seriesInfo">RFC 5881</span>, <span class="seriesInfo">DOI 10.17487/RFC5881</span>, <time datetime="2010-06" class="refDate">June 2010</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc5881">https://www.rfc-editor.org/rfc/rfc5881</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC5883">[RFC5883]</dt>
-        <dd>
-<span class="refAuthor">Katz, D.</span> and <span class="refAuthor">D. Ward</span>, <span class="refTitle">"Bidirectional Forwarding Detection (BFD) for Multihop Paths"</span>, <span class="seriesInfo">RFC 5883</span>, <span class="seriesInfo">DOI 10.17487/RFC5883</span>, <time datetime="2010-06" class="refDate">June 2010</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc5883">https://www.rfc-editor.org/rfc/rfc5883</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="RFC7404">[RFC7404]</dt>
         <dd>
 <span class="refAuthor">Behringer, M.</span> and <span class="refAuthor">E. Vyncke</span>, <span class="refTitle">"Using Only Link-Local Addressing inside an IPv6 Network"</span>, <span class="seriesInfo">RFC 7404</span>, <span class="seriesInfo">DOI 10.17487/RFC7404</span>, <time datetime="2014-11" class="refDate">November 2014</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7404">https://www.rfc-editor.org/rfc/rfc7404</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC7600">[RFC7600]</dt>
-        <dd>
-<span class="refAuthor">Despres, R.</span>, <span class="refAuthor">Jiang, S., Ed.</span>, <span class="refAuthor">Penno, R.</span>, <span class="refAuthor">Lee, Y.</span>, <span class="refAuthor">Chen, G.</span>, and <span class="refAuthor">M. Chen</span>, <span class="refTitle">"IPv4 Residual Deployment via IPv6 - A Stateless Solution (4rd)"</span>, <span class="seriesInfo">RFC 7600</span>, <span class="seriesInfo">DOI 10.17487/RFC7600</span>, <time datetime="2015-07" class="refDate">July 2015</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7600">https://www.rfc-editor.org/rfc/rfc7600</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8899">[RFC8899]</dt>
         <dd>
