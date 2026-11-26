@@ -5,10 +5,10 @@
 Internet Area Working Group                                J. Chroboczek
 Internet-Draft                               IRIF, Université Paris-Cité
 Intended status: Standards Track                               W. Kumari
-Expires: 28 May 2027                                         Google, LLC
+Expires: 30 May 2027                                         Google, LLC
                                                     T. Høiland-Jørgensen
                                                                  Red Hat
-                                                        24 November 2026
+                                                        26 November 2026
 
 
                    IPv4 routes with an IPv6 next hop
@@ -56,7 +56,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 28 May 2027.
+   This Internet-Draft will expire on 30 May 2027.
 
 Copyright Notice
 
@@ -248,7 +248,7 @@ Table of Contents
 3.4.  Interaction with BFD
 
    When Bidirectional Forwarding Detection (BFD) is used to monitor the
-   liveliness of a v4-via-v6 route, only the data from the IPv6 BFD
+   liveness of a v4-via-v6 route, only the data from the IPv6 BFD
    session should be used for input to the v4-via-v6 routing process.
 
 4.  ICMP Considerations
@@ -423,7 +423,7 @@ Table of Contents
    requires testing and potentially updating of all tools and scripts
    that manipulate or examine routes.
 
-   In order for the v4-via-v6 to be safely deployed, implementations
+   In order for v4-via-v6 routing to be safely deployed, implementations
    should allow the operator to enable or disable the v4-via-v6 behavior
    per interface.
 
@@ -442,7 +442,7 @@ Table of Contents
    To ensure proper manageability and visibility for network operators,
    when displaying the routing table (on a command-line interface or a
    management protocol), the next hop for a v4-via-v6 route must be
-   explicitly shown as an IPv6 address.  Implementations MUST NOT
+   explicitly shown as an IPv6 address.  Implementations must not
    attempt to synthesize a dummy or mapped IPv4 next-hop address for
    display purposes, as this can mislead operators during
    troubleshooting.
