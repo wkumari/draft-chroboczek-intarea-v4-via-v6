@@ -202,7 +202,7 @@ IPv6 next hop, including Babel {{RFC9229}} and BGP {{RFC8950}}.
 
 ## Interaction with BFD
 
-When Bidirectional Forwarding Detection (BFD) is used to monitor the liveliness
+When Bidirectional Forwarding Detection (BFD) is used to monitor the liveness
 of a v4-via-v6 route, only the data from the IPv6 BFD session should be used for
 input to the v4-via-v6 routing process.
 
@@ -378,7 +378,7 @@ Deployment of v4-via-v6 routing in a network requires testing and
 potentially updating of all tools and scripts that manipulate or examine
 routes.
 
-In order for the v4-via-v6 to be safely deployed, implementations should
+In order for v4-via-v6 routing to be safely deployed, implementations should
 allow the operator to enable or disable the v4-via-v6 behavior per interface.
 
 V4-via-v6 routing encourages a model of deployment where some routers have
@@ -394,7 +394,7 @@ to provision IPv4 addresses on all routers in order to simplify debugging.
 To ensure proper manageability and visibility for network operators, when
 displaying the routing table (on a command-line interface or a management
 protocol), the next hop for a v4-via-v6 route must be explicitly shown as an
-IPv6 address. Implementations MUST NOT attempt to synthesize a dummy or mapped
+IPv6 address. Implementations must not attempt to synthesize a dummy or mapped
 IPv4 next-hop address for display purposes, as this can mislead operators during
 troubleshooting.
 
